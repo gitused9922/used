@@ -36,4 +36,9 @@ public class BoardController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String myhome(Locale locale, Model model) {
+		return "myHome";
+	}
+	
 }

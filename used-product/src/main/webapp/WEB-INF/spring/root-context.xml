@@ -35,7 +35,7 @@
 
 	<!-- beans for mybatis & mybatis-spring -->
 	<!-- SqlSessionFactoryBean.getObject()를 호출해서 SqlSessionFactory 생성 -->
-<!-- 	<bean id="sqlSessionFactory"
+	<bean id="sqlSessionFactory"
 		  class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="apacheDataSource" />
 		<property name="configLocation" 
@@ -46,9 +46,8 @@
 		<constructor-arg ref="sqlSessionFactory" />	  
 	</bean>
 	
-	<mybatis-spring:scan base-package="com.usedproduct.mapper" /> -->
-	
-	<!-- <import resource="board-context.xml"/> -->
-		
+	<mybatis-spring:scan base-package="com.usedproduct.mapper" />
+
+	<import resource="message-context.xml"/>
 
 </beans>

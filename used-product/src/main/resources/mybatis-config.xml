@@ -6,9 +6,7 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="com.springboard.vo.BoardVO" alias="BoardVO" />
-		<typeAlias type="com.springboard.vo.ReplyVO" alias="ReplyVO" />
-		<typeAlias type="com.springboard.vo.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.usedproduct.vo.MessageVO" alias="MessageVO" />
 	</typeAliases>
-	
+
 </configuration>
