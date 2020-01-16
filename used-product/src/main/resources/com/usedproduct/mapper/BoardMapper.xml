@@ -6,14 +6,28 @@
 
 <!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
 <mapper namespace="com.usedproduct.mapper.BoardMapper">
-	
+
+
 	<insert id="insertBoard" parameterType="BoardVO">
-		<selectKey keyProperty="bno" resultType="int" order="AFTER" >
+		<!-- <selectKey keyProperty="no" resultType="int" order="AFTER" >
 		 SELCT seq_product_no.currval FROM DUAL
-		</selectKey>
-		INSERT INTO t_product ( T_NO, P_NAME, CG_NAME, P_PRICE, P_CONTENT )
-		VALUES (seq_product_no.nextval, #{name}, #{cgname}, #{price}, #{content} )
+		</selectKey>  -->
+		INSERT INTO t_product ( T_NO, P_NAME, CG_NAME, P_PRICE, P_CONTENT, M_ID)
+		VALUES (SEQ_PRODUCT_NO.nextval, #{name}, #{cgName}, #{price}, #{content}, #{userId} )
 	</insert>
+
+	<resultMap id="CategoryMap" type="CategoryVO">
+		<result column="cg_name" property="cgName" />
+		<result column="cg_no" property="cgNo" />
+	</resultMap>
+
+	<select id="selectCategory" resultMap="CategoryMap">
+		SELECT * FROM T_CATEGORY
+	</select>
+		
+
+		
+		
 <!-- 	
 	<insert id="insertBoard" parameterType="BoardVO">
 		<selectKey keyProperty="bno" resultType="int" order="AFTER">

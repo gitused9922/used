@@ -1,8 +1,11 @@
 package com.usedproduct.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usedproduct.service.BoardService;
 import com.usedproduct.vo.BoardVO;
+import com.usedproduct.vo.CategoryVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,14 +30,19 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping(path = { "/write.action" })
-	public String showWriteForm() { // 글쓰기 화면 보기
-
+	public String showWriteForm(Model model) { // 글쓰기 화면 보기
+		List<CategoryVO> category = boardService.findAllCategory();
+		model.addAttribute("category", category);
+		System.out.println(category);
 		return "board/write";
 	}
 
 	@PostMapping("/write.action")
 	public String write(BoardVO board, RedirectAttributes attr) {
-
+		
+		System.out.println(board.getNo());
+		System.out.println(board.getCgName());
+		log.warn(board.getNo());
 		// 글번호 시퀀스 만들어야함
 		int newBoardNo = boardService.writeBoard(board);
 		log.warn("NEW BOARD NO : " + newBoardNo);

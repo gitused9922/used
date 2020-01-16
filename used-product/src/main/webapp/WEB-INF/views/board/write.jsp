@@ -37,55 +37,60 @@
 	<div class="container">
 
 		<!-- write -->
-		<h1 class="my-4">중고를새것처럼</h1>
+		<h1 class="my-4">중고를새것처럼 상품 등록 게시판</h1>
 		<div class="">
 			<div class="">
-				<span class="">글 쓰기</span>
+				<span class=""></span>
 			</div>
 			<div class="">
 				<form id="write-form" role="form" action="write.action" method="post">
-					<div class="form-group">
-						<label>상품명</label> <input class="form-control" id='title' name='title'>
-					</div>
-					<div class="form-group">
-						<label>카테고리</label> 
-						<select name="cgname" style="height: 30px;">
-                            <option value="">선택하세요</option>
-                            <option value="전자제품">전자제품</option>
-                            <option value="가구">가구</option>
-                            <option value="의류">의류</option>
-                            <option value="장난감">장난감</option>
-                            <option value="기타">기타</option>
-                        </select>
-                    </td>
-                    <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
-
-					</div>
+					<!-- <input class="form-control" id='no' name='no'> -->
+				   <div class="form-row">
+				     <div class="form-group col-md-6">
+				       <label for="inputEmail4">상품명</label>
+				       <input type="email" class="form-control" id="name" name='name'>
+				   </div>
+				   <div class="form-group col-md-6">
+				      <label for="inputPassword4">카테고리</label>
+				      <select class="form-control" name="cgName" >
+							<option value="">선택하세요</option>
+							<c:forEach items="${ category }" var="category">
+								<option value="${ category.cgName }">${ category.cgName }</option>
+							</c:forEach>
+					  </select>
+					  <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
+				   </div>
+				   </div>
+					
 					<div class="form-group">
 						<label>가격</label> <input class="form-control" id='price' name='price'>
 					</div>
 					<div class="form-group">
-						<label>판매내용</label>
-						<textarea class="" rows="3" id='content' name='content'></textarea>
+						<label for="exampleFormControlTextarea1">판매내용</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='content'></textarea>
 					</div>
 
 					<div class="form-group">
-						<label>작성자</label> <input class="" id='writer' name='writer' value="">
-						<!-- ${ loginuser.id } -->
+						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="test1">
+						<!-- ${board.userId } -->
 					</div>
 					
-					<div>
-						<label>파일업로드</label> <input class="" id='' name='' value="">
-					</div>
-					<button id="write-button" type="button" class="btn btn-success nav-link">등록</button>
+
+					<div class="form-group">
+    					<label for="exampleFormControlFile1" style="margin-right: 20px;" >Example file input</label>
+    					<input type="file" class="" id="wFile1">
+    					<input type="file" class="" id="wFile2">
+  					</div>
+
+					<button id="write-button" type="button"  class="btn btn-outline-secondary">등록</button>
 					<!-- <button type="reset" class="btn btn-success">다시쓰기</button> -->
-					<button id="tolist-button" type="button" class="btn btn-success nav-link">목록</button>
+					<button id="tolist-button" type="button" class="btn btn-outline-secondary">목록</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- /.container -->
-
+  </div></div>
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
