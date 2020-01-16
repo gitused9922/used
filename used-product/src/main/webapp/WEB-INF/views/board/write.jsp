@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>중고를 새것처럼 판매상품 등록하기</title>
+<title>중고서울 판매상품 등록하기</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,72 +37,118 @@
 	<div class="container">
 
 		<!-- write -->
-		<h1 class="my-4">중고를새것처럼</h1>
+		<h1 class="my-4">중고서울 상품 등록 게시판</h1>
+		<br>
 		<div class="">
 			<div class="">
-				<span class="">글 쓰기</span>
+				<span class=""></span>
 			</div>
 			<div class="">
 				<form id="write-form" role="form" action="write.action" method="post">
-					<div class="form-group">
-						<label>상품명</label> <input class="form-control" id='title' name='title'>
-					</div>
-					<div class="form-group">
-						<label>카테고리</label> 
-						<select name="cgname" style="height: 30px;">
-                            <option value="">선택하세요</option>
-                            <option value="전자제품">전자제품</option>
-                            <option value="가구">가구</option>
-                            <option value="의류">의류</option>
-                            <option value="장난감">장난감</option>
-                            <option value="기타">기타</option>
-                        </select>
-                    </td>
-                    <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
-
-					</div>
+					<!-- <input class="form-control" id='no' name='no'> -->
+				   <div class="form-row">
+				     <div class="form-group col-md-6">
+				       <label for="inputEmail4">상품명</label>
+				       <input class="form-control" id="name" name='name'>
+				   </div>
+				   <div class="form-group col-md-6">
+				      <label for="inputPassword4">카테고리</label>
+				      <select class="form-control" name="cgName" >
+							<option value="">선택하세요</option>
+							<c:forEach items="${ category }" var="category">
+								<option value="${ category.cgName }">${ category.cgName }</option>
+							</c:forEach>
+					  </select>
+					  <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
+				   </div>
+				   </div>
+					
 					<div class="form-group">
 						<label>가격</label> <input class="form-control" id='price' name='price'>
 					</div>
 					<div class="form-group">
-						<label>판매내용</label>
-						<textarea class="" rows="3" id='content' name='content'></textarea>
+						<label for="exampleFormControlTextarea1" >판매내용</label>
+						<!-- <textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:600px;"></textarea>  -->
+						<textarea name='content' id="smarteditor" rows="10" cols="100" style="width:100%; height:600px;"></textarea> 
+						<!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='content'></textarea> -->
 					</div>
 
 					<div class="form-group">
-						<label>작성자</label> <input class="" id='writer' name='writer' value="">
-						<!-- ${ loginuser.id } -->
+
+					</td>
+						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="test1">
+						<!-- ${board.userId } -->
 					</div>
 					
-					<div>
-						<label>파일업로드</label> <input class="" id='' name='' value="">
-					</div>
-					<button id="write-button" type="button" class="btn btn-success nav-link">등록</button>
+
+					<div class="form-group">
+    					<label for="exampleFormControlFile1" style="margin-right: 20px;" >Example file input</label>
+    					<input type="file" class="" id="wFile1">
+    					<input type="file" class="" id="wFile2">
+  					</div>
+
+					<button id="write-button" type="button"  class="btn btn-outline-secondary">등록</button>
 					<!-- <button type="reset" class="btn btn-success">다시쓰기</button> -->
-					<button id="tolist-button" type="button" class="btn btn-success nav-link">목록</button>
+					<button id="tolist-button" type="button" class="btn btn-outline-secondary">목록</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- /.container -->
-
+  </div></div>
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
 	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">
-		$(function() {
-/* 			$('#').on('click', function(event){
+	$(function(){
+	    //전역변수선언
+	    var editor_object = [];
+	    
+	    $('#smarteditor').val(''); // 수정일경우 데이터 이안에 넣어서 처리
+	     
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: editor_object,
+	        elPlaceHolder: "smarteditor", // textarea의 id
+	        
+	        sSkinURI: "/used-product/resources/navereditor/SmartEditor2Skin.html", 
+	        htParams : {
+	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseToolbar : true,             
+	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseVerticalResizer : true,     
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseModeChanger : true, 
+	        }
+	    });
+	
+	    //전송버튼 클릭이벤트
+	    $("#write-button").on('click', function(event){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	         
+	        // 이부분에 에디터 validation 검증
+	
+	        //폼 submit
+	        $("#write-form").submit();
+	    })
+	})
+	
+
+			/*$('#').on('click', function(event){
 				loaction.href = "list.action"
-			}); */
+			}); 
 			$('#write-button').on('click', function(event){
 				$('#write-form').submit();
-			});
-		})
+			});*/
+
 	
 	</script>
+
 
 </body>
 

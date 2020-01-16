@@ -9,6 +9,14 @@ import com.usedproduct.vo.MessageVO;
 @Mapper
 public interface MessageMapper {	
 	void insertMessage(MessageVO message);
+
+	List<MessageVO> selectListMember(String receiver);
+
+	List<MessageVO> selectListMessage(String sender, String receiver);
 	
-	List<MessageVO> selectListMessage(String user);
+	MessageVO selectMessage(Integer no);
+	
+	int selectUnConfirmCnt(String sender, String receiver);
+	
+	void updateUnConfirmCnt(String sender, String receiver);
 }
