@@ -12,9 +12,9 @@ public interface BoardMapper {
 
 	void insertBoard(BoardVO board);
 
+
 	List<CategoryVO> selectCategory();
-
-
+	List<BoardVO> selectBoard();
 
 
 	

@@ -51,5 +51,18 @@ public class BoardController {
 
 		return "redirect:write.action";
 	}
+	
+	
+	@GetMapping(path = {"/list.action" })
+	public String list(Model model) {
+		
+		List<BoardVO> boards = boardService.findBoard();
+		
+		model.addAttribute("boards", boards);
+		
+		return "board/list";
+	}
+	
+	
 
 }
