@@ -1,8 +1,11 @@
 package com.usedproduct.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +45,18 @@ public class BoardController {
 
 		return "redirect:write.action";
 	}
+	
+	
+	@GetMapping(path = {"/list.action" })
+	public String list(Model model) {
+		
+		List<BoardVO> boards = boardService.findBoard();
+		
+		model.addAttribute("boards", boards);
+		
+		return "board/list";
+	}
+	
+	
 
 }

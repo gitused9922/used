@@ -1,5 +1,7 @@
 package com.usedproduct.service;
 
+import java.util.List;
+
 import com.usedproduct.mapper.BoardMapper;
 import com.usedproduct.vo.BoardVO;
 
@@ -15,6 +17,15 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertBoard(board);
 		return board.getNo();
 	}
+	
+	
+	@Override
+	public List<BoardVO> findBoard() {
+		
+		return boardMapper.selectBoard();
+	
+	}
+
 
 	
 	

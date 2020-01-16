@@ -14,6 +14,20 @@
 		INSERT INTO t_product ( T_NO, P_NAME, CG_NAME, P_PRICE, P_CONTENT )
 		VALUES (seq_product_no.nextval, #{name}, #{cgname}, #{price}, #{content} )
 	</insert>
+	
+	
+	<select id="selectBoard" resultType="BoardVO">
+		SELECT t_no no
+			, p_name name
+			, p_price price
+			, p_rdate rdate
+			, p_udate udate
+			, m_id userId
+		FROM t_product
+		WHERE p_delete = '1'
+		ORDER BY no DESC
+	</select>
+	
 <!-- 	
 	<insert id="insertBoard" parameterType="BoardVO">
 		<selectKey keyProperty="bno" resultType="int" order="AFTER">
