@@ -10,7 +10,7 @@ import lombok.Setter;
 public class MessageServiceImpl implements MessageService {
 
 	@Setter
-	private MessageMapper MessageMapper;
+	private MessageMapper MessageMapper; 
 	
 	@Override
 	public void insertMessage(MessageVO message) {
@@ -18,7 +18,28 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<MessageVO> selectListMessage(String user) {
-		return MessageMapper.selectListMessage(user);
+	public List<MessageVO> selectListMember(String receiver) {
+		return MessageMapper.selectListMember(receiver);
 	}
+
+	@Override
+	public List<MessageVO> selectListMessage(String sender, String receiver) {
+		return MessageMapper.selectListMessage(sender, receiver);
+	}
+
+	@Override
+	public MessageVO selectMessage(Integer no) { 
+		return MessageMapper.selectMessage(no);
+	}
+
+	@Override
+	public int selectUnConfirmCnt(String sender, String receiver) {
+		return MessageMapper.selectUnConfirmCnt(sender, receiver);
+	}
+
+	@Override
+	public void updateUnConfirmCnt(String sender, String receiver) {
+		MessageMapper.updateUnConfirmCnt(sender, receiver);
+	}
+
 }
