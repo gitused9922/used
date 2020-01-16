@@ -5,16 +5,47 @@
 		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
-<mapper namespace="com.springboard.mapper.BoardMapper">
+<mapper namespace="com.usedproduct.mapper.BoardMapper">
+	
+	<insert id="insertBoard" parameterType="BoardVO">
+		<selectKey keyProperty="bno" resultType="int" order="AFTER" >
+		 SELCT seq_product_no.currval FROM DUAL
+		</selectKey>
+		INSERT INTO t_product ( T_NO, P_NAME, CG_NAME, P_PRICE, P_CONTENT )
+		VALUES (seq_product_no.nextval, #{name}, #{cgname}, #{price}, #{content} )
+	</insert>
+	
 	
 	<select id="selectBoard" resultType="BoardVO">
+		SELECT t_no no
+			, p_name name
+			, p_price price
+			, p_rdate rdate
+			, p_udate udate
+			, m_id userId
+		FROM t_product
+		WHERE p_delete = '1'
+		ORDER BY no DESC
+	</select>
+	
+<!-- 	
+	<insert id="insertBoard" parameterType="BoardVO">
+		<selectKey keyProperty="bno" resultType="int" order="AFTER">
+			SELECT seq_board.currval FROM DUAL
+		</selectKey>
+		INSERT INTO tbl_board (bno, title, writer, content)
+		VALUES (seq_board.nextval, #{title}, #{writer}, #{content})
+	</insert>
+	 -->
+	
+	<!-- <select id="selectBoard" resultType="BoardVO">
 		SELECT bno, title, writer, regdate, updatedate, deleted, readcount
 		FROM tbl_board
 		WHERE deleted = '0'
 		ORDER BY bno DESC
 	</select>
 	
-	<!-- sql : 재사용 할 수 있는 SQL 블럭 -->
+	sql : 재사용 할 수 있는 SQL 블럭
 	<sql id="searchCondition">
 		<trim suffix="AND">
 	    	<choose>
@@ -59,13 +90,13 @@
 			deleted = '0'
 	</select>
 	
-	<!-- 
+	
 	<insert id="insertBoard" parameterType="com.springboard.vo.BoardVO"
 			useGeneratedKeys="true" keyColumn="bno" keyProperty="bno">
 		INSERT INTO tbl_board (bno, title, writer, content)
 		VALUES (seq_board.nextval, #{title}, #{writer}, #{content})
 	</insert>
-	-->
+	
 	<insert id="insertBoard" parameterType="BoardVO">
 		<selectKey keyProperty="bno" resultType="int" order="AFTER">
 			SELECT seq_board.currval FROM DUAL
@@ -118,12 +149,12 @@
 	
 	
 	
-	<!-- 
+	
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM tbl_board 
 		WHERE bno = #{ bno }
 	</delete>
-	-->
+	
 	<update id="deleteBoard" parameterType="int">
 		UPDATE tbl_board
 		SET deleted = '1' 
@@ -140,7 +171,7 @@
 		UPDATE tbl_board
 		SET readcount = readcount + 1
 		WHERE bno = #{ bno }
-	</update>
+	</update> -->
 	
 </mapper>
 

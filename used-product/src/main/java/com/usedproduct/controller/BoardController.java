@@ -1,39 +1,62 @@
 package com.usedproduct.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.usedproduct.service.BoardService;
+import com.usedproduct.vo.BoardVO;
+
+import lombok.extern.log4j.Log4j;
 
 /**
- * Handles requests for the application home page.
+ * 중고상품 게시판
  */
 @Controller
+@RequestMapping(path = { "/board" })
+@Log4j
 public class BoardController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+
+	@Autowired
+	@Qualifier("boardService")
+	private BoardService boardService;
+
+	@GetMapping(path = { "/write.action" })
+	public String showWriteForm() { // 글쓰기 화면 보기
+
+		return "board/write";
+	}
+
+	@PostMapping("/write.action")
+	public String write(BoardVO board, RedirectAttributes attr) {
+
+		// 글번호 시퀀스 만들어야함
+		int newBoardNo = boardService.writeBoard(board);
+		log.warn("NEW BOARD NO : " + newBoardNo);
+		attr.addAttribute("newBno", newBoardNo);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+
+		return "redirect:write.action";
 	}
 	
+	
+	@GetMapping(path = {"/list.action" })
+	public String list(Model model) {
+		
+		List<BoardVO> boards = boardService.findBoard();
+		
+		model.addAttribute("boards", boards);
+		
+		return "board/list";
+	}
+	
+	
+
 }

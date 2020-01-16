@@ -45,18 +45,38 @@
 			<div class="">
 				<form id="write-form" role="form" action="write.action" method="post">
 					<div class="form-group">
-						<label>제목</label> <input class="form-control" id='title' name='title'>
+						<label>상품명</label> <input class="form-control" id='title' name='title'>
 					</div>
+					<div class="form-group">
+						<label>카테고리</label> 
+						<select name="cgname" style="height: 30px;">
+                            <option value="">선택하세요</option>
+                            <option value="전자제품">전자제품</option>
+                            <option value="가구">가구</option>
+                            <option value="의류">의류</option>
+                            <option value="장난감">장난감</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </td>
+                    <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
 
-					<div class="">
-						<label>내용</label>
+					</div>
+					<div class="form-group">
+						<label>가격</label> <input class="form-control" id='price' name='price'>
+					</div>
+					<div class="form-group">
+						<label>판매내용</label>
 						<textarea class="" rows="3" id='content' name='content'></textarea>
 					</div>
 
 					<div class="form-group">
-						<label>작성자</label> <input class="" id='writer' name='writer' value="${ loginuser.email }">
+						<label>작성자</label> <input class="" id='writer' name='writer' value="">
+						<!-- ${ loginuser.id } -->
 					</div>
-
+					
+					<div>
+						<label>파일업로드</label> <input class="" id='' name='' value="">
+					</div>
 					<button id="write-button" type="button" class="btn btn-success nav-link">등록</button>
 					<!-- <button type="reset" class="btn btn-success">다시쓰기</button> -->
 					<button id="tolist-button" type="button" class="btn btn-success nav-link">목록</button>
@@ -70,16 +90,16 @@
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('#').on('click', function(event){
+/* 			$('#').on('click', function(event){
 				loaction.href = "list.action"
-			})
-			$('#write').on('click', function(event){
+			}); */
+			$('#write-button').on('click', function(event){
 				$('#write-form').submit();
-			})
+			});
 		})
 	
 	</script>

@@ -1,6 +1,8 @@
 package com.usedproduct.vo;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -14,7 +16,9 @@ public class BoardVO {
 	private Date rdate;
 	private Date udate;
 	private boolean delete;
-	
+	private String userId;
+	private String cgName;
+	private String content;
 	
 	
 	/*
@@ -27,6 +31,7 @@ public class BoardVO {
 		P_DELETE	CHAR(1 BYTE)
 		M_ID	VARCHAR2(50 BYTE)
 		CG_NAME	VARCHAR2(100 BYTE)
+		P_CONTENT	VARCHAR2(500 BYTE)
 	 * 
 	 * */
 	
