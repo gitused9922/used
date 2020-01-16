@@ -7,15 +7,58 @@
 <mapper namespace="com.usedproduct.mapper.MessageMapper">
 
 	<insert id="insertMessage" parameterType="MessageVO">
-		INSERT INTO t_ms
-		VALUES(seq_t_ms_sequence.nextval, 'content', sysdate, '1',  'test1', 100, 'test2')
+		<selectKey keyProperty="msNo" resultType="int" order="AFTER">
+			SELECT seq_t_ms_sequence.currval FROM DUAL
+		</selectKey>
+		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver)
+		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, 'test1', 100, 'test2')
 	</insert>
 	
-	<select id="selectListMessage" resultType="MessageVO">
+	<select id="selectListMember" resultType="MessageVO">
 		SELECT m_sender mSender
   		  FROM t_ms
  		 WHERE m_receiver = 'test2'
- 	  GROUP BY m_sender
+ 	     GROUP BY m_sender
+ 	     ORDER BY m_sender
 	</select>
 	
+	<select id="selectUnConfirmCnt" resultType="int">
+		SELECT count(*) unConfirmCnt
+		  FROM t_ms
+		 WHERE m_receiver = 'test2'
+		   AND m_sender = 'test1'
+		   AND ms_confirm = '0'
+	</select>
+	
+	<update id="updateUnConfirmCnt">
+		UPDATE t_ms
+		   SET ms_confirm = '1'
+		  WHERE m_receiver = 'test2'
+		   AND m_sender = 'test1'
+		   AND ms_confirm = '0'
+	</update>
+	
+	<select id="selectListMessage" resultType="MessageVO">
+		SELECT ms_no msNo
+	    	 , t_no tNo
+	     	 , m_sender mSender
+	     	 , m_receiver mReceiver
+	     	 , ms_content msContent
+	     	 , ms_date msDate
+	      FROM t_ms
+	 	 WHERE m_receiver in ('test1', 'test2') 
+	       AND m_sender in ('test1', 'test2')
+	 	 ORDER BY ms_date
+	</select>
+	
+	<select id="selectMessage" parameterType="int" resultType="MessageVO">
+		SELECT ms_no msNo
+	    	 , t_no tNo
+	     	 , m_sender mSender
+	     	 , m_receiver mReceiver
+	     	 , ms_content msContent
+	     	 , ms_date msDate
+	  	  FROM t_ms
+         WHERE ms_no = #{msNo }
+	</select>
 </mapper>

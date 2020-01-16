@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,51 +27,47 @@ public class MessageController {
 	@Qualifier("messageService")
 	private MessageService messageService;
 	
-	@GetMapping(path = {"/list"})
-	public String list(Model model) {
-		//String user : 세션 값 사용
-		List<MessageVO> messageList = messageService.selectListMessage("");
+	@GetMapping(path = {"/listMember"})
+	public String selectListMember(Model model) {
+		//String receiver : 세션 값 사용
+		List<MessageVO> memberList = messageService.selectListMember("");
 		
-		System.out.println("messageList : "+messageList.size());
-		model.addAttribute("messageList", messageList);
+		for (MessageVO messageVO : memberList) {
+			messageVO.setUnConfirmCnt(messageService.selectUnConfirmCnt(messageVO.getMSender(), ""));
+		}
 		
-		return "message/list";
+		model.addAttribute("memberList", memberList);
+		
+		return "message/list"; 
+	}
+	
+	@GetMapping(path = {"/listMessage"})
+	@ResponseBody
+	public List<MessageVO> selectListMessage(String sender) {
+		//String receiver : 세션 값 사용
+		String receiver = "";
+		List<MessageVO> messageList = messageService.selectListMessage(sender, receiver);
+		
+		return messageList;
+	}
+	
+	@PutMapping(path = {"/updateUnConfirmCnt"}, consumes = "application/json")
+	@ResponseBody
+	public String updateUnConfirmCnt(@RequestBody String sender) {
+		//String receiver : 세션 값 사용
+		String receiver = "";
+		messageService.updateUnConfirmCnt(sender, receiver);
+
+		return "success";
 	}
 	
 	@PostMapping(path = {"/insertMessage"})
 	@ResponseBody
-	public String insertMessage(MessageVO message) {
-		System.out.println(message);
+	public MessageVO insertMessage(@RequestBody MessageVO message) {
 		messageService.insertMessage(message);
-		return "success";
+		
+		Integer no = message.getMsNo();
+		return messageService.selectMessage(no);
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,5 +13,7 @@ public class MessageVO {
 	private String mReceiver;
 	private String msContent;
 	private Date msDate;
-	//private Boolean msConfirm;
+	private Boolean msConfirm;
+	private Integer unConfirmCnt;
+
 }
