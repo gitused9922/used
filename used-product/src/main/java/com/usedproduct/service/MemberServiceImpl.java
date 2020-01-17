@@ -13,13 +13,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void registerMember(MemberVO member) {
 		// TODO Auto-generated method stub
+		System.out.println("print from service"+member);
+		memberMapper.insertMember(member);
 		
 	}
 
 	@Override
-	public MemberVO findMemberByEmailAndPasswd(MemberVO member) {
+	public MemberVO findMemberByIdAndPasswd(MemberVO member) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberMapper.selectMemberByIdAndPasswd(member);
 	}
+
 
 }

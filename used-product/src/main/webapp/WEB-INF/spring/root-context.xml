@@ -49,6 +49,7 @@
 	<mybatis-spring:scan base-package="com.usedproduct.mapper" />
 
 	<import resource="message-context.xml"/>
+	<import resource="member-context.xml"/>
 	
 	<import resource="board-context.xml"/>
 
