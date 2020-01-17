@@ -18,19 +18,30 @@
 	    </form>
         <ul class="navbar-nav ml-auto" style="width: 40%;">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
+            <a class="nav-link" href="#">Home</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="/used-product/board/list.action">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">회원가입</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/used-product/resources/login.html">Log in</a>
-          </li>
+          <c:choose>
+          <c:when test="${ empty loginuser }">
+	          <li class="nav-item">
+	            <a class="nav-link" href="/used-product/resources/login.html">로그인</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/used-product/resources/register.html">회원가입</a>
+	          </li>
+          </c:when>
+          <c:otherwise>
+	          <li class="nav-item">
+	            <a class="nav-link" href="#">마이페이지</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/used-product/account/logout.action">로그아웃</a>
+	          </li>
+          </c:otherwise>
+          </c:choose>
         </ul>
       </div>
     </div>

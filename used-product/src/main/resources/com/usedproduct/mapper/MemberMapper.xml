@@ -4,21 +4,18 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
-<mapper namespace="com.springboard.mapper.MemberMapper">
+<mapper namespace="com.usedproduct.mapper.MemberMapper">
 
 	<insert id="insertMember" parameterType="MemberVO">
-		INSERT INTO tbl_member
-		VALUES (#{ email }, #{ passwd })
+		INSERT INTO t_member(m_id,m_pw,s_no)
+		VALUES (#{ memberId }, #{ memberPw }, #{ siteNo })
 	</insert>
-	
-	<select id="selectMemberByEmailAndPasswd" 
+	<select id="selectMemberByIdAndPasswd" 
 			parameterType="MemberVO" resultType="MemberVO">
-		SELECT email
-		FROM tbl_member
-		WHERE email = #{ email } AND passwd = #{ passwd }
+		SELECT m_id memberId, s_no siteNo
+		FROM t_member
+		WHERE m_id = #{ memberId } AND m_pw = #{ memberPw }
 	</select>	
-
 </mapper>
 
 

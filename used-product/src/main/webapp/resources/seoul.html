@@ -5,26 +5,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 </head>
 <body>
-	<img class="map" src="img/seoul.jpg" width="450" height="360" usemap="#seoul">
-	<div style="border:1pt solid black;">
-		클릭값 : <span id="test"></span>
-	</div>
-	<map name="seoul">
-		이미지 맵 정의
-	</map>
-	<script src="js/jquery-3.4.1.js"></script>
-	<script type="text/javascript" src="js/highlight.js"></script>
-	<script type="text/javascript">
-		$(function () {
-			$('.map').maphilight();
-			$('.zone').on('click', function (event) {
-				// var target = event.target;
-				$('#test').text(event.target.id);
-			});
-
-		});
-	</script>
-	<map id="seoul" name="seoul">
+<map id="seoul" name="seoul">
 			<area class="zone" shape="poly"  title="강서구" id="강서구"
 				coords="45,125,35,139,40,146,34,152,34,154,27,159,28,162,22,170,14,172,11,176,12,182,3,187,7,197,28,201,31,206,31,212,34,218,39,211,37,209,40,205,51,205,54,207,55,210,59,209,66,210,69,201,83,227,102,221,106,222,108,198,123,201,123,193,109,182,95,176,89,171,80,160,80,158,74,151,71,152,61,138,57,136,54,135,49,129"
 				style="cursor: pointer;" />
@@ -101,4 +82,23 @@
 				coords="336,17,338,23,344,25,347,21,349,33,343,37,349,45,349,51,344,57,347,77,353,80,361,76,367,88,365,98,359,105,359,109,354,113,350,111,346,114,335,111,323,117,313,117,301,106,293,96,298,87,297,82,301,77,302,84,306,86,306,66,301,52,304,25,309,22,313,20,317,21,322,20,326,16"
 				style="cursor: pointer;"/>
 		</map>
+	<img class="map" src="img/seoul.jpg" width="450" height="360" usemap="#seoul">
+	<div style="border:1pt solid black;">
+		클릭값 : <span id="test"></span>
+	</div>
+	<map name="seoul">
+	</map>
+	<script src="js/jquery-3.4.1.js"></script>
+	<!-- <script type="text/javascript" src="js/highlight.js"></script> -->
+	<script type="text/javascript">
+		$(function () {
+			$('.map').maphilight();
+			$('.zone').on('click', function (event) {
+				// var target = event.target;
+				$('#test').text(event.target.id);
+			});
+
+		});
+	</script>
+	
 </body>

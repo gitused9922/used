@@ -8,5 +8,6 @@ import com.usedproduct.vo.MemberVO;
 public interface MemberMapper {
 	void insertMember(MemberVO member);
 
-	MemberVO selectMemberByEmailAndPasswd(MemberVO member);
+	MemberVO selectMemberByIdAndPasswd(MemberVO member);
+
 }
