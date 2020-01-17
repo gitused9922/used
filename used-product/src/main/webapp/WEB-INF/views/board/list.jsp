@@ -86,13 +86,15 @@
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
 								<td>상품: ${ board.name }</td> 
-								<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+								<a class="product-detail" href="javascript:" data-no="${board.no}">
+									<img class="card-img-top" src="http://placehold.it/700x400" alt="">
+								</a>
 								<div class="card-body">
-									<td>ID: ${ board.userId }</td>
+									<td>작성자 : ${ board.userId }</td>
 									<br>
-									<td>가격: ${ board.price }원</td>
+									<td>가격 : ${ board.price }원</td>
 									<br>
-									<td>판매시작일: ${ board.rdate }</td>
+									<td>판매시작일 : ${ board.rdate }</td>
 								</div>
 							</div>
 						</div>
@@ -109,13 +111,28 @@
 
 	</div>
 
+	<form id="product-detail-form" action="detail.action" method="get">
+		<input type="hidden" id="no" name="no" />
+	</form>
+
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resource/vendor/jquery/jquery.min.js"></script>
-	<script	src="/used-product/resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('.product-detail').on('click', function(event){
+			var no = $(this).attr('data-no');
+			$('#product-detail-form #no').val(no);
+		
+			$('#product-detail-form').submit();
+		});
+	});
+	</script>
 </body>
 
 </html>

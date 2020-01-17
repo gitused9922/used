@@ -1,8 +1,7 @@
 package com.usedproduct.vo;
 
-
-
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,6 +19,8 @@ public class BoardVO {
 	private String cgName;
 	private String content;
 	
+	
+	private List<FileVO> files;
 	
 	/*
 	 *  T_NO	NUMBER

@@ -16,6 +16,29 @@
 		VALUES (SEQ_PRODUCT_NO.nextval, #{name}, #{cgName}, #{price}, #{content}, #{userId} )
 	</insert>
 
+<!-- 	<insert id="insertFile" parameterType="FileVO">
+		INSERT INTO t_file ( F_NO, F_UNAME, F_SNAME, T_NO)
+		VALUES (SEQ_FILE_NO.nextval, #{uName}, #{sName}, #{no})
+	</insert> -->
+
+   	<resultMap type="BoardVO" id="boardMapa">
+		<result column="T_NO" property="no" />
+		<result column="D_STATE" property="state" />
+		<result column="P_NAME" property="name" />
+		<result column="P_PRICE" property="price" />
+		<result column="M_ID" property="userId" />
+		<result column="P_CONTENT" property="content" />
+		<result column="P_delete" property="delete" />
+		<result column="P_RDATE" property="rdate" />
+		<result column="P_UDATE" property="udate" />
+		<result column="CG_NAME" property="cgName" />
+	</resultMap>
+
+   <select id="selectBoardNo" parameterType="int" resultMap="boardMapa">
+		SELECT T_NO, D_STATE, P_NAME, P_PRICE, M_ID, P_CONTENT, P_RDATE, P_UDATE, CG_NAME, P_delete
+		FROM t_product
+		WHERE T_NO = #{no}
+	</select> 
 
 	<resultMap id="CategoryMap" type="CategoryVO">
 		<result column="cg_name" property="cgName" />
@@ -23,7 +46,7 @@
 	</resultMap>
 
 	<select id="selectCategory" resultMap="CategoryMap">
-		SELECT * FROM T_CATEGORY
+		SELECT cg_name, cg_no FROM T_CATEGORY
 	</select>
 		
 	

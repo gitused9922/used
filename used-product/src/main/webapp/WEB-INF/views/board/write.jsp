@@ -44,7 +44,7 @@
 				<span class=""></span>
 			</div>
 			<div class="">
-				<form id="write-form" role="form" action="write.action" method="post">
+				<form id="write-form" role="form" action="write.action" method="post" enctype="multipart/form-data">
 					<!-- <input class="form-control" id='no' name='no'> -->
 				   <div class="form-row">
 				     <div class="form-group col-md-6">
@@ -82,9 +82,9 @@
 					
 
 					<div class="form-group">
-    					<label for="exampleFormControlFile1" style="margin-right: 20px;" >Example file input</label>
-    					<input type="file" class="" id="wFile1">
-    					<input type="file" class="" id="wFile2">
+    					<label style="margin-right: 20px;" >대표상품 이미지업로드</label>
+    					<input type="file" name="wfile" id="wfile1" data-file="1">
+    					<input type="file" name="wfile" id="wfile2" data-file="2">
   					</div>
 
 					<button id="write-button" type="button"  class="btn btn-outline-secondary">등록</button>
