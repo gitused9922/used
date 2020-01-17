@@ -52,9 +52,13 @@
 			<div class="col-md-7" id="message-div">
 				<div class="alert alert-warning" id="message-list">
 				</div>
-				<textarea class="form-control col-md-7" rows="3" id="msContent" name="msContent"></textarea>
-				<input type="hidden" name="mReceiver" id="mReceiver">
-				<button class="btn btn-success btn-lg" id="send-button">전송</button>
+				<form id="insert-form">
+					<textarea class="form-control col-md-7" rows="3" id="msContent" name="msContent"></textarea>
+					<input type="hidden" name="tNo" id="tNo" value="${message.TNo }">
+					<input type="hidden" name="mReceiver" id="mReceiver">
+					<input type="hidden" name="mSender" id="mSender" value="${message.MSender }">
+					<button class="btn btn-success btn-lg" id="send-button">전송</button>
+				</form>
 			</div>
         </div> <!-- /.row -->
         
@@ -90,11 +94,6 @@
 					$.each(resp, function(index) {
 						message += '<ul><li>' + resp[index].msender + '</li>';
 						message += '<li>' + resp[index].msContent + '</li></ul><br>';
-						
-						/* console.log(resp[index].msNo);						
-						console.log(resp[index].msDate);
-						console.log(resp[index].mreceiver);
-						console.log(resp[index].tno); */
 		            });
 					$('#message-list').html(message);
 				},
@@ -103,53 +102,41 @@
 				}
 			});
 			
-			console.log('리스트 작업 완료');
 			$.ajax({
 				"url": "updateUnConfirmCnt",
 				"method": "put",
 				"data": JSON.stringify({ "sender": sender }),
 				"contentType" : "application/json; charset=UTF-8",
 				"success": function(result, status, xhr) {
-					console.log('성공');
 				},
 				"error": function(xhr, status, err) {
-					alert('수정 실패');
+					alert("오류 발생 : " + err);
 				}
 			});
 			
 		});
 
 		$('#send-button').on('click', function() {
-			var receiver = $('#mReceiver').val();
-			if(!receiver) {
-				alert('메세지 보낼 ID를 선택하세요.');
-				return;
-			}
-
-			var $content = $('#msContent');
-			var data = {
-				"msContent" : $content.val(),
-				"mSender" : "test1",
-				"mReceiver" : receiver
-			}
-
+			//var receiver = $('#mReceiver').val();
+			var values = $('#insert-form').serialize();
+			
 			$.ajax({
 				"url": "insertMessage",
 				"method": "post",
-				"data": JSON.stringify(data),
-				"contentType" : "application/json; charset=UTF-8",
+				"data": values,
 				"success": function(resp, status, xhr) {
 					var message = '';
 					message += '<ul><li>' + resp.msender + '</li>';
 					message += '<li>' + resp.msContent + '</li></ul><br>';
 
 					$('#message-list').append(message);
-					$content.val('');
+					$('#msContent').val('');
 				},
 				"error": function(xhr, status, err) {
 					alert("오류 발생 : " + err);
 				}
 			});
+			return false;
 		});
 	});
   </script>

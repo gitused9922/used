@@ -6,18 +6,29 @@
 
 <mapper namespace="com.usedproduct.mapper.MessageMapper">
 
+	<resultMap type="MessageVO" id="messageMap">
+		<id column="ms_no" property="msNo" />
+		<result column="t_no" property="tNo" />
+		<result column="m_sender" property="mSender" />
+		<result column="m_receiver" property="mReceiver" />
+		<result column="ms_content" property="msContent" />
+		<result column="ms_date" property="msDate" />
+		<result column="ms_conform" property="msConfirm" />
+		<result column="ms_type" property="msType" />
+	</resultMap>
+
 	<insert id="insertMessage" parameterType="MessageVO">
 		<selectKey keyProperty="msNo" resultType="int" order="AFTER">
 			SELECT seq_t_ms_sequence.currval FROM DUAL
 		</selectKey>
 		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver)
-		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, 'test1', 100, 'test2')
+		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver })
 	</insert>
 	
-	<select id="selectListMember" resultType="MessageVO">
-		SELECT m_sender mSender
+	<select id="selectListMember" parameterType="String" resultMap="messageMap">
+		SELECT m_sender
   		  FROM t_ms
- 		 WHERE m_receiver = 'test2'
+ 		 WHERE m_receiver = #{receiver }
  	     GROUP BY m_sender
  	     ORDER BY m_sender
 	</select>
@@ -38,26 +49,26 @@
 		   AND ms_confirm = '0'
 	</update>
 	
-	<select id="selectListMessage" resultType="MessageVO">
-		SELECT ms_no msNo
-	    	 , t_no tNo
-	     	 , m_sender mSender
-	     	 , m_receiver mReceiver
-	     	 , ms_content msContent
-	     	 , ms_date msDate
+	<select id="selectListMessage" resultMap="messageMap">
+		SELECT ms_no
+	    	 , t_no
+	     	 , m_sender
+	     	 , m_receiver
+	     	 , ms_content
+	     	 , ms_date
 	      FROM t_ms
-	 	 WHERE m_receiver in ('test1', 'test2') 
-	       AND m_sender in ('test1', 'test2')
+	 	 WHERE m_receiver in (#{sender }, #{receiver })
+	       AND m_sender in (#{sender }, #{receiver })
 	 	 ORDER BY ms_date
 	</select>
 	
-	<select id="selectMessage" parameterType="int" resultType="MessageVO">
-		SELECT ms_no msNo
-	    	 , t_no tNo
-	     	 , m_sender mSender
-	     	 , m_receiver mReceiver
-	     	 , ms_content msContent
-	     	 , ms_date msDate
+	<select id="selectMessage" parameterType="Integer" resultMap="messageMap">
+		SELECT ms_no
+	    	 , t_no
+	     	 , m_sender
+	     	 , m_receiver
+	     	 , ms_content
+	     	 , ms_date
 	  	  FROM t_ms
          WHERE ms_no = #{msNo }
 	</select>

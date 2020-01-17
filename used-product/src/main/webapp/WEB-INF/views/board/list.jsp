@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport"
+<meta name="viewport" 
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -82,7 +82,7 @@
 					</a>
 				</div>
 				<div class="row">
-					<c:forEach items="${ boards }" var="board">
+					<c:forEach items="${ boards }" var="board" varStatus="idx">
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
 								<td>상품: ${ board.name }</td> 
@@ -93,11 +93,22 @@
 									<td>가격: ${ board.price }원</td>
 									<br>
 									<td>판매시작일: ${ board.rdate }</td>
+									<br>
+									<c:if test="${ not empty loginuser &&  board.userId != loginuser.memberId}">
+										<td><a href="javascript:void(0)" data-index="${idx.index }" class="btn btn-success btn-sm message-button" style="float: right">메세지</a></td>
+									</c:if>
 								</div>
 							</div>
 						</div>
-					</c:forEach>
 
+					<form id="message-form-${idx.index }" action="../message/listMember">
+						<input type="hidden" name="tNo" value="${board.no }">
+						<input type="hidden" name="mSender" value="${ board.userId }">
+						<input type="hidden" name="msContent" value="${ board.name }">
+					</form>
+					</c:forEach>
+					<!-- 리다이렉트 처리 : ../message/listMember -->
+					
 				</div>
 				<!-- /.row -->
 
@@ -113,8 +124,18 @@
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resource/vendor/jquery/jquery.min.js"></script>
-	<script	src="/used-product/resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.message-button').on('click', function() {
+				var index = $(this).attr('data-index');
+				var values = $('#message-form-'+index).serialize();
+
+				$('#message-form-'+index).submit();
+			});
+		});
+	</script>
 
 </body>
 
