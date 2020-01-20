@@ -1,5 +1,6 @@
 package com.usedproduct.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.usedproduct.mapper.BoardMapper;
@@ -36,6 +37,16 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO findBoardNo(int no) {
 
 		return boardMapper.selectBoardNo(no);
+	}
+
+	@Override
+	public List<BoardVO> findBoardWithpaging(HashMap<String, Object> params) {
+		return boardMapper.selectBoardWithPaging(params);
+	}
+
+	@Override
+	public int fidnBoardcount(HashMap<String, Object> params) {
+		return boardMapper.selectBoardCount(params);
 	}
 
 	
