@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usedproduct.service.BoardService;
+import com.usedproduct.ui.ThePager2;
 import com.usedproduct.vo.BoardVO;
 import com.usedproduct.vo.CategoryVO;
 
@@ -62,13 +64,40 @@ public class BoardController {
 		return "redirect:list.action";
 	}
 
-	@GetMapping(path = { "/list.action" })
+	@GetMapping(path = { "/list2.action" })
 	public String list(Model model) {
 
 		List<BoardVO> boards = boardService.findBoard();
 
 		model.addAttribute("boards", boards);
 
+		return "board/list";
+	}
+	
+	@GetMapping(path = {"list.action" })
+	public String list(
+			            @RequestParam(defaultValue = "1")int pageNo,
+			            @RequestParam(required = false) String searchType,
+			            @RequestParam(required = false) String searchKey,
+			            HttpServletRequest req, Model model) {
+		int pageSize = 6;
+		int pagerSize = 3;
+		System.out.println("pageNo" + pageNo);
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo -1) * pageSize +1;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchKey", searchKey);
+		
+		List<BoardVO> boards = boardService.findBoardWithpaging(params);
+		int boardCount = boardService.fidnBoardcount(params);
+		
+		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list.action", req.getQueryString());
+		
+		model.addAttribute("boards",boards);
+		model.addAttribute("pager", pager);
+		
 		return "board/list";
 	}
 

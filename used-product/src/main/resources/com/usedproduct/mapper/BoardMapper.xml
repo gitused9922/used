@@ -68,60 +68,75 @@
 	</insert>
 	 -->
 	
-	<!-- <select id="selectBoard" resultType="BoardVO">
+	 <!-- <select id="selectBoard" resultType="BoardVO">
 		SELECT bno, title, writer, regdate, updatedate, deleted, readcount
 		FROM tbl_board
 		WHERE deleted = '0'
 		ORDER BY bno DESC
-	</select>
+	</select> -->
 	
-	sql : 재사용 할 수 있는 SQL 블럭
+	<!-- sql : 재사용 할 수 있는 SQL 블럭 -->
 	<sql id="searchCondition">
 		<trim suffix="AND">
 	    	<choose>
 	    		<when test="searchType == 'T'.toString()">
-	    			title LIKE '%'||#{searchKey}||'%'
+	    			p_name LIKE '%'||#{searchKey}||'%'
 	    		</when>
 	    		<when test="searchType == 'C'.toString()">
-	    			content LIKE '%'||#{searchKey}||'%'
+	    			p_price LIKE '%'||#{searchKey}||'%'
 	    		</when>
 	    		<when test="searchType == 'TC'.toString()">
-	    			( title LIKE '%'||#{searchKey}||'%' OR content LIKE '%'||#{searchKey}||'%' )
+	    			( p_name LIKE '%'||#{searchKey}||'%' OR p_price LIKE '%'||#{searchKey}||'%' )
 	    		</when>
 	    		<when test="searchType == 'W'.toString()">
-	    			writer LIKE '%'||#{searchKey}||'%'
+	    			m_id LIKE '%'||#{searchKey}||'%'
 	    		</when>
 	    	</choose>
 		</trim>
-	</sql>
+	</sql> 
 	
-	<select id="selectBoardWithPaging" 
+	 <select id="selectBoardWithPaging" 
 			resultType="BoardVO" parameterType="hashmap">
 		
-		SELECT bno, title, writer, regdate, updatedate, deleted, readcount
-		FROM
+		SELECT no 
+		, name
+		, price 		 
+		, rdate 
+		, udate 
+		, "delete" 
+		, userId 
+		FROM 
 		(
-		    SELECT rownum idx, bno, title, writer, regdate, updatedate, deleted, readcount
-		    FROM tbl_board
+		    SELECT rownum idx
+		     		, t_no no
+		            , p_name name
+					, p_price price
+					, p_rdate rdate
+					, p_udate udate
+					, p_delete "delete"
+					, m_id userId
+		    FROM t_product
 		    WHERE    
 		    	<include refid="searchCondition" />
-		    	deleted = '0'
+		    	p_delete = '1'		    	
 		    	AND <![CDATA[ rownum < #{ end } ]]>
-		    ORDER BY bno DESC
+		    	 		    	
+		    ORDER BY t_no DESC
 		)
-		WHERE idx >= #{ beginning }
+		WHERE idx >= #{ beginning } 
+		  
 		
-	</select>
+	</select> 
 	<select id="selectBoardCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) 
-		FROM tbl_board 
+		FROM t_product 
 		WHERE 
-			<include refid="searchCondition" />
-			deleted = '0'
+			<include refid="searchCondition" /> 
+			p_delete = '1'
 	</select>
 	
 	
-	<insert id="insertBoard" parameterType="com.springboard.vo.BoardVO"
+	<!-- <insert id="insertBoard" parameterType="com.springboard.vo.BoardVO"
 			useGeneratedKeys="true" keyColumn="bno" keyProperty="bno">
 		INSERT INTO tbl_board (bno, title, writer, content)
 		VALUES (seq_board.nextval, #{title}, #{writer}, #{content})
@@ -201,7 +216,7 @@
 		UPDATE tbl_board
 		SET readcount = readcount + 1
 		WHERE bno = #{ bno }
-	</update> -->
+	</update>  -->
 	
 </mapper>
 
