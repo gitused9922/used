@@ -8,68 +8,35 @@
 
 	<resultMap type="MessageVO" id="messageMap">
 		<id column="ms_no" property="msNo" />
-		<result column="t_no" property="tNo" />
-		<result column="m_sender" property="mSender" />
-		<result column="m_receiver" property="mReceiver" />
 		<result column="ms_content" property="msContent" />
 		<result column="ms_date" property="msDate" />
-		<result column="ms_conform" property="msConfirm" />
-		<result column="ms_type" property="msType" />
+		<result column="m_sender" property="mSender" />
+		<result column="t_no" property="tNo" />
+		<result column="m_receiver" property="mReceiver" />
+		<result column="ms_title" property="msTitle" />
+		<result column="p_name" property="pName" />
 	</resultMap>
 
+	<select id="selectListProduct" parameterType="String" resultMap="messageMap">
+		SELECT t_no
+		     , m_id m_sender
+		     , p_name
+		  FROM t_product 
+		 WHERE t_no IN (
+				SELECT distinct t_no
+  		  		  FROM t_ms
+ 		 		 WHERE m_receiver = #{receiver }
+               )
+           AND d_state = '1'
+         ORDER BY p_udate desc
+	</select>
+	
 	<insert id="insertMessage" parameterType="MessageVO">
 		<selectKey keyProperty="msNo" resultType="int" order="AFTER">
 			SELECT seq_t_ms_sequence.currval FROM DUAL
 		</selectKey>
-		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver)
-		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver })
+		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver, ms_title)
+		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver }, #{msTitle })
 	</insert>
-	
-	<select id="selectListMember" parameterType="String" resultMap="messageMap">
-		SELECT m_sender
-  		  FROM t_ms
- 		 WHERE m_receiver = #{receiver }
- 	     GROUP BY m_sender
- 	     ORDER BY m_sender
-	</select>
-	
-	<select id="selectUnConfirmCnt" resultType="int">
-		SELECT count(*) unConfirmCnt
-		  FROM t_ms
-		 WHERE m_receiver = 'test2'
-		   AND m_sender = 'test1'
-		   AND ms_confirm = '0'
-	</select>
-	
-	<update id="updateUnConfirmCnt">
-		UPDATE t_ms
-		   SET ms_confirm = '1'
-		  WHERE m_receiver = 'test2'
-		   AND m_sender = 'test1'
-		   AND ms_confirm = '0'
-	</update>
-	
-	<select id="selectListMessage" resultMap="messageMap">
-		SELECT ms_no
-	    	 , t_no
-	     	 , m_sender
-	     	 , m_receiver
-	     	 , ms_content
-	     	 , ms_date
-	      FROM t_ms
-	 	 WHERE m_receiver in (#{sender }, #{receiver })
-	       AND m_sender in (#{sender }, #{receiver })
-	 	 ORDER BY ms_date
-	</select>
-	
-	<select id="selectMessage" parameterType="Integer" resultMap="messageMap">
-		SELECT ms_no
-	    	 , t_no
-	     	 , m_sender
-	     	 , m_receiver
-	     	 , ms_content
-	     	 , ms_date
-	  	  FROM t_ms
-         WHERE ms_no = #{msNo }
-	</select>
+
 </mapper>
