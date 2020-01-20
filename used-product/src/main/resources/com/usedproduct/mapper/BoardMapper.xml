@@ -16,11 +16,6 @@
 		VALUES (SEQ_PRODUCT_NO.nextval, #{name}, #{cgName}, #{price}, #{content}, #{userId} )
 	</insert>
 
-<!-- 	<insert id="insertFile" parameterType="FileVO">
-		INSERT INTO t_file ( F_NO, F_UNAME, F_SNAME, T_NO)
-		VALUES (SEQ_FILE_NO.nextval, #{uName}, #{sName}, #{no})
-	</insert> -->
-
    	<resultMap type="BoardVO" id="boardMapa">
 		<result column="T_NO" property="no" />
 		<result column="D_STATE" property="state" />
@@ -57,6 +52,7 @@
 			, p_rdate rdate
 			, p_udate udate
 			, m_id userId
+			, p_content content
 		FROM t_product
 		WHERE p_delete = '1'
 		ORDER BY no DESC

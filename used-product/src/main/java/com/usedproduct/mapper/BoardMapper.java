@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.usedproduct.vo.BoardVO;
 import com.usedproduct.vo.CategoryVO;
-import com.usedproduct.vo.FileVO;
 
 @Mapper
 public interface BoardMapper {
@@ -15,7 +14,7 @@ public interface BoardMapper {
 	List<CategoryVO> selectCategory();
 	List<BoardVO> selectBoard();
 	BoardVO selectBoardNo(int no);
-	//void insertFile(FileVO fileVO);
+
 
 
 	

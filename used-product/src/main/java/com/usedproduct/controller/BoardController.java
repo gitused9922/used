@@ -28,7 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.usedproduct.service.BoardService;
 import com.usedproduct.vo.BoardVO;
 import com.usedproduct.vo.CategoryVO;
-import com.usedproduct.vo.FileVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -53,35 +52,14 @@ public class BoardController {
 	}
 
 	@PostMapping(path = { "/write.action" })
-	public String write(BoardVO board, RedirectAttributes attr, HttpServletRequest req) {
-			//,@RequestParam("wfile") MultipartFile[] multifiles ) {
-		
-		/*
-		 * List<FileVO> files;
-		 * 
-		 * ServletContext application = req.getServletContext(); String path =
-		 * application.getRealPath("/upload-files"); for (MultipartFile file :
-		 * multifiles) {
-		 * 
-		 * String uName = file.getOriginalFilename(); int uuid =
-		 * (int)(Math.random()*999+1); int uuid2 = (int)(Math.random()*9999+1); String
-		 * sName = uuid + uuid2 + "_" + file.getOriginalFilename();
-		 * System.out.println(uName); System.out.println(sName);
-		 * 
-		 * try { File f = new File(path, sName); file.transferTo( f ); //파일 저장
-		 * 
-		 * 
-		 * } catch (Exception ex) { ex.printStackTrace(); } }
-		 */
-		
-		
-		//int newFileNo = boardService.writeFile();
+	public String write(BoardVO board, RedirectAttributes attr, HttpServletRequest req  ) {
+			
 
 		int newBoardNo = boardService.writeBoard(board);
 		// log.warn("NEW BOARD NO : " + newBoardNo);
 		attr.addAttribute("newBno", newBoardNo);
 
-		return "redirect:write.action";
+		return "redirect:list.action";
 	}
 
 	@GetMapping(path = { "/list.action" })
@@ -115,7 +93,7 @@ public class BoardController {
 
 		// 조회 데이터 저장 
 		model.addAttribute("board", board);
-		System.out.println("내용 : "+board.getContent());
+		//System.out.println("내용 : "+board.getContent());
 		return "board/detail";
 	}
 

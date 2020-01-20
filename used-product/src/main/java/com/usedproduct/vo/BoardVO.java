@@ -20,7 +20,6 @@ public class BoardVO {
 	private String content;
 	
 	
-	private List<FileVO> files;
 	
 	/*
 	 *  T_NO	NUMBER

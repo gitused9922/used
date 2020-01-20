@@ -10,8 +10,6 @@
 		<typeAlias type="com.usedproduct.vo.CategoryVO" alias="CategoryVO" />
 		<typeAlias type="com.usedproduct.vo.MessageVO" alias="MessageVO" />
 
-		<typeAlias type="com.usedproduct.vo.FileVO" alias="FileVO" />
-
 		<typeAlias type="com.usedproduct.vo.MemberVO" alias="MemberVO" />
 
 	</typeAliases>

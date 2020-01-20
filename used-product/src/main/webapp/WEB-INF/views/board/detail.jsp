@@ -41,50 +41,47 @@
 		<br>
 		<div class="">
 			<div class="">
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
-					</div>
+					</div> --%>
 				   <div class="form-row">
-				     <div class="form-group col-md-6">
-				       <label for="inputEmail4">상품명</label>
-				       <input class="form-control" id="name" name='name' value='${ board.name }'>
+				   <div class="form-group col-md-6">
+				       <label for="inputEmail4"></label>
+				       <img id="m-img1" alt="대표이미지" src="">
 				   </div>
 				   <div class="form-group col-md-6">
+				      <label>번호</label>
+				      <input class="form-control" id='no' name='no' value='${ board.no }'>
+				      <label for="inputEmail4">상품명</label>
+				      <input class="form-control" id="name" name='name' value='${ board.name }'>
 				      <label for="inputPassword4">카테고리</label>
 				      <input class="form-control" id="name" name='cgName' value='${ board.cgName }'>
-
-					  <!-- 넘어갈때 name의 값은 cgname + n1  방식으로 넘어감-->
+				      <label>가격</label>
+				      <input class="form-control" id='price' name='price' value='${board.price}'>
+				      <label>작성자</label>
+				      <input class="form-control" id='userId' name='userId' value="${board.userId }">
 				   </div>
-				   </div>
-					
 					<div class="form-group">
-						<label>가격</label> <input class="form-control" id='price' name='price' value='${board.price}'>
-					</div>
-					<div class="form-group">
-						<label for="exampleFormControlTextarea1" >판매내용</label>
-						<div id="content" style="width:100%; height:100%;">${board.content }</div>
+						<label for="exampleFormControlTextarea1" ></label>
+						<div id="content" class="form-control" style="width:1140px; height:100%;">${board.content }</div>
 					</div>
 
 					<div class="form-group">
 
-					</td>
-						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="${board.userId }">
-						<!-- ${board.userId } -->
 					</div>
-					
-
+				<div style="width: 100%;height: 100px;">
 		          <%-- <c:if test="${ asd.userId == board.userId }"> --%>
-		          <button id="edit-button" type="button" class="btn btn-success">수정</button>
-		          <button id="delete-button" type="button" class="btn btn-success">삭제</button>
+		          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-top: 30px;">수정</button>
+		          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">삭제</button>
 		          <%-- </c:if> --%>
-		          <button id="tolist-button" type="button" class="btn btn-success">목록</button>
-		       
+		          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">목록</button>
+		        </div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- /.container -->
-  </div></div>
+  </div></div></div>
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
@@ -96,11 +93,17 @@
 	<script type="text/javascript">
 	$(function(){
 
-		$('input, textarea').attr({'readonly': 'readonly'})
+		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
 
-		$('#content img').css({
-				'width': '500px'
-			})
+		$('#content').css({'text-align' : 'center'
+							,'width' : '1140px'
+							,'height' : '100%'})	
+		$('#content img').css({'width': '500px'});
+		$('#m-img1').css({'width' : '500px'})
+		var firstimg = $('#content').find('img:first').attr('src');
+		//alert(firstimg);
+		$('#m-img1').attr({'src' : firstimg});
+		
 		
 	})
 	

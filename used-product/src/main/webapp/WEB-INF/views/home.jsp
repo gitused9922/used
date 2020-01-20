@@ -1,39 +1,34 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-  <title>Shop Homepage - Start Bootstrap Template</title>
+<title>상품게시판</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="/used-product/resources/css/shop-homepage.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="/used-product/resources/css/shop-homepage.css"	rel="stylesheet">
 
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <jsp:include page="/WEB-INF/views/modules/topbar.jsp" /> 
-  <!-- Page Content -->
-  <div class="container">
+	<!-- Navigation -->
+	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
+	<!-- Page Content -->
+	<div class="container">
 
-    <div class="row">
-
-	<!-- sidebar -->
-	<%-- <jsp:include page="/WEB-INF/views/modules/sidebar.jsp" /> --%>
-
-      <!-- <div class="col-lg-9"> -->
-      <div class="">
 
 		<div id="carouselExampleCaptions" class="carousel slide  my-4" data-ride="carousel">
 		  <ol class="carousel-indicators">
@@ -74,124 +69,66 @@
 		  </a>
 		</div>
 
+		<div class="row">
 
-        <div class="row">
+			<br>
+			<br>
+			<div class="">
+				<div class="card-header py-3">
+					<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
+				</div>
+				<div class="row">
+					<c:forEach items="${ boards }" var="board">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<td>상품: ${ board.name }</td> 
+								<a class="product-detail" href="javascript:" data-no="${board.no}">
+									<img class="card-img-top" src="http://placehold.it/700x400" alt="">
+								</a>
+								<div class="card-body">
+									<td>작성자 : ${ board.userId }</td>
+									<br>
+									<td>가격 : ${ board.price }원</td>
+									<br>
+									<td>판매시작일 : ${ board.rdate }</td>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+				</div>
+				<!-- /.row -->
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+			</div>
+			<!-- /.col-lg-9 -->
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+		</div>
+		<!-- /.row -->
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Four</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+	</div>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Five</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+	<form id="product-detail-form" action="detail.action" method="get">
+		<input type="hidden" id="no" name="no" />
+	</form>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Six</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
-        </div>
-        <!-- /.row -->
-
-      </div>
-      <!-- /.col-lg-9 -->
-
-    </div>
-    <!-- /.row -->
-
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer -->
-  <jsp:include page="/WEB-INF/views/modules/footer.jsp" />
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<!-- Bootstrap core JavaScript -->
+	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('.product-detail').on('click', function(event){
+			var no = $(this).attr('data-no');
+			$('#product-detail-form #no').val(no);
+		
+			$('#product-detail-form').submit();
+		});
+	});
+	</script>
 </body>
 
 </html>

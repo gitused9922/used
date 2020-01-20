@@ -15,8 +15,7 @@
 <title>상품게시판</title>
 
 <!-- Bootstrap core CSS -->
-<link
-	href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
+<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="/used-product/resources/css/shop-homepage.css"	rel="stylesheet">
@@ -87,7 +86,7 @@
 							<div class="card h-100">
 								<td>상품: ${ board.name }</td> 
 								<a class="product-detail" href="javascript:" data-no="${board.no}">
-									<img class="card-img-top" src="http://placehold.it/700x400" alt="">
+									<img class="card-img-top m-img1" src="http://placehold.it/700x400" alt="">
 								</a>
 								<div class="card-body">
 									<td>작성자 : ${ board.userId }</td>
@@ -95,6 +94,7 @@
 									<td>가격 : ${ board.price }원</td>
 									<br>
 									<td>판매시작일 : ${ board.rdate }</td>
+									<br>
 								</div>
 							</div>
 						</div>
@@ -125,6 +125,19 @@
 	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">
 	$(function(){
+		
+/* 		$('.m-img1').css({'width' : '358px', 'height': '204px'})
+		var content = $('.content2').find('img:first').attr('src'); 
+		alert(content);
+		var firstimg = content2.find('img:first').attr('src');
+		alert(firstimg);
+		$('.m-img1').css({'width' : '500px'}) */
+		//$('#display-none-content').css({'display': 'none'})
+		//var firstimg = $('#content').find('img:first').attr('src');
+		//alert(firstimg);
+		$('.m-img1').attr({'src' : firstimg});
+
+		
 		$('.product-detail').on('click', function(event){
 			var no = $(this).attr('data-no');
 			$('#product-detail-form #no').val(no);
