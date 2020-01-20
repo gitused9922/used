@@ -1,7 +1,5 @@
 package com.usedproduct.vo;
 
-
-
 import java.sql.Date;
 
 import lombok.Data;
@@ -19,7 +17,6 @@ public class BoardVO {
 	private String userId;
 	private String cgName;
 	private String content;
-	
 	
 	/*
 	 *  T_NO	NUMBER

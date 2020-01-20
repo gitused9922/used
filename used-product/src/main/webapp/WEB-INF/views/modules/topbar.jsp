@@ -2,11 +2,48 @@
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+<!--
+.bg-dark {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #343a40;
+}
 
+.navbar-dark .navbar-brand {
+    color: #007bff;
+}
+
+.navbar-dark .navbar-brand:focus, 
+.navbar-dark .navbar-brand:hover {
+    color: #006494;
+    font-weight: 500;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #007bff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #007bff;
+}
+
+
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: #002a56;
+    font-weight: 500;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #007bff;
+    font-weight: 500;
+}
+-->
+</style>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#" style="width: 25%;">Start Bootstrap</a>
+      <a class="navbar-brand" href="/used-product" style="width: 25%;">Start Bootstrap</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,12 +54,12 @@
 	      <button class="my-2 my-sm-0" type="submit" style="display: none;">검색</button>
 	    </form>
         <ul class="navbar-nav ml-auto" style="width: 40%;">
-          <li class="nav-item active">
+<!--           <li class="nav-item active">
             <a class="nav-link" href="#">Home</a>
-          </li>
+          </li> -->
           
           <li class="nav-item">
-            <a class="nav-link" href="/used-product/board/list.action">About</a>
+            <a class="nav-link" href="/used-product/board/list.action">중고상품보기</a>
           </li>
           <c:choose>
           <c:when test="${ empty loginuser }">
