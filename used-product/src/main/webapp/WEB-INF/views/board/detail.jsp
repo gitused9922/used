@@ -82,6 +82,56 @@
 	</div>
 	<!-- /.container -->
   </div></div></div>
+  
+  <!-- reply -->
+  <div class='rowx'>
+
+			<div class="col-lg-12">
+
+				<div class="panel panel-default">
+
+					<div class="panel-heading">
+						<i class="fa fa-comments fa-fw"></i>
+						<h2 class="d-inline">댓글</h2>
+						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
+					</div>
+					</div>	
+					</div>	
+					</div>
+					
+	 <!-- Modal -->				
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <h4 class="modal-title">상품문의하기</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="reply-form">
+					<div class="form-group">
+						<label>Reply</label>
+						<input class="form-control" name='reply' id='modal-reply' value=''>
+					</div>
+					<div class="form-group">
+						<label>Replyer</label>
+						<input class="form-control" name='replyer' id='modal-replyer' value=''>
+					</div>
+					<input type="hidden" name='bno' value='${ board.no }'>
+					<input type="hidden" name='rno'>
+					<input type="hidden" name='action'><!-- 댓글 or 댓글의 댓글 -->
+				</form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
