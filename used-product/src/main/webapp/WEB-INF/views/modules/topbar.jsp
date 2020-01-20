@@ -59,7 +59,7 @@
           </li> -->
           
           <li class="nav-item">
-            <a class="nav-link" href="/used-product/board/list.action">중고상품보기</a>
+            <a class="nav-link" href="/used-product/board/list.action">상품보기</a>
           </li>
           <c:choose>
           <c:when test="${ empty loginuser }">
@@ -70,7 +70,11 @@
 	            <a class="nav-link" href="/used-product/resources/register.html">회원가입</a>
 	          </li>
           </c:when>
-          <c:otherwise>
+          <c:otherwise>          
+	          <li class="nav-item">
+	            <a class="nav-link" href="/used-product/chatting/chattingRoom.jsp">채팅</a>
+	            <!-- <a class="nav-link" href="/used-product/message/chattingRoom">채팅</a> -->
+	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" href="#">마이페이지</a>
 	          </li>

@@ -31,81 +31,38 @@ public class MessageController {
 	@Qualifier("messageService")
 	private MessageService messageService;
 	
-	@GetMapping(path = {"/listMember"})
-	public String selectListMember(MessageVO message, Model model, HttpServletRequest request) {
+	@GetMapping(path = {"/chattingRoom"})
+	public String chattingRoom() {
+		return "message/chattingRoom";
+	}
+	
+	@GetMapping(path = {"/sendMessagePage"})
+	public String sendMessagePage(MessageVO message, HttpServletRequest request, Model model) {
+		log.warn("상품번호 : "+ message.getTNo());
+		log.warn("상품명 : "+ message.getMsContent());
+		log.warn("보낸 사람 : "+ message.getMSender());
+		log.warn("받는 사람 : "+ message.getMReceiver());
+
 		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");		
-		String receiver = loginUser.getMemberId();
-		message.setMReceiver(receiver);
-		
-		//VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver })
-		System.out.println("상품번호 : "+ message.getTNo());
-		System.out.println("상품명 : "+ message.getMsContent());
-		System.out.println("보낸 사람 : "+ message.getMSender());
-		
-		System.out.println("받는 사람 : "+ message.getMReceiver()); //세션
-		
-		int tNo = -1;
-		tNo = message.getTNo();
-		if(tNo != -1) {
-			messageService.insertMessage(message);
-		}
-		
-		List<MessageVO> memberList = messageService.selectListMember(receiver);
-
-		for (MessageVO messageVO : memberList) {
-			messageVO.setUnConfirmCnt(messageService.selectUnConfirmCnt(messageVO.getMSender(), receiver));
-		}
-
-		model.addAttribute("memberList", memberList);
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");
 		model.addAttribute("message", message);
-		//model.addAttribute("mSender", receiver);
 		
-		return "message/list"; 
+		List<MessageVO> listProduct = messageService.selectListProduct(loginUser.getMemberId());
+		model.addAttribute("listProduct", listProduct);
+		
+		return "message/sendMessagePage";
 	}
 	
-	@GetMapping(path = {"/listMessage"})
+	@PostMapping(path = {"/sendMessage"})
 	@ResponseBody
-	public List<MessageVO> selectListMessage(String sender, HttpServletRequest request) {
+	public String sendMessage(MessageVO message, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");		
-		String receiver = loginUser.getMemberId();
+		message.setMSender(loginUser.getMemberId());
+		message.setMsContent(message.getMsContent().replace("\r\n","<br>"));
 		
-		System.out.println("sender" + sender);
-		System.out.println("receiver" + receiver);
-		List<MessageVO> messageList = messageService.selectListMessage(sender, receiver);
-		
-		return messageList;
-	}
-	
-	@PutMapping(path = {"/updateUnConfirmCnt"}, consumes = "application/json")
-	@ResponseBody
-	public String updateUnConfirmCnt(@RequestBody String sender, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");		
-		String receiver = loginUser.getMemberId();
-		
-		messageService.updateUnConfirmCnt(sender, receiver);
-
+		messageService.insertMessage(message);
 		return "success";
 	}
 	
-	@PostMapping(path = {"/insertMessage"})
-	@ResponseBody
-	public MessageVO insertMessage(MessageVO message, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");		
-		String receiver = loginUser.getMemberId();
-		
-		message.setMSender(receiver);
-//		System.out.println("content : " + message.getMsContent());
-//		System.out.println("receiver : " +message.getMReceiver());
-//		System.out.println("tNo : " + message.getTNo());
-		
-		messageService.insertMessage(message);
-		
-		Integer no = message.getMsNo();
-		return messageService.selectMessage(no);
-	}
-
 }
