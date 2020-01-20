@@ -1,5 +1,6 @@
 package com.usedproduct.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,5 +15,7 @@ public interface BoardMapper {
 	List<CategoryVO> selectCategory();
 	List<BoardVO> selectBoard();
 	BoardVO selectBoardNo(int no);
+	List<BoardVO> selectBoardWithPaging(HashMap<String, Object> params);
+	int selectBoardCount(HashMap<String, Object> params);
 	
 }

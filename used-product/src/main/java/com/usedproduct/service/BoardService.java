@@ -1,5 +1,6 @@
 package com.usedproduct.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.usedproduct.vo.BoardVO;
@@ -11,5 +12,8 @@ public interface BoardService {
 	List<CategoryVO> findAllCategory();
 	List<BoardVO> findBoard();
 	BoardVO findBoardNo(int no);
+	List<BoardVO> findBoardWithpaging(HashMap<String, Object> params);
+	int fidnBoardcount(HashMap<String, Object> params);
+
 
 }
