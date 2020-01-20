@@ -135,7 +135,7 @@
 		//$('#display-none-content').css({'display': 'none'})
 		//var firstimg = $('#content').find('img:first').attr('src');
 		//alert(firstimg);
-		$('.m-img1').attr({'src' : firstimg});
+		//$('.m-img1').attr({'src' : firstimg});
 
 		
 		$('.product-detail').on('click', function(event){

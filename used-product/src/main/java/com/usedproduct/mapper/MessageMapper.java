@@ -3,6 +3,7 @@ package com.usedproduct.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.usedproduct.vo.MessageVO;
 
@@ -12,7 +13,7 @@ public interface MessageMapper {
 
 	List<MessageVO> selectListMember(String receiver);
 
-	List<MessageVO> selectListMessage(String sender, String receiver);
+	List<MessageVO> selectListMessage(@Param("sender") String sender, @Param("receiver") String receiver);
 	
 	MessageVO selectMessage(Integer no);
 	

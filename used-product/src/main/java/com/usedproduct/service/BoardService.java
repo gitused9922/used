@@ -8,14 +8,8 @@ import com.usedproduct.vo.CategoryVO;
 public interface BoardService {
 
 	int writeBoard(BoardVO board);
-
-
 	List<CategoryVO> findAllCategory();
 	List<BoardVO> findBoard();
-
-
 	BoardVO findBoardNo(int no);
-
-
 
 }

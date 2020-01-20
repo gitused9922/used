@@ -9,7 +9,7 @@ import com.usedproduct.vo.CategoryVO;
 import lombok.Setter;
 
 public class BoardServiceImpl implements BoardService {
-
+	
 	@Setter
 	private BoardMapper boardMapper;
 
@@ -38,5 +38,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.selectBoardNo(no);
 	}
 
-
+	
+	
 }

@@ -14,8 +14,5 @@ public interface BoardMapper {
 	List<CategoryVO> selectCategory();
 	List<BoardVO> selectBoard();
 	BoardVO selectBoardNo(int no);
-
-
-
 	
 }
