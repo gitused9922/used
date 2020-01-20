@@ -99,7 +99,7 @@
 							,'width' : '1140px'
 							,'height' : '100%'})	
 		$('#content img').css({'width': '500px'});
-		$('#m-img1').css({'width' : '500px'})
+		$('#m-img1').css({'width' : '100%'})
 		var firstimg = $('#content').find('img:first').attr('src');
 		//alert(firstimg);
 		$('#m-img1').attr({'src' : firstimg});
