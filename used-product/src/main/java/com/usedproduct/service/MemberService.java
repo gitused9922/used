@@ -6,5 +6,6 @@ public interface MemberService {
 	
 	void registerMember(MemberVO member);
 	MemberVO findMemberByIdAndPasswd(MemberVO member);
+	int idCheck(String memberId);
 
 }
