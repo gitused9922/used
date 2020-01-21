@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 
@@ -67,7 +67,7 @@
 	            </div>
 	            </div>
 		<br>
-		<div class="col-sm-12 col-md-6">
+		<div class="text-right">
 						<div class="dataTables_length" id="dataTable_length" style="margin-bottom: 15px">
 						<form action="list.action" method="get">
 							<select name="searchType" aria-controls="dataTable" class=" form-control-sm">
@@ -86,7 +86,6 @@
 		
 		<div class="row">
 
-			
 			<div class="">
 				<div class="card-header py-3" style="width: 1110px;">
 					<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
@@ -98,17 +97,17 @@
 					<c:forEach items="${ boards }" var="board">
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
-								<td>상품: ${ board.name }</td> 
+								<div>상품: ${ board.name }</div> 
 								<a class="product-detail" href="javascript:" data-no="${board.no}">
 									<img class="card-img-top m-img1" src="http://placehold.it/700x400" alt="">
 								</a>
 								<div class="card-body">
-									<td>작성자 : ${ board.userId }</td>
-									<br>
-									<td>가격 : ${ board.price }원</td>
-									<br>
-									<td>판매시작일 : ${ board.rdate }</td>
-									<br>
+									<div>작성자 : ${ board.userId }</div>
+									<div>가격 : ${ board.price }원</div>
+									<div>판매시작일 : ${ board.rdate }</div>
+									<c:if test="${not empty loginuser && board.userId != loginuser.memberId }">
+										<td><a href="javascript:void(0)" data-tNo="${board.no }" data-receiver="${ board.userId }" class="btn btn-success btn-sm message-button" style="float: right">쪽지</a></td>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -123,11 +122,7 @@
 		</div>
 		<!-- /.row -->
 		
-		        <tfoot>
-                  <tr>
-                    <td colspan="6" style="text-align: center;">${ pager }</td>
-                  </tr>
-                  </tfoot>
+		<div class="text-center">${ pager }</div>
 	</div>
 	</div>
 
@@ -135,14 +130,49 @@
 		<input type="hidden" id="no" name="no" />
 	</form>
 	<br><br>
+	
+	<div class="modal fade" id="sendModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">쪽지 보내기</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				
+				<div class="modal-body">
+					<form id="send-form" method="post" action="">
+						<div class="form-group">
+							<label for="mReceiver">받는 ID</label>
+							<input type="text" class="form-control" id="mReceiver" name="mReceiver" readonly="readonly">
+							<input type="hidden" id="tNo" name="tNo">
+						</div>
+						
+						<div class="form-group">
+							<label for="mReceiver">제목</label>
+							<input type="text" class="form-control" id="msTitle" name="msTitle" placeholder="제목을 입력하세요">
+						</div>
+						
+						<div class="form-group">
+							<label for="msContent">내용</label>
+							<textarea class="form-control" rows="3" id="msContent" name="msContent" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
+						</div>
+					</form>
+				</div>
+			
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="send">보내기</button>
+					<button type="button" class="btn btn-default" id="send-cancel" data-dismiss="modal">취소</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">
 	$(function(){
@@ -166,7 +196,60 @@
 			$('#product-detail-form').submit();
 		});
 
-		  $('.carousel slide').carousel({ interval}); 
+		$('.carousel slide').carousel({ interval});
+
+/* 		$('.message-button').on('click', function() {
+			console.log(1);
+			var index = $(this).attr('data-index');
+			var values = $('#message-form-'+index).serialize();
+		
+			$('#message-form-'+index).submit();
+		});  */
+
+		//쪽지
+		$('.message-button').on('click', function() {
+			var tNo = $(this).attr('data-tNo');
+			var mReceiver = $(this).attr('data-receiver');
+			$('#sendModal input[name=tNo]').val(tNo);
+			$('#sendModal input[name=mReceiver]').val(mReceiver);
+			
+			$('#sendModal').modal('show');
+		});
+
+		$('#send').on('click', function() {
+			if($('#msTitle').val() == "") {
+				alert('제목을 입력하세요.');
+				$(this).focus();
+				return;
+			}
+		
+			if($('#msContent').val() == "") {
+				alert('내용을 입력하세요.');
+				$(this).focus();
+				return;
+			}
+
+			$.ajax({
+				"url": "../message/sendMessage",
+				"method": "post",
+				"data": $('#send-form').serialize(),
+				"success": function(resp, status, xhr) {
+				},
+				"error": function(xhr, status, err) {
+					alert("오류 발생 : " + err);
+				},
+	            "complete" : function(){
+	            	$('#msTitle').val('');
+	                $('#msContent').val('');
+	            	$('#sendModal').modal('hide');
+		        }
+			});
+		});
+
+		$('.close, #send-cancel').on('click', function() {
+			$('#msTitle').val('');
+            $('#msContent').val('');
+		});
 	});
 	</script>
 </body>

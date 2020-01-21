@@ -28,8 +28,18 @@
 			<div class="col-lg-9">
 				<h2>쪽지 보내기</h2>
 				
-				<!-- 메세지( 거래 중1 목록/판매 중 m_id 구분, 아이디/상품명 검색 추가 ) -->	
-				<table class="table table-hover">
+				<div class="text-right" style="margin:10px; 0px; 10px; 0px;">
+					<form action="sendMessagePage" method="get">
+						<select name="searchType" class=" form-control-sm">
+							<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>아이디</option>
+							<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>상품명</option>
+						</select>
+						<input type="search" name="searchKey" class=" form-control-sm" value="${ param.searchKey }">
+						<input type="submit" class="btn btn-success btn-sm" value="검색" >
+					</form>
+				</div>
+	
+				<table class="table table-hover text-center">
 					<thead>
 						<tr>
 							<th>아이디</th>
@@ -37,19 +47,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${listProduct }" var="product">
+						<c:forEach items="${Senders }" var="sender">
 						<tr>
-							<td>${product.MSender }</td>
-							<td class="pname-list" data-tNo="${product.TNo }" data-receiver="${product.MSender }">
-								${product.PName }
+							<td>${sender.MSender }</td>
+							<td class="pname-list" data-tNo="${sender.TNo }" data-receiver="${sender.MSender }">
+								${sender.PName }
 							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
+					<tfoot>
+						<tr>
+	                    	<td colspan="6" style="text-align: center;">${ pager }</td>
+	                  	</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
-		
 
 		<div class="modal fade" id="sendModal">
 			<div class="modal-dialog">
@@ -96,13 +110,6 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			if('${message.TNo }') {
-				$('#mReceiver').val('${message.MReceiver }');
-				$('#tNo').val(${message.TNo });
-
-				$('#sendModal').modal('show');
-			}
-
 			$('.pname-list').on('click', function() {
 				$('#mReceiver').val($(this).attr('data-receiver'));
 				$('#tNo').val($(this).attr('data-tNo'));
@@ -118,7 +125,7 @@
 					"success": function(resp, status, xhr) {
 					},
 					"error": function(xhr, status, err) {
-						alert("메시지 전송 실패 : " + err);
+						alert("오류 발생 : " + err);
 					},
 		            "complete" : function(){
 		            	$('#msTitle').val('');

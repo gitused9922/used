@@ -86,7 +86,7 @@
 	            <!-- <a class="nav-link" href="/used-product/message/chattingRoom">채팅</a> -->
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="#">마이페이지</a>
+	            <a class="nav-link" href="/used-product/message/sendMessagePage">마이페이지</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" href="/used-product/account/logout.action">로그아웃</a>
