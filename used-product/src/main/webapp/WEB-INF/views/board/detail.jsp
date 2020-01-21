@@ -118,6 +118,12 @@
 					
 						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
 					</div>
+					<br>
+					<div id="reply-list-container" class="panel-body">
+						<jsp:include page="reply-list.jsp"/>
+					
+					</div>
+					<div class="panel-footer"></div>
 					</div>	
 					</div>	
 					</div>
@@ -145,7 +151,7 @@
 						<label>Reply</label>
 						<input class="form-control" name='reply' id='modal-reply' value=''>
 					</div>
-					<input type="hidden" name='bno' value='${ board.no }'>
+					<input type="hidden" name='no' value='${ board.no }'>
 					<input type="hidden" name='rno'>
 					<input type="hidden" name='action'><!-- 댓글 or 댓글의 댓글 -->
 		</form>
@@ -190,7 +196,7 @@
 		//alert(firstimg);
 		$('#m-img1').attr({'src' : firstimg});
 		
-		
+	// 댓글관련구현	
 	});
 	
 	$(function(){
@@ -203,7 +209,30 @@
 			$('#reply-form input[name=action]').val('reply');
 			});
 
-	});
+		$(modalRegisterBtn).on('click', function(event){
+
+			var values = $('#reply-form').serializeArray();
+
+			$.ajax({
+				"url": "/used-product/reply/write",
+				"method": "post",
+				"data"	: values,
+				"success" : function(data, status, xhr) {
+					
+					$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
+					},
+				"error" : function(xhr, status, err) {
+						alert('댓글실패');
+					}	
+					
+
+				});
+				
+
+			});
+
+		
+	});	
 		
 		
 		

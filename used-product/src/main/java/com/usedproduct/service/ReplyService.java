@@ -1,5 +1,7 @@
 package com.usedproduct.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.usedproduct.vo.ReplyVO;
@@ -9,6 +11,7 @@ public interface ReplyService {
 
 	void writeReply(ReplyVO reply);
 
-	void writeReReplay(ReplyVO reply);
+	List<ReplyVO> getReplyListByNo(int no);
+
 
 }
