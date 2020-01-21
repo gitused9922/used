@@ -16,27 +16,63 @@
 		<result column="ms_title" property="msTitle" />
 		<result column="p_name" property="pName" />
 	</resultMap>
-
-	<select id="selectListProduct" parameterType="String" resultMap="messageMap">
+	
+	<sql id="searchCondition">
+		<trim prefix="AND">
+	    	<choose>
+	    		<when test="searchType == 'T'.toString()">
+	    			m_id LIKE '%'||#{searchKey}||'%'
+	    		</when>
+	    		<when test="searchType == 'C'.toString()">
+	    			p_name LIKE '%'||#{searchKey}||'%'
+	    		</when>
+	    	</choose>
+		</trim>
+	</sql>
+	
+	<select id="selectListMessageSender" parameterType="hashmap" resultMap="messageMap">
 		SELECT t_no
-		     , m_id m_sender
+		     , m_sender
 		     , p_name
-		  FROM t_product 
-		 WHERE t_no IN (
-				SELECT distinct t_no
-  		  		  FROM t_ms
- 		 		 WHERE m_receiver = #{receiver }
-               )
-           AND d_state = '1'
-         ORDER BY p_udate desc
+		  FROM (
+				SELECT rownum idx
+				     , p.t_no t_no
+				     , m.m_sender m_sender
+				     , p.p_name p_name
+				  FROM (SELECT t_no, m_sender
+				          FROM t_ms
+				         WHERE m_receiver = #{receiver }
+				         GROUP BY t_no, m_sender) m
+				     , t_product p
+				 WHERE m.t_no = p.t_no
+		           AND p.d_state = '1'
+				   AND p.p_delete = '1'
+		           <include refid="searchCondition" />
+		           AND <![CDATA[ rownum < #{ end } ]]>
+		         ORDER BY p_udate DESC
+          )
+         WHERE idx >= #{ beginning }
+	</select>
+
+	<select id="selectMessageCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) cnt
+		  FROM (SELECT t_no, m_sender
+		          FROM t_ms
+		         WHERE m_receiver = #{receiver }
+		         GROUP BY t_no, m_sender) m
+		     , t_product p
+		 WHERE m.t_no = p.t_no
+           AND p.d_state = '1'
+		   AND p.p_delete = '1'
+           <include refid="searchCondition" />
 	</select>
 	
 	<insert id="insertMessage" parameterType="MessageVO">
 		<selectKey keyProperty="msNo" resultType="int" order="AFTER">
 			SELECT seq_t_ms_sequence.currval FROM DUAL
 		</selectKey>
+
 		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver, ms_title)
 		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver }, #{msTitle })
 	</insert>
-
 </mapper>
