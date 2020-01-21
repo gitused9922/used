@@ -49,7 +49,7 @@ public class BoardController {
 	public String showWriteForm(Model model) { // 글쓰기 화면 보기
 		List<CategoryVO> category = boardService.findAllCategory();
 		model.addAttribute("category", category);
-		System.out.println(category);
+		//System.out.println(category);
 		return "board/write";
 	}
 
@@ -82,7 +82,7 @@ public class BoardController {
 			            HttpServletRequest req, Model model) {
 		int pageSize = 6;
 		int pagerSize = 3;
-		System.out.println("pageNo" + pageNo);
+		//System.out.println("pageNo" + pageNo);
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo -1) * pageSize +1;
 		params.put("beginning", beginning);
