@@ -67,22 +67,7 @@
 	            </div>
 	            </div>
 		<br>
-		<div class="col-sm-12 col-md-6">
-						<div class="dataTables_length" id="dataTable_length" style="margin-bottom: 15px">
-						<form action="list.action" method="get">
-							<select name="searchType" aria-controls="dataTable" class=" form-control-sm">
-								<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
-								<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>가격</option>
-								<option value="TC" ${ param.searchType == 'TC' ? 'selected' : '' }>상품+가격</option>
-								<option value="W" ${ param.searchType == 'W' ? 'selected' : '' }>작성자</option>
-							</select>
-							<input type="search" name="searchKey" class=" form-control-sm" placeholder="" aria-controls="dataTable"
-							       value="${ param.searchKey }">
-							 <input type="submit" class="btn btn-success btn-sm" value="검색" >
-                             
-                         </form>
-						</div>
-					</div>
+		
 		
 		<div class="row">
 
@@ -108,6 +93,8 @@
 									<td>가격 : ${ board.price }원</td>
 									<br>
 									<td>판매시작일 : ${ board.rdate }</td>
+									<br>
+									<td>거래지역 : ${ board.siteName }</td>
 									<br>
 								</div>
 							</div>

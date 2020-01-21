@@ -38,6 +38,13 @@
     color: #007bff;
     font-weight: 500;
 }
+#id{
+	display: inline-block;
+	width: 450px; height: 40px;
+	border: 3px solid black;
+	background: white;
+
+}
 -->
 </style>
   <!-- Navigation -->
@@ -49,10 +56,18 @@
       </button>
       
       <div class="collapse navbar-collapse" id="navbarResponsive" style="width: 75%;">
-	    <form class="form-inline my-2 my-lg-0" style="width: 60%;">
-	      <input class="form-control mr-sm-2" type="search" placeholder="지역, 상품명을 검색하세요" aria-label="Search" style="  width: 100%;">
-	      <button class="my-2 my-sm-0" type="submit" style="display: none;">검색</button>
-	    </form>
+	   <form action="/used-product/board/list.action" method="get">
+							<select style="display:none" name="searchType" aria-controls="dataTable" class=" form-control-sm" id="formid">
+								<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
+								
+							</select>
+							<span class='retrieval'>
+							<input id="id" type="search" name="searchKey" class=" form-control-sm" placeholder="" aria-controls="dataTable"
+							       value="${ param.searchKey }">
+							     </span>  
+							 <input type="hidden" class="btn btn-success btn-sm" value="검색" >
+                             
+                         </form>
         <ul class="navbar-nav ml-auto" style="width: 40%;">
 <!--           <li class="nav-item active">
             <a class="nav-link" href="#">Home</a>
