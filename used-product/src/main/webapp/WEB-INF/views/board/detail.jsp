@@ -92,7 +92,7 @@
 
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
-						<h2 class="d-inline">댓글</h2>
+					
 						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
 					</div>
 					</div>	
@@ -111,22 +111,26 @@
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         <div class="modal-body">
-          <form id="reply-form">
+          <form id="reply-form" >
+					
+					<div class="form-group">
+						<label>Replyer</label>
+						<input type="text" class="form-control"  name='replyer' id='modal-replyer' value='${ loginuser.memberId }'>
+					</div>
+					
 					<div class="form-group">
 						<label>Reply</label>
 						<input class="form-control" name='reply' id='modal-reply' value=''>
 					</div>
-					<div class="form-group">
-						<label>Replyer</label>
-						<input class="form-control" name='replyer' id='modal-replyer' value=''>
-					</div>
 					<input type="hidden" name='bno' value='${ board.no }'>
 					<input type="hidden" name='rno'>
 					<input type="hidden" name='action'><!-- 댓글 or 댓글의 댓글 -->
-				</form>
+		</form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button id="modalRegisterBtn" type="button" class="btn btn-success" data-dismiss="modal">Register</button>
+        	<button id="modalModBtn" type="button" class="btn btn-success" data-dismiss="modal">Modify</button>
+          	<button id="modalRemoveBtn" type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
       </div>
       
@@ -155,7 +159,22 @@
 		$('#m-img1').attr({'src' : firstimg});
 		
 		
-	})
+	});
+	
+	$(function(){
+		$('#addReplyBtn').on('click',function(event){
+			$('#reply-form input[name!=no]').attr({"readonly" : false});
+			$('#modal-replyer').attr({"readonly" : "readonly"});
+			$('#modalRegisterBtn').css({"display" : "inline" });
+
+			$('#reply-form input[name=rno]').val('0');
+			$('#reply-form input[name=action]').val('reply');
+			});
+
+	});
+		
+		
+		
 	
 	
 	</script>
