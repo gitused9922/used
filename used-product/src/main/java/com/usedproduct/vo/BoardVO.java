@@ -18,6 +18,13 @@ public class BoardVO {
 	private String cgName;
 	private String content;
 	
+	private int siteNo;
+	private String memerId;
+	
+	private int sNo;
+	private String siteName;
+	
+	
 	/*
 	 *  T_NO	NUMBER
 		D_STATE	CHAR(1 BYTE)

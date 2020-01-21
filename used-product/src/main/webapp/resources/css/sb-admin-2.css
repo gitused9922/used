@@ -552,6 +552,7 @@ pre code {
 }
 
 .container {
+  margin-top: 20px;
   width: 100%;
   padding-right: 0.75rem;
   padding-left: 0.75rem;
@@ -3958,7 +3959,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding : 1.0rem 2rem;
 }
 
 .navbar > .container,
@@ -6274,7 +6275,8 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #5a5c69 !important;
+    background-color: #ffffff !important;
+    border-bottom: 2px solid #c1c1c152;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,

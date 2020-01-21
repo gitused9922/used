@@ -3,15 +3,23 @@
     	 pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
 <style>
+.container {
+	margin-top: 20px;
+}
 .bg-dark {
     background-color: #ffffff !important;
-    border-bottom: 1px solid #343a40;
+    border-bottom: 2px solid #c1c1c152;
 }
 
+.navbar {
+padding : 1.0rem 2rem
+}
 .navbar-dark .navbar-brand {
     color: #007bff;
 }
@@ -41,6 +49,16 @@
     color: #007bff;
     font-weight: 500;
 }
+
+#id{
+	display: inline-block;
+	width: 450px; height: 40px;
+	border: 3px solid black;
+	background: white;
+
+}
+-->
+
 .navbar-dark .navbar-toggler {
     color: #03A9F4;
     border-color: rgba(255, 255, 255, 0.1);
@@ -48,21 +66,31 @@
 .material-icons {
 	font-size : 35px;
 }
+
 </style>
+ 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="/used-product" style="width: 25%;">Start Bootstrap</a>
+      <a class="navbar-brand" href="/used-product" style="width: 25%;">중 고 서 울</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 		<span><i class="material-icons">list</i></span>
         <!-- <span class="navbar-toggler-icon"></span> -->
       </button>
       
       <div class="collapse navbar-collapse" id="navbarResponsive" style="width: 75%;">
-	    <form class="form-inline my-2 my-lg-0" style="width: 60%;">
-	      <input class="form-control mr-sm-2" type="search" placeholder="지역, 상품명을 검색하세요" aria-label="Search" style="  width: 100%;">
-	      <button class="my-2 my-sm-0" type="submit" style="display: none;">검색</button>
-	    </form>
+	   <form action="/used-product/board/list.action" method="get">
+							<select style="display:none" name="searchType" aria-controls="dataTable" class=" form-control-sm" id="formid">
+								<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
+								
+							</select>
+							<span class='retrieval'>
+							<input id="id" type="search" name="searchKey" class=" form-control-sm" placeholder="" aria-controls="dataTable"
+							       value="${ param.searchKey }">
+							     </span>  
+							 <input type="hidden" class="btn btn-success btn-sm" value="검색" >
+                             
+                         </form>
         <ul class="navbar-nav ml-auto" style="width: 40%;">
 <!--           <li class="nav-item active">
             <a class="nav-link" href="#">Home</a>
