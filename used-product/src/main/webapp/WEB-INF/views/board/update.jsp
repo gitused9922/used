@@ -77,7 +77,7 @@
 					<div class="form-group">
 
 					</td>
-						<label>작성자</label> <input class="form-control"  id='userId' name='userId' value="${loginuser.memberId } " readonly >
+						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="test1">
 						<!-- ${board.userId } -->
 					</div>
 

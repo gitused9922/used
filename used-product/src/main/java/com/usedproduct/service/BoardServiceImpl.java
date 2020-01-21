@@ -49,6 +49,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.selectBoardCount(params);
 	}
 
+	@Override
+	public void deleteBoard(int no) {
+		
+		boardMapper.deleteBoard(no);
+	}
+
+	@Override
+	public void updateBoard(BoardVO board) {
+		
+		boardMapper.updateBoard(board);
+	}
+
 	
 	
 }

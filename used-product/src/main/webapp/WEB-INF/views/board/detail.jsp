@@ -36,7 +36,7 @@
 	<!-- Page Content -->
 	<div class="container">
 <style>
-/* #article-images {
+ #article-images {
     position: relative;
     width: 729px;
     margin: 0 auto;
@@ -59,7 +59,7 @@
     transform: translate(-50%, -50%);
     color: transparent;
 }
- */
+
 
 </style>
 		<!-- write -->
@@ -67,12 +67,9 @@
 			<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
 		</div> --%>
 	   <div class="form-row">
-				   <!-- <section id="article-images">
+				   <section id="article-images">
 				       <img id="m-img1" alt="대표이미지" src="">
-				   </section> -->
-				   <div class="form-group col-md-6">
-				   		<img id="m-img1" alt="대표이미지" src="" style="width: 500px;">
-				   </div>
+				   </section>
 				   <div class="form-group col-md-6">
 				      <label>번호</label>
 				      <input class="form-control" id='no' name='no' value='${ board.no }'>
@@ -89,10 +86,6 @@
 						<label for="exampleFormControlTextarea1" ></label>
 						<div id="content" class="form-control" style="width:1140px; height:100%;">${board.content }</div>
 					</div>
-
-					<div class="form-group">
-
-					</div>
 				<div style="width: 100%;height: 100px;">
 		          <%-- <c:if test="${ asd.userId == board.userId }"> --%>
 		          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-top: 30px;">수정</button>
@@ -102,26 +95,29 @@
 		        </div>
 				</form>
 			</div>
-
-	<!-- /.container -->
-  </div></div></div>
+			<!-- /.container -->
+		  </div></div></div>
   
-  <!-- reply -->
-  <div class='rowx'>
-
+		  <!-- reply -->
+		<div class='rowx'>
 			<div class="col-lg-12">
-
 				<div class="panel panel-default">
-
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
 					
 						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
 					</div>
-					</div>	
-					</div>	
-					</div>
+					<br>
+					<div id="reply-list-container" class="panel-body">
+						<jsp:include page="reply-list.jsp"/>
 					
+					</div>
+						<div class="panel-footer"></div>
+					</div>	
+				</div>	
+			</div>
+
+
 	 <!-- Modal -->				
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -145,7 +141,7 @@
 						<label>Reply</label>
 						<input class="form-control" name='reply' id='modal-reply' value=''>
 					</div>
-					<input type="hidden" name='bno' value='${ board.no }'>
+					<input type="hidden" name='no' value='${ board.no }'>
 					<input type="hidden" name='rno'>
 					<input type="hidden" name='action'><!-- 댓글 or 댓글의 댓글 -->
 		</form>
@@ -159,6 +155,7 @@
       
     </div>
   </div>
+
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
@@ -170,27 +167,29 @@
 	<script type="text/javascript">
 	$(function(){
 
-		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
-
-		$('#tolist-button').on('click', function(){
-			location.href = "list.action?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }"
-		});
-
-		$('#edit-button').on('click', function(){
-			location.href = "edit.action"
-		})
-		
 
 		$('#content').css({'text-align' : 'center'
 							,'width' : '1140px'
 							,'height' : '100%'})	
 		$('#content img').css({'width': '500px'});
-		$('#m-img1').css({'width' : '100%'})
+		//$('#m-img1').css({'width' : '100%'})
 		var firstimg = $('#content').find('img:first').attr('src');
 		//alert(firstimg);
 		$('#m-img1').attr({'src' : firstimg});
 		
-		
+
+		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
+
+		$('#tolist-button').on('click', function(event){
+			location.href = "list.action?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
+		});
+
+		$('#edit-button').on('click', function(event){
+			var form = makeForm('update.action', ${ board.no }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
+			form.submit();
+		})
+
+	// 댓글관련구현	
 	});
 	
 	$(function(){
@@ -203,10 +202,80 @@
 			$('#reply-form input[name=action]').val('reply');
 			});
 
+		$(modalRegisterBtn).on('click', function(event){
+
+			var values = $('#reply-form').serializeArray();
+
+			$.ajax({
+				"url": "/used-product/reply/write",
+				"method": "post",
+				"data"	: values,
+				"success" : function(data, status, xhr) {
+					
+					$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
+					},
+				"error" : function(xhr, status, err) {
+						alert('댓글실패');
+					}	
+					
+
+				});
+				
+
+			});
+
+
+		
+
+		$('#delete-button').on('click', function(event){
+			var yes = confirm("${ board.name } 상품을 삭제할까요?");
+			if (!yes) {
+				return;
+			}
+			//location.href = 'delete.action?no=${ board.no }&pageNo=${ param.pageNo }';
+			var form = makeForm('delete.action', ${ board.no }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
+			form.submit();
+		});
+		
+		function makeForm(action, no, pageNo, searchType, searchKey, method="get") {
+			var form = $('<form></form>');
+			form.attr({
+				'action': action,
+				'method': method
+			});
+			form.append($('<input>').attr({
+				"type": "hidden",
+				"name": "no",
+				"value" : no })
+			);
+			form.append($('<input>').attr({
+				"type": "hidden",
+				"name": "pageNo",
+				"value" : pageNo })
+			);
+			form.append($('<input>').attr({
+				"type": "hidden",
+				"name": "searchType",
+				"value" : searchType })
+			);
+			form.append($('<input>').attr({
+				"type": "hidden",
+				"name": "searchKey",
+				"value" : searchKey })
+			);
+			
+			form.appendTo("body");
+			
+			return form;
+		};
+
 	});
+
 		
 		
 		
+		
+
 	
 	
 	</script>
