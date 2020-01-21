@@ -105,6 +105,7 @@
 		, udate 
 		, "delete" 
 		, userId 
+		, content
 		FROM 
 		(
 		    SELECT rownum idx
@@ -115,6 +116,7 @@
 					, p_udate udate
 					, p_delete "delete"
 					, m_id userId
+					, p_content content
 		    FROM t_product
 		    WHERE    
 		    	<include refid="searchCondition" />

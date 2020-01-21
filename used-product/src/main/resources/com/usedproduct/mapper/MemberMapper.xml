@@ -15,7 +15,12 @@
 		SELECT m_id memberId, s_no siteNo
 		FROM t_member
 		WHERE m_id = #{ memberId } AND m_pw = #{ memberPw }
-	</select>	
+	</select>
+	<select id="selectMemberById" parameterType="String" resultType="Integer">
+		SELECT COUNT(*)
+		FROM t_member
+		WHERE m_id = #{memberId}
+	</select>
 </mapper>
 
 

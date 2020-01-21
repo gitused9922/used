@@ -35,19 +35,43 @@
 
 	<!-- Page Content -->
 	<div class="container">
+<style>
+/* #article-images {
+    position: relative;
+    width: 729px;
+    margin: 0 auto;
+        position: relative;
+    width: 677px;
+    margin: 0 auto;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+#m-img1 {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: transparent;
+}
+ */
 
+</style>
 		<!-- write -->
-		<h1 class="my-4">중고서울 상품 보기 게시판</h1>
-		<br>
-		<div class="">
-			<div class="">
-					<%-- <div class="form-group">
-						<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
-					</div> --%>
-				   <div class="form-row">
-				   <div class="form-group col-md-6">
-				       <label for="inputEmail4"></label>
+		<%-- <div class="form-group">
+			<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
+		</div> --%>
+	   <div class="form-row">
+				   <!-- <section id="article-images">
 				       <img id="m-img1" alt="대표이미지" src="">
+				   </section> -->
+				   <div class="form-group col-md-6">
+				   		<img id="m-img1" alt="대표이미지" src="" style="width: 500px;">
 				   </div>
 				   <div class="form-group col-md-6">
 				      <label>번호</label>
@@ -78,8 +102,7 @@
 		        </div>
 				</form>
 			</div>
-		</div>
-	</div>
+
 	<!-- /.container -->
   </div></div></div>
   
@@ -149,11 +172,20 @@
 
 		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
 
+		$('#tolist-button').on('click', function(){
+			location.href = "list.action"
+		});
+
+		$('#edit-button').on('click', function(){
+			location.href = "edit.action"
+		})
+		
+
 		$('#content').css({'text-align' : 'center'
 							,'width' : '1140px'
 							,'height' : '100%'})	
 		$('#content img').css({'width': '500px'});
-		$('#m-img1').css({'width' : '500px'})
+		$('#m-img1').css({'width' : '100%'})
 		var firstimg = $('#content').find('img:first').attr('src');
 		//alert(firstimg);
 		$('#m-img1').attr({'src' : firstimg});
