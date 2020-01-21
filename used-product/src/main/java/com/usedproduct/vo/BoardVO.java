@@ -1,6 +1,8 @@
 package com.usedproduct.vo;
 
+
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -18,6 +20,13 @@ public class BoardVO {
 	private String cgName;
 	private String content;
 	
+	private int siteNo;
+	private String memerId;
+	
+	private int sNo;
+	private String siteName;
+	
+	
 	/*
 	 *  T_NO	NUMBER
 		D_STATE	CHAR(1 BYTE)
@@ -31,5 +40,5 @@ public class BoardVO {
 		P_CONTENT	VARCHAR2(500 BYTE)
 	 * 
 	 * */
-	
+	private List<ReplyVO> replies;
 }

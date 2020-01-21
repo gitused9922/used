@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.usedproduct.mapper.ReplyMapper">
+
+	<insert id="insertReply" parameterType="ReplyVO">
+		INSERT INTO T_REPLY (
+			R_NO, T_NO, R_CONTENT, R_REPLYER, R_GNO, R_STEP, R_DEPTH
+		
+		)
+		VALUES (
+			seq_reply.nextval, #{no}, #{reply}, #{replyer},
+			seq_reply.currval, 1, 0
+		
+		)
+		
+	
+	</insert>
+	
+	<select id="selectRepliesByNo" resultType="ReplyVO" parameterType="int">
+		SELECT R_NO rno,
+			   T_NO no, 
+			   R_CONTENT reply, 
+			   R_REPLYER replyer,
+			   R_DATE replyDate,
+			   R_DELETE "delete", 
+			   R_GNO gno, 
+			   R_STEP sno, 
+			   R_DEPTH depth
+		FROM T_REPLY
+		WHERE T_NO = #{ no }		
+			
+	</select>
+	
+</mapper>

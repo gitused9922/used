@@ -44,9 +44,17 @@
 	<!-- Navigation -->
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
 	<!-- Page Content -->
-	<div class="container">
+	
 
 		<br>
+
+		
+		
+		<div class="row">
+
+			
+			
+
 		<!-- Page Content -->
 		<div class="container">
 
@@ -92,27 +100,10 @@
 					</ul>
 					<!-- 인디케이터 끝 -->
 				</div>
+
 			</div>
 			<br>
-			<div class="col-sm-12 col-md-6">
-				<div class="dataTables_length" id="dataTable_length"
-					style="margin-bottom: 15px">
-					<form action="list.action" method="get">
-						<select name="searchType" aria-controls="dataTable"
-							class=" form-control-sm">
-							<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
-							<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>가격</option>
-							<option value="TC"
-								${ param.searchType == 'TC' ? 'selected' : '' }>상품+가격</option>
-							<option value="W" ${ param.searchType == 'W' ? 'selected' : '' }>작성자</option>
-						</select> <input type="search" name="searchKey" class=" form-control-sm"
-							placeholder="" aria-controls="dataTable"
-							value="${ param.searchKey }"> <input type="submit"
-							class="btn btn-success btn-sm" value="검색">
-
-					</form>
-				</div>
-			</div>
+			
 
 			<div class="row">
 				<div class="">
@@ -129,13 +120,13 @@
 									<a class="product-detail" href="javascript:" data-no="${ board.no}"> 
 										<img class="card-img-top m-img1" src=""alt="">
 									</a>
-
 									<div class="card-body" style="line-height:30px">
 										<span style="font-size:20px"><b>${ board.name }</b></span><br>
 										<span id="span-name">판매자</span>
 										<span>${ board.userId }</span><br>
 										<span id="span-name">가격 </span>
 										<span><fmt:formatNumber value="${ board.price }" pattern="#,###,###,###원" /></span><br />
+										<span>거래지역 : ${ board.siteName }</span><br>
 										<span id="span-name">판매시작일 </span>
 										<span><fmt:formatDate value="${ board.rdate }" pattern="yyyy.MM.dd"/></span>
 									</div>
@@ -161,6 +152,7 @@
 		</div>
 	</div>
 
+<<<<<<< HEAD
   <form id="product-detail-form" action="detail.action" method="get">
   	<input type="hidden" id="no" name="no">
   	<input type="hidden" id="pageNo" name="pageNo" value="${ pager.pageNo }">
@@ -168,6 +160,15 @@
   	<input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
   </form>
 	<br>
+=======
+	 <form id="product-detail-form" action="detail.action" method="get">
+		<input type="hidden" id="no" name="no" />
+		<input type="hidden" id="pageNo" name="pageNo" value="${ pager.pageNo }">
+	    <input type="hidden" id="searchType" name="searchType" value="${ param.searchType }">
+	    <input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
+	</form>
+ 	<br>
+>>>>>>> branch 'master' of https://github.com/gitused9922/used.git
 	<br>
 
 	<!-- Footer -->

@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +32,7 @@ import com.usedproduct.service.BoardService;
 import com.usedproduct.ui.ThePager2;
 import com.usedproduct.vo.BoardVO;
 import com.usedproduct.vo.CategoryVO;
+import com.usedproduct.vo.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -98,6 +100,10 @@ public class BoardController {
 		
 		model.addAttribute("boards",boards);
 		model.addAttribute("pager", pager);
+		
+		HttpSession session = req.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		model.addAttribute("loginuser", loginuser);
 		
 		return "board/list";
 	}

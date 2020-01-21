@@ -10,6 +10,7 @@
 		<typeAlias type="com.usedproduct.vo.CategoryVO" alias="CategoryVO" />
 		<typeAlias type="com.usedproduct.vo.MessageVO" alias="MessageVO" />
 		<typeAlias type="com.usedproduct.vo.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.usedproduct.vo.ReplyVO" alias="ReplyVO" />
 	</typeAliases>
 
 </configuration>
