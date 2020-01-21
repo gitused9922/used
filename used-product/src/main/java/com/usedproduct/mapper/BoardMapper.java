@@ -17,5 +17,7 @@ public interface BoardMapper {
 	BoardVO selectBoardNo(int no);
 	List<BoardVO> selectBoardWithPaging(HashMap<String, Object> params);
 	int selectBoardCount(HashMap<String, Object> params);
+	void deleteBoard(int no);
+	void updateBoard(BoardVO board);
 	
 }
