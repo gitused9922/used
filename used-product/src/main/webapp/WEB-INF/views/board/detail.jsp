@@ -173,7 +173,7 @@
 		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
 
 		$('#tolist-button').on('click', function(){
-			location.href = "list.action"
+			location.href = "list.action?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }"
 		});
 
 		$('#edit-button').on('click', function(){

@@ -122,6 +122,7 @@
 										<span>작성자 : ${ board.userId }</span><br>
 										<span>가격 : ${ board.price }원</span><br>
 										<span>거래지역 : ${ board.siteName }</span><br>
+										<span>카테고리 : ${ board.cgName }</span><br>
 										<span>판매시작일 : ${ board.rdate }</span>
 									</div>
 									<div style="width:0;height:0;display:none" class="board-content">${ board.content }</div>

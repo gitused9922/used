@@ -80,7 +80,7 @@
 		<trim suffix="AND">
 	    	<choose>
 	    		<when test="searchType == 'T'.toString()">
-	    			(a.p_name LIKE '%'||#{searchKey}||'%' OR a.m_id LIKE '%'||#{searchKey}||'%' OR b.s_name LIKE '%'||#{searchKey}||'%')
+	    			(a.p_name LIKE '%'||#{searchKey}||'%' OR a.m_id LIKE '%'||#{searchKey}||'%' OR b.s_name LIKE '%'||#{searchKey}||'%' OR a.cg_name LIKE '%'||#{searchKey}||'%')
 	    		</when>
 	    		
 	    		
@@ -100,6 +100,7 @@
 		, userId 
 		, siteName
 		, content
+		,cgName
 		FROM 
 		(
 		    SELECT rownum idx
@@ -111,6 +112,7 @@
 					, a.p_delete "delete"
 					, a.p_content content
 					, a.m_id userId
+					, a.cg_name cgName
 					, c.m_id memberId
 					, c.s_no siteNo
 					, b.s_no sNo
