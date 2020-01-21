@@ -99,6 +99,7 @@
 		, "delete" 
 		, userId 
 		, siteName
+		, content
 		FROM 
 		(
 		    SELECT rownum idx
@@ -108,6 +109,7 @@
 					, a.p_rdate rdate
 					, a.p_udate udate
 					, a.p_delete "delete"
+					, a.p_content content
 					, a.m_id userId
 					, c.m_id memberId
 					, c.s_no siteNo
@@ -118,6 +120,7 @@
 		     on a.m_id = c.m_id
 		     INNER JOIN t_site b
 		     on c.s_no = b.s_no
+
 
 		    WHERE    
 		    	<include refid="searchCondition" />

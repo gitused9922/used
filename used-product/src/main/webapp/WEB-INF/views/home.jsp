@@ -18,9 +18,21 @@
 <link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
+<link href="/used-product/resources/css/sb-admin-2"	rel="stylesheet">
 <link href="/used-product/resources/css/shop-homepage.css"	rel="stylesheet">
 
+
 </head>
+<style>
+.carousel-inner>.carousel-item>img {
+	width: 300px;
+	height: 300px;
+}
+
+.card-header py-3 {
+	width: 1110px;
+}
+</style>
 
 <body>
 
@@ -29,87 +41,89 @@
 	<!-- Page Content -->
 	<div class="container">
 
+		<br>
+		<!-- Page Content -->
+		<div class="container">
 
-		<div id="carouselExampleCaptions" class="carousel slide  my-4" data-ride="carousel">
-		  <ol class="carousel-indicators">
-		    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-		    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-		    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-		  </ol>
-		  <div class="carousel-inner">
-		    <div class="carousel-item active">
-		      <img src="http://placehold.it/900x350" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>First slide label</h5>
-		        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-		      </div>
-		    </div>
-		    <div class="carousel-item">
-		      <img src="http://placehold.it/900x350" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>Second slide label</h5>
-		        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-		      </div>
-		    </div>
-		    <div class="carousel-item">
-		      <img src="http://placehold.it/900x350" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>Third slide label</h5>
-		        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-		      </div>
-		    </div>
-		  </div>
-		  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
-		</div>
-
-		<div class="row">
-
-			<br>
-			<br>
-			<div class="">
-				<div class="card-header py-3">
-					<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
-				</div>
-				<div class="row">
-					<c:forEach items="${ boards }" var="board">
-						<div class="col-lg-4 col-md-6 mb-4">
-							<div class="card h-100">
-								<td>상품: ${ board.name }</td> 
-								<a class="product-detail" href="javascript:" data-no="${board.no}">
-									<img class="card-img-top" src="http://placehold.it/700x400" alt="">
-								</a>
-								<div class="card-body">
-									<td>작성자 : ${ board.userId }</td>
-									<br>
-									<td>가격 : ${ board.price }원</td>
-									<br>
-									<td>판매시작일 : ${ board.rdate }</td>
-								</div>
-							</div>
+			<div id="demo" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					<!-- 슬라이드 쇼 -->
+					<div class="carousel-item active">
+						<!--가로-->
+						<img class="d-block w-100"
+							src="https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+							alt="First slide">
+						<div class="carousel-caption d-none d-md-block">
+							<h5>TEST</h5>
+							<p>testtesttest</p>
 						</div>
-					</c:forEach>
-
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100"
+							src="https://images.pexels.com/photos/2355519/pexels-photo-2355519.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+							alt="Second slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100"
+							src="https://images.pexels.com/photos/2544554/pexels-photo-2544554.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+							alt="Third slide">
+					</div>
+					<!-- / 슬라이드 쇼 끝 -->
+					<!-- 왼쪽 오른쪽 화살표 버튼 -->
+					<a class="carousel-control-prev" href="#demo" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<!-- <span>Previous</span> -->
+					</a> <a class="carousel-control-next" href="#demo" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<!-- <span>Next</span> -->
+					</a>
+					<!-- / 화살표 버튼 끝 -->
+					<!-- 인디케이터 -->
+					<ul class="carousel-indicators">
+						<li data-target="#demo" data-slide-to="0" class="active"></li>
+						<!--0번부터시작-->
+						<li data-target="#demo" data-slide-to="1"></li>
+						<li data-target="#demo" data-slide-to="2"></li>
+					</ul>
+					<!-- 인디케이터 끝 -->
 				</div>
-				<!-- /.row -->
+			</div>
+			<br>
+			<div class="row" style="width: 1110px;">
+				<c:forEach items="${ boards }" var="board">
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="card h-100" id="board-${ board.no }" data-no="${ board.no }">
+							<a class="product-detail" href="javascript:" data-no="${board.no}"> 
+								<img class="card-img-top m-img1" src=""alt="">
+							</a>
+							<div class="card-body">
+								<span>${ board.name }</span> <br>
+								<span>작성자 : ${ board.userId }</span><br>
+								<span>가격 : ${ board.price }원</span><br>
+								<span>판매시작일 : ${ board.rdate }</span>
+							</div>
+							<div style="width:0;height:0;display:none" class="board-content">${ board.content }</div>
+						</div>
+					</div>
+				</c:forEach>
 
 			</div>
-			<!-- /.col-lg-9 -->
-
+			<!-- /.row -->
+			
+			<tfoot>
+			
+				<tr>
+					<td colspan="6" style="text-align: center;">${ pager }</td>
+				</tr>
+			</tfoot>
 		</div>
-		<!-- /.row -->
-
 	</div>
 
 	<form id="product-detail-form" action="detail.action" method="get">
 		<input type="hidden" id="no" name="no" />
 	</form>
+	<br>
+	<br>
 
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
@@ -121,12 +135,35 @@
 	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">
 	$(function(){
+		
+ 		$('.m-img1').css({ 'border-radius': '8px'
+ 	 						,'width': '348px'
+ 	 	 					,'height': '300px'})
+
+ 		$("div[id^=board-]").each(function(idx, item) {
+ 	 		var no = $(this).attr('data-no');
+ 	 		var html = $(this).find(".board-content").html();
+ 	 		if (html) {
+ 	 			var img = $(html).find('img:first');
+ 	 			$(this).find('a img').attr({ "src": img.attr("src") });
+ 	 		}
+ 	 		var img = $(html).find('img:first');
+ 	 		if(!img){
+ 	 			var img = $(html).find('img:first');
+ 	 			$(this).find('a img').attr({ "alt": "이미지가없습니다" });
+ 	 	 		}
+ 	 		console.log(img);
+ 	 	});
+
+		
 		$('.product-detail').on('click', function(event){
 			var no = $(this).attr('data-no');
 			$('#product-detail-form #no').val(no);
 		
 			$('#product-detail-form').submit();
 		});
+
+		//$('.carousel slide').carousel({ interval: 5}); 
 	});
 	</script>
 </body>

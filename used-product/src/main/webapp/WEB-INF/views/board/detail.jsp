@@ -35,19 +35,43 @@
 
 	<!-- Page Content -->
 	<div class="container">
+<style>
+/* #article-images {
+    position: relative;
+    width: 729px;
+    margin: 0 auto;
+        position: relative;
+    width: 677px;
+    margin: 0 auto;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+#m-img1 {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: transparent;
+}
+ */
 
+</style>
 		<!-- write -->
-		<h1 class="my-4">중고서울 상품 보기 게시판</h1>
-		<br>
-		<div class="">
-			<div class="">
-					<%-- <div class="form-group">
-						<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
-					</div> --%>
-				   <div class="form-row">
-				   <div class="form-group col-md-6">
-				       <label for="inputEmail4"></label>
+		<%-- <div class="form-group">
+			<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
+		</div> --%>
+	   <div class="form-row">
+				   <!-- <section id="article-images">
 				       <img id="m-img1" alt="대표이미지" src="">
+				   </section> -->
+				   <div class="form-group col-md-6">
+				   		<img id="m-img1" alt="대표이미지" src="" style="width: 500px;">
 				   </div>
 				   <div class="form-group col-md-6">
 				      <label>번호</label>
@@ -78,8 +102,7 @@
 		        </div>
 				</form>
 			</div>
-		</div>
-	</div>
+
 	<!-- /.container -->
   </div></div></div>
   
@@ -92,7 +115,7 @@
 
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
-						<h2 class="d-inline">댓글</h2>
+					
 						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
 					</div>
 					</div>	
@@ -111,22 +134,26 @@
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         <div class="modal-body">
-          <form id="reply-form">
+          <form id="reply-form" >
+					
+					<div class="form-group">
+						<label>Replyer</label>
+						<input type="text" class="form-control"  name='replyer' id='modal-replyer' value='${ loginuser.memberId }'>
+					</div>
+					
 					<div class="form-group">
 						<label>Reply</label>
 						<input class="form-control" name='reply' id='modal-reply' value=''>
 					</div>
-					<div class="form-group">
-						<label>Replyer</label>
-						<input class="form-control" name='replyer' id='modal-replyer' value=''>
-					</div>
 					<input type="hidden" name='bno' value='${ board.no }'>
 					<input type="hidden" name='rno'>
 					<input type="hidden" name='action'><!-- 댓글 or 댓글의 댓글 -->
-				</form>
+		</form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button id="modalRegisterBtn" type="button" class="btn btn-success" data-dismiss="modal">Register</button>
+        	<button id="modalModBtn" type="button" class="btn btn-success" data-dismiss="modal">Modify</button>
+          	<button id="modalRemoveBtn" type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
       </div>
       
@@ -145,17 +172,41 @@
 
 		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
 
+		$('#tolist-button').on('click', function(){
+			location.href = "list.action"
+		});
+
+		$('#edit-button').on('click', function(){
+			location.href = "edit.action"
+		})
+		
+
 		$('#content').css({'text-align' : 'center'
 							,'width' : '1140px'
 							,'height' : '100%'})	
 		$('#content img').css({'width': '500px'});
-		$('#m-img1').css({'width' : '500px'})
+		$('#m-img1').css({'width' : '100%'})
 		var firstimg = $('#content').find('img:first').attr('src');
 		//alert(firstimg);
 		$('#m-img1').attr({'src' : firstimg});
 		
 		
-	})
+	});
+	
+	$(function(){
+		$('#addReplyBtn').on('click',function(event){
+			$('#reply-form input[name!=no]').attr({"readonly" : false});
+			$('#modal-replyer').attr({"readonly" : "readonly"});
+			$('#modalRegisterBtn').css({"display" : "inline" });
+
+			$('#reply-form input[name=rno]').val('0');
+			$('#reply-form input[name=action]').val('reply');
+			});
+
+	});
+		
+		
+		
 	
 	
 	</script>
