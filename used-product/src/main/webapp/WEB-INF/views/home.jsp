@@ -16,11 +16,8 @@
 <title>상품게시판</title>
 
 <!-- Bootstrap core CSS -->
-<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
-
 <!-- Custom styles for this template -->
-<link href="/used-product/resources/css/sb-admin-2"	rel="stylesheet">
-<link href="/used-product/resources/css/shop-homepage.css"	rel="stylesheet">
+  <%@include file="/WEB-INF/views/modules/common-css.jsp" %>
 
 
 </head>
@@ -105,7 +102,6 @@
 									<a class="product-detail" href="javascript:" data-no="${ board.no}"> 
 										<img class="card-img-top m-img1" src=""alt="">
 									</a>
-
 									<div class="card-body" style="line-height:30px">
 										<span style="font-size:20px"><b>${ board.name }</b></span><br>
 										<span id="span-name">판매자</span>
@@ -150,10 +146,7 @@
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <%@include file="/WEB-INF/views/modules/common-js.jsp" %>
 	<script type="text/javascript">
 	$(function(){
 		
