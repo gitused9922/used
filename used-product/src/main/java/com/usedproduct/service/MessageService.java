@@ -11,4 +11,12 @@ public interface MessageService {
 	int selectMessageCount(HashMap<String, Object> params);
 	
 	void insertMessage(MessageVO message);
+	
+	List<MessageVO> selectListMessage(HashMap<String, Object> params);
+	
+	int selectListMessageCount(HashMap<String, Object> params);
+	
+	MessageVO selectMessage(int no);
+	
+	void updateMessage(int no);
 }

@@ -88,5 +88,62 @@ public class MessageController {
 		messageService.insertMessage(message);
 		return "success";
 	}
+
+	@GetMapping(path = {"/messagePage"})
+	public String messagePage(
+			MessageVO message, 
+			Model model,
+			@RequestParam(defaultValue = "1") int pageNo,
+            @RequestParam(required = false) String searchType,
+            @RequestParam(required = false) String searchKey,
+            @RequestParam(required = false) String messageType,
+            @RequestParam(required = false) String sDate,
+            @RequestParam(required = false) String eDate,
+            HttpServletRequest req) {
+//		log.warn("상품번호 : " + message.getTNo());
+//		log.warn("상품명 : " + message.getMsContent());
+//		log.warn("받는 사람 : " + message.getMReceiver());
+//		model.addAttribute("message", message);
+		
+		int pageSize = 3;
+		int pagerSize = 5;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo -1) * pageSize +1;
+		HttpSession session = req.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginuser");
+		params.put("user", loginUser.getMemberId());
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchKey", searchKey);
+		params.put("messageType", messageType);
+		params.put("sDate", sDate);
+		params.put("eDate", eDate);
+		
+		for (String key : params.keySet()) {
+			System.out.println("key : "+ key + ", value : " + params.get(key));
+		}
+		
+		List<MessageVO> messages = messageService.selectListMessage(params);
+		int messageCount = messageService.selectListMessageCount(params);
+		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "messagePage", req.getQueryString());
+		
+		model.addAttribute("messageType", messageType);
+		model.addAttribute("messages", messages);
+		model.addAttribute("pager", pager);
+		
+		return "message/messagePage";
+	}
 	
+	@GetMapping(path = {"/showMessage"})
+	@ResponseBody
+	public MessageVO showMessage(int no, HttpServletRequest request) {
+		return messageService.selectMessage(no);
+	}
+	
+	@PostMapping(path = {"/updateMessage"})
+	@ResponseBody
+	public void updateMessage(int no, HttpServletRequest request) {
+		messageService.updateMessage(no);
+	}
 }

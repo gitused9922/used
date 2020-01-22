@@ -15,6 +15,7 @@
 		<result column="m_receiver" property="mReceiver" />
 		<result column="ms_title" property="msTitle" />
 		<result column="p_name" property="pName" />
+		<result column="ms_confirm" property="msConfirm" />
 	</resultMap>
 	
 	<sql id="searchCondition">
@@ -27,6 +28,42 @@
 	    			p_name LIKE '%'||#{searchKey}||'%'
 	    		</when>
 	    	</choose>
+		</trim>
+	</sql>
+	
+	<sql id="searchMessageCondition">
+		<trim prefix="AND">
+			<choose>
+				<when test="messageType == 'S'.toString()">
+					m_sender = #{user }
+				</when>
+				<when test="messageType == 'R'.toString() || messageType == ''">
+					m_receiver = #{user }
+				</when>
+			</choose>
+		</trim>
+		<trim prefix="AND">
+			<choose>
+				<when test="searchType == 'P'.toString()">
+					p_name LIKE '%'||#{searchKey}||'%'
+				</when>
+				<when test="searchType == 'T'.toString()">
+					ms_title LIKE '%'||#{searchKey}||'%'
+				</when>
+				<when test="searchType == 'S'.toString()">
+					m_sender LIKE '%'||#{searchKey}||'%'
+				</when>
+				<when test="searchType == 'R'.toString()">
+					m_receiver LIKE '%'||#{searchKey}||'%'
+				</when>
+			</choose>
+		</trim>
+		<trim prefix="AND">
+			<choose>
+				<when test='sDate != "" and sDate != null'>
+					TO_CHAR(ms_date, 'YYYY-MM-DD') BETWEEN #{sDate} AND #{eDate}
+				</when>
+			</choose>
 		</trim>
 	</sql>
 	
@@ -75,4 +112,58 @@
 		INSERT INTO t_ms(ms_no, ms_content, ms_date, m_sender, t_no, m_receiver, ms_title)
 		VALUES(seq_t_ms_sequence.nextval, #{msContent }, sysdate, #{mSender }, #{tNo }, #{mReceiver }, #{msTitle })
 	</insert>
+
+	<select id="selectListMessage" parameterType="hashmap" resultMap="messageMap">
+		SELECT ms_no
+		     , p_name
+		     , ms_title
+		     , m_sender
+		     , m_receiver
+		     , ms_date
+		     , ms_confirm
+		  FROM (
+		SELECT rownum idx
+		     , ms_no
+			 , p.p_name
+			 , ms_title
+			 , m_sender
+			 , m_receiver
+			 , ms_date
+			 , ms_confirm
+		  FROM t_ms m
+			 , t_product p
+		 WHERE m.t_no = p.t_no
+		 <include refid="searchMessageCondition" />
+		   AND <![CDATA[ rownum < #{ end } ]]>
+		 ORDER BY ms_date desc
+		 )
+		 WHERE idx >= #{ beginning }
+	</select>
+	
+	<select id="selectListMessageCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) cnt
+		  FROM t_ms m
+			 , t_product p
+		 WHERE m.t_no = p.t_no
+		 <include refid="searchMessageCondition" />
+	</select>
+	
+	<select id="selectMessage" parameterType="int" resultMap="messageMap">
+		SELECT ms_no
+		     , ms_content
+		     , ms_date
+		     , m_sender
+		     , t_no
+		     , m_receiver
+		     , ms_title
+		     , ms_confirm
+		  FROM t_ms
+		 WHERE ms_no = #{no }
+	</select>
+	
+	<update id="updateMessage" parameterType="int">
+		UPDATE t_ms
+   		   SET ms_confirm = 1
+         WHERE ms_no = #{no }
+	</update>
 </mapper>
