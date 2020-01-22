@@ -54,7 +54,7 @@
 				   <div class="form-group col-md-6">
 				      <label for="inputPassword4">카테고리</label>
 				      <select class="form-control" name="cgName" >
-							<option value="">선택하세요</option>
+				      		<option value="${ board.cgName }">기존 카테고리 - ${ board.cgName }</option>
 							<c:forEach items="${ category }" var="category">
 								<option value="${ category.cgName }">${ category.cgName }</option>
 							</c:forEach>
@@ -77,7 +77,7 @@
 					<div class="form-group">
 
 					</td>
-						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="test1">
+						<label>작성자</label> <input class="form-control" id='userId' name='userId' value="${ loginuser.memberId }">
 						<!-- ${board.userId } -->
 					</div>
 
@@ -103,7 +103,7 @@
 	    //전역변수선언
 	    var editor_object = [];
 	    
-	    $('#smarteditor').val(''); // 수정일경우 데이터 이안에 넣어서 처리
+	    $('#smarteditor').val('${ board.content }'); // 수정일경우 데이터 이안에 넣어서 처리
 	     
 	    nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: editor_object,

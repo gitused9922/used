@@ -104,7 +104,7 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		model.addAttribute("loginuser", loginuser);
-		
+
 		return "board/list";
 	}
 

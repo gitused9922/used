@@ -16,11 +16,8 @@
 <title>상품게시판</title>
 
 <!-- Bootstrap core CSS -->
-<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css"	rel="stylesheet">
-
 <!-- Custom styles for this template -->
-<link href="/used-product/resources/css/sb-admin-2"	rel="stylesheet">
-<link href="/used-product/resources/css/shop-homepage.css"	rel="stylesheet">
+  <%@include file="/WEB-INF/views/modules/common-css.jsp" %>
 
 
 </head>
@@ -34,8 +31,53 @@
 	width: 1110px;
 }
 #span-name {
-		    width: 20%;
+		    width: 40%;
 			display: inline-block;
+}
+
+.img-fluid {
+	width: 350px;
+    height: 262px;
+    border: 1px solid #c5c5c5;
+    border-radius: 10px;
+}
+header.masthead {
+	background-color: #e6622c;
+    text-align: center;
+    color: #fff;
+    /*background-image: url(https://p4.wallpaperbetter.com/wallpaper/575/50/369/simple-background-gradient-abstract-blurred-wallpaper-preview.jpg);*/
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+}
+@media (min-width: 768px)
+header.masthead .intro-text {
+    padding-top: 150px;
+    padding-bottom: 200px;
+}
+header.masthead .intro-text {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.btn-primary {
+	background-color: #ffffff;
+    border-color: #9c2d00;
+    color: #2f2f2f;
+}
+a {
+    color: #333333;
+}
+
+a:hover {
+    color: #FF5722;
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+    background-color: #ffffff!important;
+    border-color: #ffffff!important;
+    color: #1f1f1f;
 }
 </style>
 
@@ -43,76 +85,51 @@
 
 	<!-- Navigation -->
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
-	<!-- Page Content -->
+	<c:choose>
+		<c:when test="${empty param.searchKey }">
+			<header class="masthead" style=" width: 100%;  height: 600px;">
+			    <div class="container">
+			      <div class="intro-text">
+			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
+			        <div class="intro-heading text-uppercase">우리 동네 중고 직거래 마켓</div>
+			        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/used-product/board/list.action">중고서울 인기 매물</a>
+			      </div>
+			    </div>
+			</header>
+		</c:when>
+		<c:otherwise>
+			<header class="masthead" style=" width: 100%;  height: 600px;">
+			    <div class="container">
+			      <div class="intro-text">
+			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
+			        <div class="intro-heading text-uppercase">검색된 매물이 없습니다.</div>
+			        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/used-product/board/list.action">중고서울 최근상품</a>
+			      </div>
+			    </div>
+			</header>
+		</c:otherwise>
+	</c:choose>
+
 	
+	<!-- Page Content -->
+	<div class="container">
 
-		<br>
 
-		
-		
-		<div class="row">
-
-			
-			
-
-		<!-- Page Content -->
-		<div class="container">
-
-			<div id="demo" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
-					<!-- 슬라이드 쇼 -->
-					<div class="carousel-item active">
-						<!--가로-->
-						<img class="d-block w-100"
-							src="https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-							alt="First slide">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>TEST</h5>
-							<p>testtesttest</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100"
-							src="https://images.pexels.com/photos/2355519/pexels-photo-2355519.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-							alt="Second slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100"
-							src="https://images.pexels.com/photos/2544554/pexels-photo-2544554.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-							alt="Third slide">
-					</div>
-					<!-- / 슬라이드 쇼 끝 -->
-					<!-- 왼쪽 오른쪽 화살표 버튼 -->
-					<a class="carousel-control-prev" href="#demo" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<!-- <span>Previous</span> -->
-					</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<!-- <span>Next</span> -->
-					</a>
-					<!-- / 화살표 버튼 끝 -->
-					<!-- 인디케이터 -->
-					<ul class="carousel-indicators">
-						<li data-target="#demo" data-slide-to="0" class="active"></li>
-						<!--0번부터시작-->
-						<li data-target="#demo" data-slide-to="1"></li>
-						<li data-target="#demo" data-slide-to="2"></li>
-					</ul>
-					<!-- 인디케이터 끝 -->
-				</div>
-
-			</div>
-			<br>
-			
-
-			<div class="row">
+			<div class="row" style="width: 1110px;">
 				<div class="">
+				<c:choose>
+					<c:when test="${ empty loginuser }">
+					</c:when>
+					<c:otherwise>
 					<div class="card-header py-3" style="width: 1110px;">
 						<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
 						<a href="write.action" class="btn btn-success btn-sm" style="float: right"> 
 							<span class="text">상품 등록</span>
 						</a>
 					</div>
+					</c:otherwise>	
+				</c:choose>
+				
 					<div class="row">
 						<c:forEach items="${ boards }" var="board">
 							<div class="col-lg-4 col-md-6 mb-4">
@@ -126,8 +143,10 @@
 										<span>${ board.userId }</span><br>
 										<span id="span-name">가격 </span>
 										<span><fmt:formatNumber value="${ board.price }" pattern="#,###,###,###원" /></span><br />
-										<span>거래지역 : ${ board.siteName }</span><br>
-										<span>카테고리 : ${ board.cgName }</span><br>										
+										<span id="span-name">거래지역</span>
+										<span>${ board.siteName }</span><br>
+										<span id="span-name">카테고리</span>
+										<span>${ board.cgName }</span><br>										
 										<span id="span-name">판매시작일 </span>
 										<span><fmt:formatDate value="${ board.rdate }" pattern="yyyy.MM.dd"/></span>
 									</div>
@@ -144,15 +163,10 @@
 
 			</div>
 			<!-- /.row -->
-
-			<tfoot>
-				<tr>
-					<td colspan="6" style="text-align: center;">${ pager }</td>
-				</tr>
-			</tfoot>
+			<div>
+				<p style="text-align: center;">${ pager }</p>
+			</div>
 		</div>
-	</div>
-
 
   <form id="product-detail-form" action="detail.action" method="get">
   	<input type="hidden" id="no" name="no">
@@ -168,10 +182,7 @@
 	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <%@include file="/WEB-INF/views/modules/common-js.jsp" %>
 	<script type="text/javascript">
 	$(function(){
 		
