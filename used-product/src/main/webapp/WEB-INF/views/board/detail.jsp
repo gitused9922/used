@@ -87,13 +87,13 @@
 						<div id="content" class="form-control" style="width:1140px; height:100%;">${board.content }</div>
 					</div>
 				<div style="width: 100%;height: 100px;">
-		          <%-- <c:if test="${ asd.userId == board.userId }"> --%>
+		          <c:if test="${ loginuser.memberId == board.userId }">
 		          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-top: 30px;">수정</button>
 		          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">삭제</button>
-		          <%-- </c:if> --%>
+		          </c:if>
 		          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">목록</button>
 		        </div>
-				</form>
+
 			</div>
 			<!-- /.container -->
 		  </div></div></div>
@@ -185,13 +185,24 @@
 		});
 
 		$('#edit-button').on('click', function(event){
-			var form = makeForm('update.action', ${ board.no }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
-			form.submit();
+			location.href = "update.action?no=${board.no}&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
 		})
 
-	// 댓글관련구현	
+
+		$('#delete-button').on('click', function(event){
+			var yes = confirm("${ board.name } 상품을 삭제할까요?");
+			if (!yes) {
+				return;
+			}
+			location.href = "update.action?no=${board.no}&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
+
+		});
+
+		
+		
 	});
 	
+	// 댓글관련구현	
 	$(function(){
 		$('#addReplyBtn').on('click',function(event){
 			$('#reply-form input[name!=no]').attr({"readonly" : false});
@@ -224,60 +235,9 @@
 
 			});
 
-
-		
-
-		$('#delete-button').on('click', function(event){
-			var yes = confirm("${ board.name } 상품을 삭제할까요?");
-			if (!yes) {
-				return;
-			}
-			//location.href = 'delete.action?no=${ board.no }&pageNo=${ param.pageNo }';
-			var form = makeForm('delete.action', ${ board.no }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
-			form.submit();
-		});
-		
-		function makeForm(action, no, pageNo, searchType, searchKey, method="get") {
-			var form = $('<form></form>');
-			form.attr({
-				'action': action,
-				'method': method
-			});
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "no",
-				"value" : no })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "pageNo",
-				"value" : pageNo })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "searchType",
-				"value" : searchType })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "searchKey",
-				"value" : searchKey })
-			);
-			
-			form.appendTo("body");
-			
-			return form;
-		};
-
 	});
 
-		
-		
-		
-		
 
-	
-	
 	</script>
 
 
