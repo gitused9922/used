@@ -14,6 +14,8 @@ public interface BoardService {
 	BoardVO findBoardNo(int no);
 	List<BoardVO> findBoardWithpaging(HashMap<String, Object> params);
 	int fidnBoardcount(HashMap<String, Object> params);
+	void deleteBoard(int no);
+	void updateBoard(BoardVO board);
 
 
 }

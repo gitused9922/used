@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -103,7 +104,7 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		model.addAttribute("loginuser", loginuser);
-		
+
 		return "board/list";
 	}
 
@@ -118,20 +119,57 @@ public class BoardController {
 			return "redirect:list.action";
 		};
 
-//		String noRead = "";
-//		Cookie[] cookies = req.getCookies();
-//		for( Cookie cookie : cookies ) {
-//			if( cookie.getName().equals("no_read")){
-//				noRead = cookie.getValue();
-//			}
-//		}
-
 		// 조회 데이터 저장 
 		model.addAttribute("board", board);
 		//System.out.println("내용 : "+board.getContent());
 		return "board/detail";
 	}
+	
+	@GetMapping(path = { "/delete.action" })
+	public String delete(int no, int pageNo,
+			@RequestParam(required = false) String searchType,
+			@RequestParam(required = false) String searchKey) {
+		
+		boardService.deleteBoard(no);
+		String encodedKey = "";
+		try {
+			encodedKey = URLEncoder.encode(searchKey, "utf-8");
+		} catch (Exception ex) {
+		}
+		//log.warn("pageNo : " + pageNo + "searchType : " + searchType + "searchKey : " + searchKey);
+		return String.format("redirect:list.action?pageNo=%d&searchKey=%s&searchType=%s", pageNo, encodedKey, searchType);
+	}
+	
+	@GetMapping(path = { "/update.action" })
+	public String showUpdateForm(int no, Model model) { // 글쓰기 화면 보기
+		List<CategoryVO> category = boardService.findAllCategory();
 
+		BoardVO board = boardService.findBoardNo(no);
+		if (board == null) {
+			return "redirect:list.action";
+		}
+		
+		model.addAttribute("category", category);
+		model.addAttribute("board", board);
+		//System.out.println(category);
+		return "board/update";
+	}
+	
+	@PostMapping(path = {"/update.action"})
+	public String update(BoardVO board, int pageNo,
+			@RequestParam(required = false) String searchType,
+			@RequestParam(required = false) String searchKey) {
+		
+		boardService.updateBoard(board);
+		String encodedKey = "";
+		try {
+			encodedKey = URLEncoder.encode(searchKey, "utf-8");
+		} catch (Exception ex) {
+		}
+		//log.warn("pageNo : " + pageNo + "searchType : " + searchType + "searchKey : " + searchKey);
+		return String.format("redirect:detail.action?no=%d&pageNo=%d&searchKey=%s&searchType=%s", board.getNo(), pageNo, encodedKey, searchType);
+	}
+	
 	// 파일업로드다운로드
 	@RequestMapping(path = "/galleryimageupload")
 	public String imageUpload(MultipartFile Filedata, String callback, String callback_func, HttpServletRequest req)
@@ -206,4 +244,5 @@ public class BoardController {
 
 	}
 
+	
 }

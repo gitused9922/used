@@ -1,5 +1,7 @@
 package com.usedproduct.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.usedproduct.mapper.ReplyMapper;
@@ -20,8 +22,10 @@ public class ReplyServiceImpl implements ReplyService {
 		
 	}
 	@Override
-	public void writeReReplay(ReplyVO reply) {
-		// TODO Auto-generated method stub
+	public List<ReplyVO> getReplyListByNo(int rno) {
+		
+		return replyMapper.selectRepliesByNo(rno);
+		
 		
 	}
 	
