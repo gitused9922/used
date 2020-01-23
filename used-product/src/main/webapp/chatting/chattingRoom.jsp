@@ -21,7 +21,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
-	<title>서울 중고 채팅방</title>
+	<title>중고 서울 채팅방</title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 		<div class="row" style="margin:35px; 0px; 35px; 0px;">
 			<div class="col-lg-12">
 				<div class="row">
-				    <h3 style="margin-bottom: 20px;">서울 중고 채팅방</h3>
+				    <h3 style="margin-bottom: 20px;">중고 서울 채팅방</h3>
 
 				    <div id="chatArea"><div id="chatMessageArea"></div></div><br>
 			    </div>	    

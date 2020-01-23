@@ -22,4 +22,6 @@ public interface MessageMapper {
 	MessageVO selectMessage(int no);
 	
 	void updateMessage(int no);
+	
+	void deleteMessage(int no);
 }

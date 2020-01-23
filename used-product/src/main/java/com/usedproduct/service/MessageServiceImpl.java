@@ -11,17 +11,7 @@ import lombok.Setter;
 public class MessageServiceImpl implements MessageService {
 
 	@Setter
-	private MessageMapper MessageMapper;
-	
-	@Override
-	public List<MessageVO> selectListMessageSender(HashMap<String, Object> params) {
-		return MessageMapper.selectListMessageSender(params);
-	}
-	
-	@Override
-	public int selectMessageCount(HashMap<String, Object> params) {
-		return MessageMapper.selectMessageCount(params);
-	}
+	private MessageMapper MessageMapper; 
 
 	@Override
 	public void insertMessage(MessageVO message) {
@@ -46,6 +36,11 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void updateMessage(int no) {
 		MessageMapper.updateMessage(no);
+	}
+
+	@Override
+	public void deleteMessage(int no) {
+		MessageMapper.deleteMessage(no);
 	}
 
 }

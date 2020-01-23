@@ -110,10 +110,9 @@ padding : 1.0rem 2rem
           <c:otherwise>          
 	          <li class="nav-item">
 	            <a class="nav-link" href="/used-product/chatting/chattingRoom.jsp">채팅</a>
-	            <!-- <a class="nav-link" href="/used-product/message/chattingRoom">채팅</a> -->
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="/used-product/message/sendMessagePage">마이페이지</a>
+	          	<a class="nav-link" href="/used-product/message/messagePage?messageType=R">쪽지</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" href="/used-product/account/logout.action">로그아웃</a>
