@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.usedproduct.mapper.MessageMapper;
 import com.usedproduct.vo.MessageVO;
+import com.usedproduct.vo.StatisticsVO;
 
 import lombok.Setter;
 
@@ -41,6 +42,26 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void deleteMessage(int no) {
 		MessageMapper.deleteMessage(no);
+	}
+
+	@Override
+	public int selectTotalMember() {
+		return MessageMapper.selectTotalMember();
+	}
+
+	@Override
+	public List<StatisticsVO> selectListAreaMember() {
+		return MessageMapper.selectListAreaMember();
+	}
+
+	@Override
+	public int selectTotalProduct() {
+		return MessageMapper.selectTotalProduct();
+	}
+
+	@Override
+	public List<StatisticsVO> selectListAreaProduct() {
+		return MessageMapper.selectListAreaProduct();
 	}
 
 }

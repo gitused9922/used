@@ -11,6 +11,7 @@
 		<typeAlias type="com.usedproduct.vo.MessageVO" alias="MessageVO" />
 		<typeAlias type="com.usedproduct.vo.MemberVO" alias="MemberVO" />
 		<typeAlias type="com.usedproduct.vo.ReplyVO" alias="ReplyVO" />
+		<typeAlias type="com.usedproduct.vo.StatisticsVO" alias="StatisticsVO" />
 	</typeAliases>
 
 </configuration>

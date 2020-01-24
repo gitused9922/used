@@ -116,9 +116,49 @@
    		   SET ms_confirm = 1
          WHERE ms_no = #{no }
 	</update>
-
+	
 	<delete id="deleteMessage" parameterType="int">
 		DELETE FROM t_ms
 		 WHERE ms_no = #{no }
 	</delete>
+
+	<select id="selectTotalMember" resultType="int">
+		SELECT count(*) cnt
+		  FROM t_site s
+             , t_member m
+         WHERE s.s_no = m.s_no
+           AND m.m_state = 0
+	</select>
+	
+	<select id="selectListAreaMember" resultType="StatisticsVO">
+		SELECT s_name sName
+		     , count(*) cnt
+		  FROM t_site s
+		       , t_member m
+		 WHERE s.s_no = m.s_no
+		 GROUP BY s_name
+		 ORDER BY 1
+	</select>
+	
+	<select id="selectTotalProduct" resultType="int">
+		SELECT count(*) cnt
+		  FROM t_site s
+             , t_member m
+             , t_product p
+         WHERE s.s_no = m.s_no
+             AND m.m_id = p.m_id
+	</select>
+	
+	<select id="selectListAreaProduct" resultType="StatisticsVO">
+		SELECT s_name sName
+             , count(*) cnt
+		  FROM t_site s
+			 , t_member m
+             , t_product p
+		 WHERE s.s_no = m.s_no
+		   AND m.m_id = p.m_id
+		 GROUP BY s_name
+		 ORDER BY 1
+	</select>
+
 </mapper>

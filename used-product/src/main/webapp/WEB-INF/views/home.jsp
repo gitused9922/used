@@ -94,8 +94,15 @@ a:hover {
 	      </div>
 	    </div>
 	</header>
-	<!-- Page Content -->
+
+	<!-- chart -->
 	<div class="container">
+		<div id="memberChart" style="width: 500px; height: 500px; float: left;"></div>
+		<div id="productChart" style="width: 500px; height: 500px; float: left;"></div>
+	</div>
+		
+	<!-- Page Content -->
+	<div class="container" style="clear: both;">
 	
 	
 	
@@ -249,6 +256,42 @@ a:hover {
 		});
 
 		//$('.carousel slide').carousel({ interval: 5}); 
+
+		//chart
+		var memberData = ${memberData };
+		var productData = ${productData };
+
+		var memberArrData = new Array();
+		for(var i = 0; i < memberData.length; i++) {			
+			memberArrData.push([memberData[i].sName, Number(memberData[i].cnt)]);
+		}
+		memberArrData.unshift(['Task', 'Hours per Day']);
+		
+		var productArrData = new Array();
+		for(var i = 0; i < productData.length; i++) {			
+			productArrData.push([productData[i].sName, Number(productData[i].cnt)]);
+		}
+		productArrData.unshift(['Task', 'Hours per Day']);
+		
+		google.charts.load("current", {packages:["corechart"]});
+	    google.charts.setOnLoadCallback(drawMemberChart);
+	    google.charts.setOnLoadCallback(drawProductChart);
+
+		function drawMemberChart() {
+			var data = google.visualization.arrayToDataTable(memberArrData);
+
+	        var chart = new google.visualization.PieChart(document.getElementById('memberChart'));
+	        chart.draw(data, {title: '회원수 : ${totalMember } 명'});
+
+		}
+
+		function drawProductChart() {
+			console.log(productArrData);
+			var data = google.visualization.arrayToDataTable(productArrData);
+
+	        var chart = new google.visualization.PieChart(document.getElementById('productChart'));
+	        chart.draw(data, {title: '거래수 : ${totalProduct } 건'});
+		}
 	});
 	</script>
 </body>
