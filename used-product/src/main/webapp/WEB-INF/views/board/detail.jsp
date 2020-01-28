@@ -92,6 +92,7 @@
 		          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">삭제</button>
 		          </c:if>
 		          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">목록</button>
+		          <button id="message-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">쪽지</button>
 		        </div>
 
 			</div>
@@ -154,6 +155,42 @@
       
     </div>
   </div>
+  
+  		<!-- 쪽지 모달 -->
+		<div class="modal fade" id="sendModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">쪽지 보내기</h4>
+					</div>
+					
+					<div class="modal-body">
+						<form id="send-form" method="post">
+							<div class="form-group">
+								<label for="mReceiver">받는 ID</label>
+								<input type="text" class="form-control" id="mReceiver" name="mReceiver" value="${board.userId }" readonly="readonly">
+								<input type="hidden" id="tNo" name="tNo" value="${ board.no }">
+							</div>
+							
+							<div class="form-group">
+								<label for="msTitle">제목</label>
+								<input type="text" class="form-control" id="msTitle" name="msTitle" placeholder="제목을 입력하세요">
+							</div>
+							
+							<div class="form-group">
+								<label for="msContent">내용</label>
+								<textarea class="form-control" rows="3" id="msContent" name="msContent" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
+							</div>
+						</form>
+					</div>
+				
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info btn-sm" id="send">보내기</button>
+						<button type="button" class="btn btn-success btn-sm" id="send-cancel" data-dismiss="modal">취소</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
@@ -326,6 +363,47 @@
 				
 		});
 
+		//쪽지
+		$(function() {
+			$('#message-button').on('click', function() {
+				$('#msTitle, #msContent').prop('readonly', false);
+				$('#sendModal').modal('show');
+			});
+
+			$('#send-cancel').on('click', function() {
+				$('#msTitle').val('');
+	            $('#msContent').val('');
+				$('#sendModal').modal('hide');
+			});
+
+			$('#send').on('click', function() {
+				if($('#msTitle').val() == "") {
+					alert('제목을 입력하세요.');
+					return;
+				}
+				
+				if($('#msContent').val() == "") {
+					alert('내용을 입력하세요.');
+					return;
+				}
+
+				$.ajax({
+					"url": "/used-product/message/sendMessage",
+					"method": "post",
+					"data": $('#send-form').serialize(),
+					"success": function(resp, status, xhr) {
+					},
+					"error": function(xhr, status, err) {
+						alert("오류 발생 : " + err);
+					},
+		            "complete" : function(){
+		            	$('#msTitle').val('');
+		                $('#msContent').val('');
+		            	$('#sendModal').modal('hide');
+			        }
+				});
+			});
+		});
 
 	</script>
 

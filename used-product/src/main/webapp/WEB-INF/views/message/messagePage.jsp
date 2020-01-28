@@ -24,11 +24,11 @@
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
 	<div class="container">
 
-		<div class="row" style="margin:35px; 0px; 35px; 0px;">
+		<div class="row">
 			<%-- <jsp:include page="/WEB-INF/views/modules/sidebar.jsp" /> --%>
 			
-			<div class="col-lg-12">
-				<h2>쪽지</h2>
+			<div class="col-lg-11" style="margin-top: 40px">
+				<h3>쪽지</h2>
 
 				<div style="margin:10px; 0px; 10px; 0px;">					
 					<form id="search-form" action="messagePage" method="get">
@@ -66,7 +66,7 @@
 	
 				<table class="table table-hover text-center">
 					<thead>
-						<tr>
+						<tr style="background-color: gray; color: white;">
 							<th><input type="checkbox" id="all-check"></th>
 							<th>읽음</th>
 							<th>상품명</th>
