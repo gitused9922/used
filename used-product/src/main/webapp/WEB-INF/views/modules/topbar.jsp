@@ -21,7 +21,7 @@
 padding : 1.0rem 2rem
 }
 .navbar-dark .navbar-brand {
-    color: #007bff;
+    color: #151521;
 }
 
 .navbar-dark .navbar-brand:focus, 
@@ -35,7 +35,7 @@ padding : 1.0rem 2rem
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: #007bff;
+    color: #151521;
 }
 
 
@@ -46,14 +46,14 @@ padding : 1.0rem 2rem
 }
 
 .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
-    color: #007bff;
+    color: #151521;
     font-weight: 500;
 }
 
 #id{
 	display: inline-block;
 	width: 450px; height: 40px;
-	border: 3px solid black;
+	border: 3px solid #e6622c;
 	background: white;
 
 }
@@ -80,17 +80,16 @@ padding : 1.0rem 2rem
       
       <div class="collapse navbar-collapse" id="navbarResponsive" style="width: 75%;">
 	   <form action="/used-product/board/list.action" method="get">
-							<select style="display:none" name="searchType" aria-controls="dataTable" class=" form-control-sm" id="formid">
-								<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
-								
-							</select>
-							<span class='retrieval'>
-							<input id="id" type="search" name="searchKey" class=" form-control-sm" placeholder="" aria-controls="dataTable"
-							       value="${ param.searchKey }">
-							     </span>  
-							 <input type="hidden" class="btn btn-success btn-sm" value="검색" >
-                             
-                         </form>
+			<select style="display:none" name="searchType" aria-controls="dataTable" class=" form-control-sm" id="formid">
+				<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>상품</option>
+				
+			</select>
+			<span class='retrieval'>
+			<input id="id" type="search" name="searchKey" class=" form-control-sm" placeholder="" aria-controls="dataTable"
+			       value="${ param.searchKey }">
+			     </span>  
+			 <input type="hidden" class="btn btn-success btn-sm" value="검색" >              
+           </form>
         <ul class="navbar-nav ml-auto" style="width: 40%;">
 <!--           <li class="nav-item active">
             <a class="nav-link" href="#">Home</a>
@@ -111,10 +110,9 @@ padding : 1.0rem 2rem
           <c:otherwise>          
 	          <li class="nav-item">
 	            <a class="nav-link" href="/used-product/chatting/chattingRoom.jsp">채팅</a>
-	            <!-- <a class="nav-link" href="/used-product/message/chattingRoom">채팅</a> -->
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="/used-product/message/sendMessagePage">마이페이지</a>
+	          	<a class="nav-link" href="/used-product/message/messagePage?messageType=R">쪽지</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" href="/used-product/account/logout.action">로그아웃</a>

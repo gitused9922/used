@@ -28,10 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.usedproduct.service.BoardService;
+import com.usedproduct.service.MessageService;
 import com.usedproduct.ui.ThePager2;
 import com.usedproduct.vo.BoardVO;
 import com.usedproduct.vo.CategoryVO;
+import com.usedproduct.vo.StatisticsVO;
 
 /**
  * Handles requests for the application home page.
@@ -43,6 +46,10 @@ public class HomeController {
 	@Qualifier("boardService")
 	private BoardService boardService;
 	
+	@Autowired
+	@Qualifier("messageService")
+	private MessageService messageService;
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -50,6 +57,12 @@ public class HomeController {
 		List<BoardVO> boards = boardService.findBoard();
 
 		model.addAttribute("boards", boards);
+		
+		Gson gson = new Gson();
+		model.addAttribute("totalMember", messageService.selectTotalMember());
+		model.addAttribute("memberData", gson.toJson(messageService.selectListAreaMember()));
+		model.addAttribute("totalProduct", messageService.selectTotalProduct());
+		model.addAttribute("productData", gson.toJson(messageService.selectListAreaProduct()));
 		
 		return "home";
 	}

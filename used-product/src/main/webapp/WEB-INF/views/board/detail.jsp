@@ -204,7 +204,7 @@
 	// 댓글관련구현	
 	$(function(){
 		$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
-		
+
 		$('#addReplyBtn').on('click',function(event){
 			$('#reply-form input[name!=no]').attr({"readonly" : false});
 			$('#modal-replyer').attr({"readonly" : "readonly"});
