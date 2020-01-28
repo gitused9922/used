@@ -35,4 +35,19 @@
 			
 	</select>
 	
+	<update id="updateReply" parameterType="ReplyVO">
+		UPDATE T_REPLY
+		SET R_CONTENT = #{reply}
+		WHERE R_NO = #{rno}
+		
+	</update>
+	
+	<update id="deleteReply" parameterType="int">
+		UPDATE T_REPLY
+		SET R_DELETE = '1'
+		WHERE R_NO = #{rno}
+	
+	
+	</update>
+	
 </mapper>

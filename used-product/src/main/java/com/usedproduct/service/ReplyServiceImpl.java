@@ -28,5 +28,16 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		
 	}
+	@Override
+	public void updateReply(ReplyVO reply) {
+
+		replyMapper.updateReply(reply);
+		
+	}
+	@Override
+	public void deleteReply(int rno) {
+
+		replyMapper.deleteReply(rno);
+	}
 	
 }

@@ -100,12 +100,12 @@
   
 		  <!-- reply -->
 		<div class='rowx'>
-			<div class="col-lg-12">
+			<div class="col-lg-8">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
 					
-						<button id='addReplyBtn' data-toggle="modal" data-target="#myModal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
+						<button id='addReplyBtn' data-toggle="modal" data-target="#reply-modal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
 					</div>
 					<br>
 					<div id="reply-list-container" class="panel-body">
@@ -119,7 +119,7 @@
 
 
 	 <!-- Modal -->				
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="reply-modal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -130,7 +130,7 @@
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         <div class="modal-body">
-          <form id="reply-form" >
+          <form id="reply-form">
 					
 					<div class="form-group">
 						<label>Replyer</label>
@@ -147,9 +147,8 @@
 		</form>
         </div>
         <div class="modal-footer">
-        	<button id="modalRegisterBtn" type="button" class="btn btn-success" data-dismiss="modal">Register</button>
-        	<button id="modalModBtn" type="button" class="btn btn-success" data-dismiss="modal">Modify</button>
-          	<button id="modalRemoveBtn" type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        	<button id="modalRegisterBtn" type="button" class="btn btn-success" >등록</button>
+           	<button id="modalCloseBtn" type="button" class="btn btn-success" >닫기</button>
         </div>
       </div>
       
@@ -160,9 +159,9 @@
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="/used-product/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="/used-product/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
 	<script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">
 	$(function(){
@@ -204,6 +203,8 @@
 	
 	// 댓글관련구현	
 	$(function(){
+		$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
+		
 		$('#addReplyBtn').on('click',function(event){
 			$('#reply-form input[name!=no]').attr({"readonly" : false});
 			$('#modal-replyer').attr({"readonly" : "readonly"});
@@ -211,9 +212,23 @@
 
 			$('#reply-form input[name=rno]').val('0');
 			$('#reply-form input[name=action]').val('reply');
+
+			$('#reply-modal').modal('show');
 			});
 
-		$(modalRegisterBtn).on('click', function(event){
+		$('#modalCloseBtn').on('click', function(event) {
+			$('#reply-modal').modal('hide');
+			window.location.reload();
+			
+			}); 
+
+
+		$('#modalRegisterBtn').on('click', function(event){
+
+			if($('#modal-reply').val().length == 0) {
+				alert("댓글 내용을 입력하세요")
+				return;
+				}
 
 			var values = $('#reply-form').serializeArray();
 
@@ -231,11 +246,85 @@
 					
 
 				});
-				
 
+			$('#reply-modal').modal('hide');
+			window.location.reload();
+			
 			});
 
-	});
+			$('#reply-list-container').on('click', '.reply-update', function(event) {
+				var rno = $(this).attr("data-rno"); 
+				var li = $("li[data-rno=" + rno + "]"); 
+				var p = li.find('p'); 
+				
+				$('#reply-form input[name!=bno]').attr({ "readonly": false }).val("");
+				$('#modal-replyer').attr({ "readonly": true }).val("");
+				$('#modal-reply').val( $.trim(p.text()) );			
+	
+				$('#modalRegisterBtn, #modalRemoveBtn').css({ "display": "none" });
+				$('#modalModBtn').css({ "display": "inline" });
+	
+				$('#reply-form input[name=rno]').val(rno);
+				//console.log('test2');
+				$('#reply-modal').modal('show');
+	
+			});
+
+				$('#modalModBtn').on('click', function(event){
+				var data = {
+				"rno" : $("#reply-form input[name=rno]").val(),
+				"reply": $("#reply-form input[name=reply]").val()
+				};
+				$.ajax({
+					"url": "/used-product/reply/update",
+					"method": "put",
+					"data": JSON.stringify(data),
+					"contentType" : "application/json",
+					"processData" : false,
+					"success" : function(result, status, xhr) {
+						$('#reply-modal').modal('hide');
+						$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
+						},
+					"error" : function(xhr, status, err) {
+						alert('수정 실패');
+						}
+
+					});
+					
+
+
+					});
+
+
+				$('#reply-list-container').on('click', '.reply-delete', function(event){
+					var rno = $(this).attr('data-rno');
+
+					var yes = confirm(rno + "번 댓글을  삭제할까요?")
+					if (!yes) return;
+					
+					$.ajax({
+						"url" : "/used-product/reply/delete/" + rno,
+						"method" : "delete",
+						"success" : function(data, status, xhr) {
+
+							$('#reply-list-container').load("/used-product/reply/list-by/${ board.no }");
+							},
+						"error" : function(xhr, status, err) {
+
+							}
+
+						});
+
+					
+					
+					});
+
+
+
+
+
+				
+		});
 
 
 	</script>

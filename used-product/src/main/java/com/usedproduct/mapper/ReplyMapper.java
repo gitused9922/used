@@ -13,4 +13,8 @@ public interface ReplyMapper {
 
 	public List<ReplyVO> selectRepliesByNo(int no);
 
+	public void updateReply(ReplyVO reply);
+
+	public void deleteReply(int rno);
+
 }
