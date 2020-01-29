@@ -46,7 +46,7 @@
 									<form action="/used-product/account/register" method="post"
 										class="user" onsubmit="return check()">
 										<div class="form-group" style="display: block">
-											<input type="text" name="memberId"
+											<input type="text" name="memberId" maxlength="16"
 												class="form-control form-control-user" id="memberId"
 												style="width: 68%; margin-right: 5px; float: left"
 												placeholder="아이디">
@@ -60,7 +60,7 @@
 										</div>
 										<!-- <div class="form-group row"> -->
 										<div class="form-group" style="display: block">
-											<input type="password" name="memberPw"
+											<input type="password" name="memberPw" maxlength="16"
 												class="form-control form-control-user" id="memberPw"
 												placeholder="비밀번호"> <span id="pwError"
 												style="color: red; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
@@ -225,10 +225,14 @@
 	<script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript">
 		var idch = 0; // 체크를 해서 사용 가능하면 1, 하지 않거나 사용 불가능이면 0. 1이면 회원가입 가능, 0일때는 불가능.
+		var name_re = /^[A-Za-z0-9]{4,12}$/
 		function check() {
 			if ($('#memberId').val() == '') {
 				$('#idError').text('아이디를 입력하세요').show();
 				$('#memberId').focus();
+				return false;
+			} else if (!name_re.test($('#memberId').val())){
+				$('#idError').text('아이디는 4~16 사이의 영문자와 숫자 조합입니다').show();
 				return false;
 			} else if (idch == 0) {
 				$('#idError').hide();
@@ -302,6 +306,9 @@
 				if (userid == '') {
 					$('#idError').text('아이디를 입력하세요').show();
 					$('#memberId').focus();
+					return;
+				} else if(!name_re.test($('#memberId').val())){
+					$('#idError').text('아이디는 4~16 사이의 영문자와 숫자 조합입니다').show();
 					return;
 				} else {
 					$('#idError').hide();
