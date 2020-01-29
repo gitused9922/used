@@ -88,10 +88,13 @@
 					</div>
 				<div style="width: 100%;height: 100px;">
 		          <c:if test="${ loginuser.memberId == board.userId }">
+		          
 		          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-top: 30px;">수정</button>
 		          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">삭제</button>
+		          
 		          </c:if>
 		          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">목록</button>
+		          <button id='addReplyBtn' data-toggle="modal" data-target="#reply-modal" class='btn btn-primary btn-xs pull-right float-right' style="float: right; margin-right: 10px; margin-top: 30px;">댓글</button>
 		        </div>
 
 			</div>
@@ -100,12 +103,12 @@
   
 		  <!-- reply -->
 		<div class='rowx'>
-			<div class="col-lg-8">
+			<div class="col-lg-9" style="width: 1200px;  margin: 0 auto">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
 					
-						<button id='addReplyBtn' data-toggle="modal" data-target="#reply-modal" class='btn btn-primary btn-xs pull-right float-right'>댓글 작성하기</button>
+						
 					</div>
 					<br>
 					<div id="reply-list-container" class="panel-body">
@@ -244,7 +247,7 @@
 						alert('댓글실패');
 					}	
 					
-
+					
 				});
 
 			$('#reply-modal').modal('hide');
