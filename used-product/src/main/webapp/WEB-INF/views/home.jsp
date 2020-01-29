@@ -95,16 +95,8 @@ a:hover {
 	    </div>
 	</header>
 
-	<!-- chart -->
-	<div class="container">
-		<div id="memberChart" style="width: 500px; height: 500px; float: left; padding: 50px;"></div>
-		<div id="productChart" style="width: 500px; height: 500px; float: left; padding: 50px;"></div>
-	</div>
-		
-	<!-- Page Content -->
-	<div class="container" style="clear: both;">
-	
-	
+<!-- Page Content -->
+<div class="container" style="clear: both;">
 	
 	  <!-- Portfolio Grid -->
 	  <section class="bg-light page-section" id="portfolio">
@@ -115,6 +107,7 @@ a:hover {
 	          <!-- <h3 class="section-subheading text-muted">카테고리별 중고제품 구매하기</h3> -->
 	        </div>
 	      </div>
+	      <br><br>
 	      <div class="row">
 	        <div class="col-md-4 col-sm-6 portfolio-item">
 	          <a class="portfolio-link" href="/used-product/board/list.action?searchType=T&searchKey=전자제품">
@@ -207,7 +200,22 @@ a:hover {
 	<div>
 		<p style="text-align: center;">${ pager }</p>
 	</div>
-	</div>
+	
+
+	<!-- chart -->
+	<section class="bg-light page-section" id="portfolio" style=" padding-left: 50px; padding-right: 50px; height: 800px;">
+		<div class="row">
+	       <div class="col-lg-12 text-center">
+	         <h2 class="section-heading text-uppercase">중고 서울 현황보기</h2>
+	         <!-- <h3 class="section-subheading text-muted">카테고리별 중고제품 구매하기</h3> -->
+	       </div>
+	     </div>
+	     <br><br>
+		<div id="memberChart" style="width: 500px;   height: 500px;   float: left;   margin: 0 auto;   cursor: pointer;   position: relative;"></div>
+		<div id="productChart" style="width: 500px;   height: 500px;   float: right;   margin: 0 auto;   cursor: pointer;   position: relative;"></div>
+	</section>
+		
+</div>
 
 			
 
