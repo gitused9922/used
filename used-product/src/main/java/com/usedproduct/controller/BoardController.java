@@ -137,7 +137,7 @@ public class BoardController {
 		} catch (Exception ex) {
 		}
 		//log.warn("pageNo : " + pageNo + "searchType : " + searchType + "searchKey : " + searchKey);
-		return String.format("redirect:list.action?pageNo=%d&searchKey=%s&searchType=%s", pageNo, encodedKey, searchType);
+		return "redirect:list.action?";
 	}
 	
 	@GetMapping(path = { "/update.action" })

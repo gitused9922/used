@@ -21,7 +21,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
-	<title>서울 중고 채팅방</title>
+	<title>중고 서울 채팅방</title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="/used-product/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,6 @@
 			border-radius: 10px;
 			background-color: gray;
 			font-size: 20px;
-			color: white;
 		}		
 	</style>
 </head>
@@ -45,9 +44,9 @@
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
 	<div class="container">
 		<div class="row" style="margin:35px; 0px; 35px; 0px;">
-			<div class="col-lg-12">
+			<div class="col-lg-12" style="margin-top: 20px;">
 				<div class="row">
-				    <h3 style="margin-bottom: 20px;">서울 중고 채팅방</h3>
+				    <h3 style="margin-bottom: 20px;">중고 서울 채팅방</h3>
 
 				    <div id="chatArea"><div id="chatMessageArea"></div></div><br>
 			    </div>	    
@@ -90,7 +89,7 @@
 		function connect() {
 			wsocket = new WebSocket("ws://172.16.6.28:8088/used-product/chatting/chattingRoom");
 			wsocket.onopen = function onOpen(e) {
-				appendMessage("[ " + id + " ]" + "님 채팅방 입장하셨습니다.");
+				appendMessage("<span style='color:orange'>[ " + id + " ]</span>" + "님 채팅방 입장하셨습니다.");
 			}
 			
 			wsocket.onmessage = function onMessage(e) {
@@ -98,12 +97,12 @@
 			};
 
 			wsocket.onclose = function onClose(e) {
-				appendMessage("[ " + id + " ]" + "님 채팅방 나가셨습니다.");
+				appendMessage("<span style='color:orange'>[ " + id + " ]</span>" + "님 채팅방 나가셨습니다.");
 			}
 		}
 		
 		function appendMessage(msg) {
-			$("#chatMessageArea").append("[ " + today() + " ] "+ msg + "<br>");
+			$("#chatMessageArea").append("<span style='background-color:white; border-radius: 10px;'>[ " + today() + " ] "+ msg + "</span><br>");
 			
 			var chatAreaHeight = $("#chatArea").height();
 			var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;

@@ -94,8 +94,15 @@ a:hover {
 	      </div>
 	    </div>
 	</header>
-	<!-- Page Content -->
+
+	<!-- chart -->
 	<div class="container">
+		<div id="memberChart" style="width: 500px; height: 500px; float: left; padding: 50px;"></div>
+		<div id="productChart" style="width: 500px; height: 500px; float: left; padding: 50px;"></div>
+	</div>
+		
+	<!-- Page Content -->
+	<div class="container" style="clear: both;">
 	
 	
 	
@@ -120,7 +127,7 @@ a:hover {
 	          </a>
 	          <div class="portfolio-caption">
 	            <h4>전자제품</h4>
-	            <p class="text-muted">Illustration</p>
+	            <!-- <p class="text-muted">Illustration</p> -->
 	          </div>
 	        </div>
 	        <div class="col-md-4 col-sm-6 portfolio-item">
@@ -134,7 +141,7 @@ a:hover {
 	          </a>
 	          <div class="portfolio-caption">
 	            <h4>가구/침구/인테리어</h4>
-	            <p class="text-muted">Graphic Design</p>
+	            <!-- <p class="text-muted">Graphic Design</p> -->
 	          </div>
 	        </div>
 	        <div class="col-md-4 col-sm-6 portfolio-item">
@@ -148,7 +155,7 @@ a:hover {
 	          </a>
 	          <div class="portfolio-caption">
 	            <h4>의류</h4>
-	            <p class="text-muted">Identity</p>
+	            <!-- <p class="text-muted">Identity</p> -->
 	          </div>
 	        </div>
 	        <div class="col-md-4 col-sm-6 portfolio-item">
@@ -162,7 +169,7 @@ a:hover {
 	          </a>
 	          <div class="portfolio-caption">
 	            <h4>장난감</h4>
-	            <p class="text-muted">Branding</p>
+	            <!-- <p class="text-muted">Branding</p> -->
 	          </div>
 	        </div>
 	        <div class="col-md-4 col-sm-6 portfolio-item">
@@ -172,11 +179,11 @@ a:hover {
 	                <i class="fas fa-plus fa-3x"></i>
 	              </div>
 	            </div>
-	            <p class="img-fluid" >더 보 기</p>
+	            <img class="img-fluid" src="https://m.ssamplus.com/images/common/icon_more.png" alt="">
 	          </a>
 	          <div class="portfolio-caption">
 	            <h4>최근 등록 상품 보기</h4>
-	            <p class="text-muted">Website Design</p>
+	            <!-- <p class="text-muted">Website Design</p> -->
 	          </div>
 	        </div>
 	<!--         <div class="col-md-4 col-sm-6 portfolio-item">
@@ -249,6 +256,42 @@ a:hover {
 		});
 
 		//$('.carousel slide').carousel({ interval: 5}); 
+
+		//chart
+		var memberData = ${memberData };
+		var productData = ${productData };
+
+		var memberArrData = new Array();
+		for(var i = 0; i < memberData.length; i++) {			
+			memberArrData.push([memberData[i].sName, Number(memberData[i].cnt)]);
+		}
+		memberArrData.unshift(['Task', 'Hours per Day']);
+		
+		var productArrData = new Array();
+		for(var i = 0; i < productData.length; i++) {			
+			productArrData.push([productData[i].sName, Number(productData[i].cnt)]);
+		}
+		productArrData.unshift(['Task', 'Hours per Day']);
+		
+		google.charts.load("current", {packages:["corechart"]});
+	    google.charts.setOnLoadCallback(drawMemberChart);
+	    google.charts.setOnLoadCallback(drawProductChart);
+
+		function drawMemberChart() {
+			var data = google.visualization.arrayToDataTable(memberArrData);
+
+	        var chart = new google.visualization.PieChart(document.getElementById('memberChart'));
+	        chart.draw(data, {title: '회원수 : ${totalMember } 명'});
+
+		}
+
+		function drawProductChart() {
+			console.log(productArrData);
+			var data = google.visualization.arrayToDataTable(productArrData);
+
+	        var chart = new google.visualization.PieChart(document.getElementById('productChart'));
+	        chart.draw(data, {title: '거래수 : ${totalProduct } 건'});
+		}
 	});
 	</script>
 </body>

@@ -7,9 +7,7 @@
 
         <!-- <h1 class="my-4">Shop Name</h1> -->
         <div class="list-group">
-          <a href="/used-product/message/sendMessagePage" class="list-group-item">메세지</a>
-          <a href="/used-product/message/messagePage" class="list-group-item">쪽지 보관함</a>
-          <a href="#" class="list-group-item">Category 2</a>
+          <a href="/used-product/message/messagePage?messageType=R" class="list-group-item text-center">쪽지</a>
         </div>
 
     </div>

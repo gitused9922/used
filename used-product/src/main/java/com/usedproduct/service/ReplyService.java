@@ -13,5 +13,9 @@ public interface ReplyService {
 
 	List<ReplyVO> getReplyListByNo(int no);
 
+	void updateReply(ReplyVO reply);
+
+	void deleteReply(int rno);
+
 
 }

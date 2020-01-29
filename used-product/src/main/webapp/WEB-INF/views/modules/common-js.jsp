@@ -8,6 +8,8 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/used-product/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
+<!-- chart -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <!-- Plugin JavaScript -->
   <script src="/used-product/resources/vendor/jquery-easing/jquery.easing.min.js"></script>

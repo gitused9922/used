@@ -5,23 +5,14 @@ import java.util.List;
 
 import com.usedproduct.mapper.MessageMapper;
 import com.usedproduct.vo.MessageVO;
+import com.usedproduct.vo.StatisticsVO;
 
 import lombok.Setter;
 
 public class MessageServiceImpl implements MessageService {
 
 	@Setter
-	private MessageMapper MessageMapper;
-	
-	@Override
-	public List<MessageVO> selectListMessageSender(HashMap<String, Object> params) {
-		return MessageMapper.selectListMessageSender(params);
-	}
-	
-	@Override
-	public int selectMessageCount(HashMap<String, Object> params) {
-		return MessageMapper.selectMessageCount(params);
-	}
+	private MessageMapper MessageMapper; 
 
 	@Override
 	public void insertMessage(MessageVO message) {
@@ -46,6 +37,31 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void updateMessage(int no) {
 		MessageMapper.updateMessage(no);
+	}
+
+	@Override
+	public void deleteMessage(int no) {
+		MessageMapper.deleteMessage(no);
+	}
+
+	@Override
+	public int selectTotalMember() {
+		return MessageMapper.selectTotalMember();
+	}
+
+	@Override
+	public List<StatisticsVO> selectListAreaMember() {
+		return MessageMapper.selectListAreaMember();
+	}
+
+	@Override
+	public int selectTotalProduct() {
+		return MessageMapper.selectTotalProduct();
+	}
+
+	@Override
+	public List<StatisticsVO> selectListAreaProduct() {
+		return MessageMapper.selectListAreaProduct();
 	}
 
 }

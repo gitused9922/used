@@ -18,19 +18,6 @@
 		<result column="ms_confirm" property="msConfirm" />
 	</resultMap>
 	
-	<sql id="searchCondition">
-		<trim prefix="AND">
-	    	<choose>
-	    		<when test="searchType == 'T'.toString()">
-	    			m_id LIKE '%'||#{searchKey}||'%'
-	    		</when>
-	    		<when test="searchType == 'C'.toString()">
-	    			p_name LIKE '%'||#{searchKey}||'%'
-	    		</when>
-	    	</choose>
-		</trim>
-	</sql>
-	
 	<sql id="searchMessageCondition">
 		<trim prefix="AND">
 			<choose>
@@ -66,44 +53,7 @@
 			</choose>
 		</trim>
 	</sql>
-	
-	<select id="selectListMessageSender" parameterType="hashmap" resultMap="messageMap">
-		SELECT t_no
-		     , m_sender
-		     , p_name
-		  FROM (
-				SELECT rownum idx
-				     , p.t_no t_no
-				     , m.m_sender m_sender
-				     , p.p_name p_name
-				  FROM (SELECT t_no, m_sender
-				          FROM t_ms
-				         WHERE m_receiver = #{receiver }
-				         GROUP BY t_no, m_sender) m
-				     , t_product p
-				 WHERE m.t_no = p.t_no
-		           AND p.d_state = '1'
-				   AND p.p_delete = '1'
-		           <include refid="searchCondition" />
-		           AND <![CDATA[ rownum < #{ end } ]]>
-		         ORDER BY p_udate DESC
-          )
-         WHERE idx >= #{ beginning }
-	</select>
 
-	<select id="selectMessageCount" parameterType="hashmap" resultType="int">
-		SELECT COUNT(*) cnt
-		  FROM (SELECT t_no, m_sender
-		          FROM t_ms
-		         WHERE m_receiver = #{receiver }
-		         GROUP BY t_no, m_sender) m
-		     , t_product p
-		 WHERE m.t_no = p.t_no
-           AND p.d_state = '1'
-		   AND p.p_delete = '1'
-           <include refid="searchCondition" />
-	</select>
-	
 	<insert id="insertMessage" parameterType="MessageVO">
 		<selectKey keyProperty="msNo" resultType="int" order="AFTER">
 			SELECT seq_t_ms_sequence.currval FROM DUAL
@@ -166,4 +116,49 @@
    		   SET ms_confirm = 1
          WHERE ms_no = #{no }
 	</update>
+	
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM t_ms
+		 WHERE ms_no = #{no }
+	</delete>
+
+	<select id="selectTotalMember" resultType="int">
+		SELECT count(*) cnt
+		  FROM t_site s
+             , t_member m
+         WHERE s.s_no = m.s_no
+           AND m.m_state = 0
+	</select>
+	
+	<select id="selectListAreaMember" resultType="StatisticsVO">
+		SELECT s_name sName
+		     , count(*) cnt
+		  FROM t_site s
+		       , t_member m
+		 WHERE s.s_no = m.s_no
+		 GROUP BY s_name
+		 ORDER BY 1
+	</select>
+	
+	<select id="selectTotalProduct" resultType="int">
+		SELECT count(*) cnt
+		  FROM t_site s
+             , t_member m
+             , t_product p
+         WHERE s.s_no = m.s_no
+             AND m.m_id = p.m_id
+	</select>
+	
+	<select id="selectListAreaProduct" resultType="StatisticsVO">
+		SELECT s_name sName
+             , count(*) cnt
+		  FROM t_site s
+			 , t_member m
+             , t_product p
+		 WHERE s.s_no = m.s_no
+		   AND m.m_id = p.m_id
+		 GROUP BY s_name
+		 ORDER BY 1
+	</select>
+
 </mapper>

@@ -32,7 +32,8 @@ public class AccountController {
 		
 		return "redirect:/resources/login.html";
 	}
-	
+
+		
 	@PostMapping(path = { "/login" })
 	public String login(MemberVO member, HttpSession session) {
 		MemberVO foundMember = memberService.findMemberByIdAndPasswd(member);
@@ -52,7 +53,7 @@ public class AccountController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(path = { "/idcheck.action"})
+	@RequestMapping(path = {"/regidcheck.action"})
 	@ResponseBody
 	public Map<String, Integer> idCheck(@RequestBody String memberId) {
 		int count = 0;
@@ -61,4 +62,5 @@ public class AccountController {
 		map.put("cnt", count);
 		return map;
 	}
+	
 }
