@@ -44,12 +44,15 @@
 				<span class=""></span>
 			</div>
 			<div class="">
-				<form id="write-form" role="form" action="write.action" method="post">
-					<!-- <input class="form-control" id='no' name='no'> -->
+				<form id="update-form" role="form" action="update.action" method="post">
+				   <input type="hidden" class="form-control" id='no' name='no' value="${ board.no }">
+		           <input type="hidden" name="pageNo" value="${ param.pageNo }">
+		           <input type="hidden" id="searchType" name="searchType" value="${ param.searchType }">
+  				   <input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
 				   <div class="form-row">
 				     <div class="form-group col-md-6">
 				       <label for="inputEmail4">상품명</label>
-				       <input class="form-control" id="name" name='name'>
+				       <input class="form-control" id="name" name='name' value="${ board.name }">
 				   </div>
 				   <div class="form-group col-md-6">
 				      <label for="inputPassword4">카테고리</label>
@@ -65,7 +68,7 @@
 					
 					<div class="form-group">
 						<label>가격</label> 
-						<input class="form-control" id='price' name='price'>
+						<input class="form-control" id='price' name='price' value="${ board.price }">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1" >판매내용</label>
@@ -128,7 +131,7 @@
 	        // 이부분에 에디터 validation 검증
 	
 	        //폼 submit
-	        $("#write-form").submit();
+	        $("#update-form").submit();
 	    })
 	})
 	

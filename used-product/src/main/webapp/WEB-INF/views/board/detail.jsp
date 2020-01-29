@@ -19,6 +19,8 @@
 <!-- Custom styles for this template -->
 <link href="/used-product/resources/css/shop-homepage.css" rel="stylesheet">
 
+  <%@include file="/WEB-INF/views/modules/common-css.jsp" %>
+
 </head>
 
 <body>
@@ -28,7 +30,7 @@
   <!-- Page Content -->
   <div class="container">
 
-    <div class="row">
+    <div class="row" style="margin-top:50px">
 	
 	<!-- sidebar -->
 	<%-- <jsp:include page="/WEB-INF/views/modules/sidebar.jsp" /> --%>
@@ -67,47 +69,45 @@
 			<label>번호</label> <input class="form-control" id='no' name='no' value='${ board.no }')>
 		</div> --%>
 	   <div class="form-row">
-				   <section id="article-images">
-				       <img id="m-img1" alt="대표이미지" src="">
-				   </section>
-				   <div class="form-group col-md-6">
-				      <label>번호</label>
-				      <input class="form-control" id='no' name='no' value='${ board.no }'>
-				      <label for="inputEmail4">상품명</label>
-				      <input class="form-control" id="name" name='name' value='${ board.name }'>
-				      <label for="inputPassword4">카테고리</label>
-				      <input class="form-control" id="name" name='cgName' value='${ board.cgName }'>
-				      <label>가격</label>
-				      <input class="form-control" id='price' name='price' value='${board.price}'>
-				      <label>작성자</label>
-				      <input class="form-control" id='userId' name='userId' value="${board.userId }">
-				   </div>
-					<div class="form-group">
-						<label for="exampleFormControlTextarea1" ></label>
-						<div id="content" class="form-control" style="width:1140px; height:100%;">${board.content }</div>
-					</div>
-				<div style="width: 100%;height: 100px;">
-		          <c:if test="${ loginuser.memberId == board.userId }">
-		          
-		          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-top: 30px;">수정</button>
-		          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">삭제</button>
-		          
-		          </c:if>
-		          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">목록</button>
+			<section id="article-images" id="board-${ board.no }" data-no="${ board.no }">
+			    <img id="m-img1" alt="대표이미지" src="">
+			</section>
+			<section style="padding-top: 10px; padding-bottom: 5px; width: 677px; margin: 0 auto; border-bottom: 1px solid #e9ecef;">
+				<span class="float-right" style="margin-top: 4px; font-size: 18px; font-weight: bold; line-height: 1.76; letter-spacing: -0.6px;">${ board.price }원</span>
+				<h2>${ board.name }</h2><small class="float-right">${ board.rdate }</small>
+				<p style="margin-top: 4px; font-size: 15px; line-height: 1.46; letter-spacing: -0.6px;">판매자 ${ board.userId }</p>
+				<p style="margin-top: 4px; font-size: 15px; line-height: 1.46; letter-spacing: -0.6px; color: #868e96;">${ board.cgName }</p>
+			</section>
+			<section style="padding: 32px 0; width: 677px; margin: 0 auto; border-bottom: 1px solid #e9ecef;">
+				<div id="content">${ board.content }</div>
+			</section>
+			<div style="height: 100px; width: 677px; margin: 0 auto; padding-top: 32px; position: relative;">
+	          <c:if test="${ loginuser.memberId == board.userId }">
+	          
+	          <button id="delete-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; background-color: #6b6b6b; border-color: #8a8a8a;">삭제</button>
+	          <button id="edit-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px;">수정</button>
+	          
+	          </c:if>
+	          <button id="tolist-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px;">목록</button>
 
-		          <button id='addReplyBtn' data-toggle="modal" data-target="#reply-modal" class='btn btn-primary btn-xs pull-right float-right' style="float: right; margin-right: 10px; margin-top: 30px;">댓글</button>
+	          <button id='addReplyBtn' data-toggle="modal" data-target="#reply-modal" class='btn btn-success btn-sm' style="float: right; margin-right: 10px;">댓글</button>
 
-		          <button id="message-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px; margin-top: 30px;">쪽지</button>
+	          <button id="message-button" type="button" class="btn btn-success btn-sm" style="float: right; margin-right: 10px;">쪽지</button>
 
-		        </div>
+	        </div>
 
 			</div>
 			<!-- /.container -->
 		  </div></div></div>
   
 		  <!-- reply -->
+
 		<div class='rowx'>
 			<div class="col-lg-9" style="width: 1160px;  margin: 0 auto">
+
+		<div class='rowx' style="padding: 32px 0; width: 1000px; margin: 0 auto; border-bottom: 1px solid #e9ecef;">
+			<div class="col-lg-9" style="width: 1200px;  margin: 0 auto">
+
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
@@ -211,14 +211,14 @@
 	$(function(){
 
 
-		$('#content').css({'text-align' : 'center'
-							,'width' : '1140px'
-							,'height' : '100%'})	
 		$('#content img').css({'width': '500px'});
-		//$('#m-img1').css({'width' : '100%'})
-		var firstimg = $('#content').find('img:first').attr('src');
-		//alert(firstimg);
-		$('#m-img1').attr({'src' : firstimg});
+		$('#m-img1').css({'width' : '100%'})
+		var html = $('#content').html();
+		console.log(html);
+		var img = $(html).find('img:first').attr('src');
+		console.log(img);
+		$('#m-img1').attr({'src' : img});
+
 		
 
 		$('.form-group > input, textarea').attr({'readonly': 'readonly'});
@@ -237,7 +237,7 @@
 			if (!yes) {
 				return;
 			}
-			location.href = "update.action?no=${board.no}&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
+			location.href = "delete.action?no=${board.no}&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
 
 		});
 
