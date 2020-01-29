@@ -18,4 +18,5 @@ public interface ReplyService {
 	void deleteReply(int rno);
 
 
+
 }

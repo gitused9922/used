@@ -88,7 +88,7 @@
 		}
 
 		function connect() {
-			wsocket = new WebSocket("ws://localhost:8088/used-product/message/chattingRoom");  
+			wsocket = new WebSocket("localhost:8081/used-product/message/chattingRoom");  
 			
 			wsocket.onopen = function onOpen(e) {
 				appendMessage("[ " + id + " ]" + "님 채팅방 입장하셨습니다.");

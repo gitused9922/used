@@ -108,9 +108,9 @@ padding : 1.0rem 2rem
 	          </li>
           </c:when>
           <c:otherwise>          
-	          <li class="nav-item">
+	          <!-- <li class="nav-item">
 	            <a class="nav-link" href="/used-product/chatting/chattingRoom.jsp">채팅</a>
-	          </li>
+	          </li> -->
 	          <li class="nav-item">
 	          	<a class="nav-link" href="/used-product/message/messagePage?messageType=R">쪽지</a>
 	          </li>

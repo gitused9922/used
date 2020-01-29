@@ -107,7 +107,7 @@
   
 		  <!-- reply -->
 		<div class='rowx'>
-			<div class="col-lg-9" style="width: 1200px;  margin: 0 auto">
+			<div class="col-lg-9" style="width: 1160px;  margin: 0 auto">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-comments fa-fw"></i>
@@ -155,6 +155,7 @@
         </div>
         <div class="modal-footer">
         	<button id="modalRegisterBtn" type="button" class="btn btn-success" >등록</button>
+        	<button id="modalModBtn" type="button" class="btn btn-success" >수정</button>
            	<button id="modalCloseBtn" type="button" class="btn btn-success" >닫기</button>
         </div>
       </div>
@@ -252,6 +253,7 @@
 			$('#reply-form input[name!=no]').attr({"readonly" : false});
 			$('#modal-replyer').attr({"readonly" : "readonly"});
 			$('#modalRegisterBtn').css({"display" : "inline" });
+			$('#modalModBtn').css({ "display": "none" });
 
 			$('#reply-form input[name=rno]').val('0');
 			$('#reply-form input[name=action]').val('reply');
@@ -300,7 +302,7 @@
 				var li = $("li[data-rno=" + rno + "]"); 
 				var p = li.find('p'); 
 				
-				$('#reply-form input[name!=bno]').attr({ "readonly": false }).val("");
+				$('#reply-form input[name!=no]').attr({ "readonly": false }).val("");
 				$('#modal-replyer').attr({ "readonly": true }).val("");
 				$('#modal-reply').val( $.trim(p.text()) );			
 	
@@ -361,8 +363,7 @@
 					
 					
 					});
-
-
+			
 
 
 

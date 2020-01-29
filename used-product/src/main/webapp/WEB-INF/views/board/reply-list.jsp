@@ -24,11 +24,14 @@
 									</p>
 									<div class="footer">
 										<c:if test="${ not reply.delete }">
+										<c:if test="${loginuser.memberId == reply.replyer }">
 										
-										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-reply">댓글</button>
 										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-update">수정</button>
 										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-delete">삭제</button>
 										</c:if>
+										
+										</c:if>
+										
 									</div>
 								</div>
 							</li>
