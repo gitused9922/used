@@ -25,9 +25,9 @@
 									<div class="footer">
 										<c:if test="${ not reply.delete }">
 										
-										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-reply">댓글</button>
-										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-update">수정</button>
-										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reply-delete">삭제</button>
+										<button data-rno='${ reply.rno }' class="btn btn-success btn-sm reply-reply">댓글</button>
+										<button data-rno='${ reply.rno }' class="btn btn-success btn-sm reply-update">수정</button>
+										<button data-rno='${ reply.rno }' class="btn btn-success btn-sm reply-delete">삭제</button>
 										</c:if>
 									</div>
 								</div>

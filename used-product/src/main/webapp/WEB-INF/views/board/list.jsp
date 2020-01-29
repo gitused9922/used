@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +99,7 @@ a:hover {
 			</header>
 		</c:when>
 		<c:otherwise>
-			<header class="masthead" style=" width: 100%;  height: 600px;">
+			<header class="masthead" style=" width: 100%;  height: 600px; background-color: #2f2f2f;">
 			    <div class="container">
 			      <div class="intro-text">
 			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
@@ -112,17 +113,17 @@ a:hover {
 
 	
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container" >
 
 
-			<div class="row" style="width: 1110px;">
+			<div class="row" style="width: 1110px; margin-top: 20px;">
 				<div class="">
 				<c:choose>
 					<c:when test="${ empty loginuser }">
 					</c:when>
 					<c:otherwise>
-					<div class="card-header py-3" style="width: 1110px;">
-						<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
+					<div class="card-header py-3" style="width: 1110px; margin-bottom: 20px;">
+						<span class="m-0 font-weight-bold">상품 목록</span> 
 						<a href="write.action" class="btn btn-success btn-sm" style="float: right"> 
 							<span class="text">상품 등록</span>
 						</a>
@@ -187,7 +188,7 @@ a:hover {
 	$(function(){
 		
  		$('.m-img1').css({ 'border-radius': '8px'
- 	 						,'width': '348px'
+ 	 						,'width': '100%'
  	 	 					,'height': '300px'})
 
  		$("div[id^=board-]").each(function(idx, item) {
