@@ -232,7 +232,7 @@
 				$('#memberId').focus();
 				return false;
 			} else if (!name_re.test($('#memberId').val())){
-				$('#idError').text('아이디는 4~12 사이의 영문자와 숫자 조합입니다').show();
+				$('#idError').text('아이디는 4~16 사이의 영문자와 숫자 조합입니다').show();
 				return false;
 			} else if (idch == 0) {
 				$('#idError').hide();
