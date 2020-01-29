@@ -197,7 +197,7 @@
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+		</div><!-- /.modal --></div></div>
 
 	<!-- Footer -->
   	<jsp:include page="/WEB-INF/views/modules/footer.jsp" />

@@ -87,7 +87,7 @@ a:hover {
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
 	<c:choose>
 		<c:when test="${ empty boards}">
-			<header class="masthead" style=" width: 100%;  height: 600px;">
+			<header class="masthead" style=" width: 100%;  height: 600px; background-color: #1b1b1b;">
 			    <div class="container">
 			      <div class="intro-text">
 			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
@@ -112,17 +112,19 @@ a:hover {
 
 	
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container" style="margin-top: 30px;">
 
 
 			<div class="row" style="width: 1110px;">
 				<div class="">
 				<c:choose>
 					<c:when test="${ empty loginuser }">
+					<div style="width: 1110px;">
+					</div>
 					</c:when>
 					<c:otherwise>
-					<div class="card-header py-3" style="width: 1110px;">
-						<span class="m-0 font-weight-bold text-primary">상품 목록</span> 
+					<div class="card-header py-3" style="width: 1110px;     margin-bottom: 30px;     background-color: #fff;  border-bottom: 0px;">
+						
 						<a href="write.action" class="btn btn-success btn-sm" style="float: right"> 
 							<span class="text">상품 등록</span>
 						</a>
