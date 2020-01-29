@@ -22,7 +22,6 @@
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -36,7 +35,7 @@
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
-						<div class="row">
+						<div class="row" style="height: 700px">
 							<!-- <div class="col-lg-5 d-none d-lg-block bg-register-image"></div> -->
 							<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
 							<div class="col-lg-6">
@@ -45,60 +44,55 @@
 										<h1 class="h4 text-gray-900 mb-4">회원가입</h1>
 									</div>
 									<form action="/used-product/account/register" method="post"
-										class="user">
-										<!-- 
-                <div class="form-group">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="성">
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="이름">
-                  </div>
-                  
-                </div>
-                   -->
-										<div class="form-group" style="display:block">
+										class="user" onsubmit="return check()">
+										<div class="form-group" style="display: block">
 											<input type="text" name="memberId"
-												class="form-control form-control-user" id="memberId" style="width:70%; float:left"
+												class="form-control form-control-user" id="memberId"
+												style="width: 68%; margin-right: 5px; float: left"
 												placeholder="아이디">
-											<button type="button" class="btn btn-primary btn-user btn-block" style="width:30%;" id="idCheck">중복체크</button>
+											<button type="button"
+												class="btn btn-primary btn-user btn-block"
+												style="width: 30%; height: 50px;" id="idCheck">중복체크</button>
+											<span id="idError"
+												style="color: red; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
+											<span id="idSuccess"
+												style="color: #03c75a; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
 										</div>
 										<!-- <div class="form-group row"> -->
-										<div class="form-group">
+										<div class="form-group" style="display: block">
 											<input type="password" name="memberPw"
 												class="form-control form-control-user" id="memberPw"
-												placeholder="비밀번호">
+												placeholder="비밀번호"> <span id="pwError"
+												style="color: red; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
+											<span id="pwSuccess"
+												style="color: #03c75a; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
 										</div>
-										<div class="form-group">
+										<div class="form-group" style="display: block">
 											<input type="password" name="confirm"
 												class="form-control form-control-user" id="pwConfirm"
-												placeholder="비밀번호 확인">
+												placeholder="비밀번호 확인"> <span id="confirmError"
+												style="color: red; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
+											<span id="confirmSuccess"
+												style="color: #03c75a; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
 										</div>
-										<div class="form-group">
+										<div class="form-group" style="display: block">
 											<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#siteModal">우리동네 설정</button> -->
 											<input type="text" readonly="readonly" name="siteName"
 												class="form-control form-control-user testhover" id="site"
-												placeholder="우리동네 설정" style="cursor: pointer;"> 
-											<input type="hidden" name="siteNo" id="siteNo">
+												placeholder="우리동네 설정" style="cursor: pointer;"> <input
+												type="hidden" name="siteNo" id="siteNo"> <span
+												id="siteError"
+												style="color: red; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
+											<span id="siteSuccess"
+												style="color: #03c75a; font-size: 8pt; display: none; margin-left: 15pt; margin-top: 5pt; margin-bottom: 5pt; float: left"></span>
 										</div>
 										<!-- </div> -->
 										<input type="submit" value="가입하기"
 											class="btn btn-primary btn-user btn-block">
 										<hr>
-
-										<!--  
-               <a href="index.html" class="btn btn-google btn-user btn-block">
-                  <i class="fab fa-google fa-fw"></i> Register with Google
-                </a>
-                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                  <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                </a>
-                -->
-
-
 									</form>
 									<div class="text-center">
-										<a class="small" href="forgot-password.html">비밀번호 찾기</a> | <a
+										<a class="small" href="#">비밀번호 찾기</a> | <a
 											class="small" href="login.html">로그인</a>
 									</div>
 									<div class="text-center"></div>
@@ -230,49 +224,109 @@
 	<script type="text/javascript" src="js/highlight.js"></script>
 	<script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript">
+		var idch = 0; // 체크를 해서 사용 가능하면 1, 하지 않거나 사용 불가능이면 0. 1이면 회원가입 가능, 0일때는 불가능.
+		function check() {
+			if ($('#memberId').val() == '') {
+				$('#idError').text('아이디를 입력하세요').show();
+				$('#memberId').focus();
+				return false;
+			} else if (idch == 0) {
+				$('#idError').hide();
+				$('#idError').text('중복체크를 해주세요').show();
+				return false;
+			} else if ($('#memberPw').val() == '') {
+				$('#pwError').text('비밀번호를 입력하세요').show();
+				$('#memberPw').focus();
+				return false;
+			} else if ($('#pwConfirm').val() == '') {
+				$('#confirmError').text('비밀번호를 한번 더 입력하세요').show();
+				$('#pwConfirm').focus();
+				return false;
+			} else if ($('#memberPw').val() != $('#pwConfirm').val()) {
+				$('#confirmError').text('비밀번호를 확인해주세요').show();
+				$('#pwConfirm').focus();
+				return false;
+			} else if ($('#site').val() == '') {
+				$('#siteError').text('동네설정을 완료해주세요').show();
+				$('#site').focus();
+				return false;
+			} else {
+				return true;
+			}
+		}
 		$(function() {
+			var checkedId = null;
+			$('#memberId').blur(function() {
+				var userid = $('#memberId').val();
+				if ($('#memberId').val() != checkedId) {
+					idch = 0;
+					$('#idSuccess').hide();
+				}
+			});
+			$('#memberPw').blur(function() {
+				if ($('#memberPw').val() != '') {
+					$('#pwError').hide();
+					if ($('#memberPw').val() === $('#pwConfirm').val()) {
+						$('#confirmError').hide();
+						$('#confirmSuccess').text('일치합니다').show();
+					} else {
+						$('#confirmSuccess').hide();
+						$('#confirmError').text('비밀번호를 확인해주세요').show();
+					}
+				}
+			});
+			$('#pwConfirm').blur(function() {
+				if ($('#memberPw').val() === $('#pwConfirm').val()) {
+					$('#confirmError').hide();
+					$('#confirmSuccess').text('일치합니다').show();
+				} else {
+					$('#confirmSuccess').hide();
+					$('#confirmError').text('비밀번호를 확인해주세요').show();
+				}
+			});
+
 			$('#site').on('click', function(event) {
 				$('#siteModal').modal('show');
-				/* $('.modal-body').load("seoul.html"); */
 			});
 
 			$('.map').maphilight();
 			$('.zone').on('click', function(event) {
-				// var target = event.target;
-				//$('#test').text(event.target.title);
 				$('#site').attr('value', event.target.title);
 				$('#siteNo').attr('value', event.target.id);
+				$('#siteError').hide();
+				$('#siteSuccess').text('동네설정이 완료되었습니다').show();
 				$('#siteModal').modal('hide');
 			});
-			$('#idCheck').on('click',function(event) {
+			$('#idCheck').on('click', function(event) {
 				var userid = $('#memberId').val();
-				if(userid == null){
-					$('#memberId').css({})
-				}
-				$.ajax({
-					async: true,
-					type: "POST",
-					data: userid,
-					url: "/used-product/account/idcheck.action",
-					dataType: "json",
-					contentType: "application/json; charset=UTF-8",
-					success: function(data){
-						if(data.cnt > 0){
-							alert('아이디가 존재합니다.');
-						} else {
-							alert('사용가능합니다.');
+				if (userid == '') {
+					$('#idError').text('아이디를 입력하세요').show();
+					$('#memberId').focus();
+					return;
+				} else {
+					$('#idError').hide();
+					$.ajax({
+						async : true,
+						type : "POST",
+						data : userid,
+						url : "/used-product/account/regidcheck.action",
+						dataType : "json",
+						contentType : "application/json; charset=UTF-8",
+						success : function(data) {
+							if (data.cnt > 0) {
+								$('#idError').text('아이디가 존재합니다').show();
+								$('#memberId').focus();
+							} else {
+								$('#idSuccess').text('사용가능합니다').show();
+								idch = 1;
+								checkedId = userid;
+							}
+						},
+						error : function(error) {
 						}
-					},
-					error : function(error) {
-						alert("아이디를 입력하세요.");
-					}
-				});
+					});
+				}
 			});
-
-			/* $('#modal-close').on('click', function(event) {
-				$(location).attr('href','register.html');
-			}); */
-
 		});
 	</script>
 
