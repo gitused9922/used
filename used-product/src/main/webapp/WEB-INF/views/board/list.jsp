@@ -86,12 +86,12 @@ a:hover {
 	<!-- Navigation -->
 	<jsp:include page="/WEB-INF/views/modules/topbar.jsp" />
 	<c:choose>
-		<c:when test="${empty param.searchKey }">
+		<c:when test="${ empty boards}">
 			<header class="masthead" style=" width: 100%;  height: 600px;">
 			    <div class="container">
 			      <div class="intro-text">
 			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
-			        <div class="intro-heading text-uppercase">우리 동네 중고 직거래 마켓</div>
+			        <div class="intro-heading text-uppercase">검색된 매물이 없습니다.</div>
 			        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/used-product/board/list.action">중고서울 인기 매물</a>
 			      </div>
 			    </div>
@@ -102,7 +102,7 @@ a:hover {
 			    <div class="container">
 			      <div class="intro-text">
 			        <div class="intro-lead-in">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</div>
-			        <div class="intro-heading text-uppercase">검색된 매물이 없습니다.</div>
+			        <div class="intro-heading text-uppercase">우리 동네 중고 직거래 마켓</div>
 			        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/used-product/board/list.action">중고서울 최근상품</a>
 			      </div>
 			    </div>
