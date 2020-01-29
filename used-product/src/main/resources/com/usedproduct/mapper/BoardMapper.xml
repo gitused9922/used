@@ -63,7 +63,7 @@
 		<trim suffix="AND">
 	    	<choose>
 	    		<when test="searchType == 'T'.toString()">
-	    			(a.p_name LIKE '%'||#{searchKey}||'%' OR a.m_id LIKE '%'||#{searchKey}||'%' OR b.s_name LIKE '%'||#{searchKey}||'%' OR a.cg_name LIKE '%'||#{searchKey}||'%')
+	    			  (upper(a.p_name) LIKE '%'||upper(#{searchKey})||'%' OR upper(a.m_id) LIKE '%'||upper(#{searchKey})||'%' OR upper(b.s_name) LIKE '%'||upper(#{searchKey})||'%' OR upper(a.cg_name) LIKE '%'||upper(#{searchKey})||'%')
 	    		</when>
 	    		
 	    		
@@ -86,8 +86,13 @@
 		,cgName
 		FROM 
 		(
-		    SELECT rownum idx
-		     		, a.t_no no
+		SELECT 
+		rownum idx,  
+		t1.* 
+		FROM
+		(
+		    SELECT
+		     		a.t_no no
 		            , a.p_name name
 					, a.p_price price
 					, a.p_rdate rdate
@@ -106,16 +111,15 @@
 		     INNER JOIN t_site b
 		     on c.s_no = b.s_no
 
-
 		    WHERE    
 		    	<include refid="searchCondition" />
-		    	p_delete = '1'		    	
-		    	AND <![CDATA[ rownum < #{ end } ]]>
-		    	 		    	
-		    ORDER BY a.t_no DESC
-		)
-		WHERE idx >= #{ beginning } 
-		  
+		    	p_delete = '1'
+		    	
+		    ORDER BY t_no DESC	
+		) t1
+		) t2
+		WHERE idx >= #{ beginning } AND <![CDATA[ rownum < #{ end } ]]> 
+		 
 		
 	</select> 
 	<select id="selectBoardCount" parameterType="hashmap" resultType="int">
@@ -128,6 +132,7 @@
 		WHERE 
 		<include refid="searchCondition" /> 
 		p_delete = '1'
+		
 	</select>
 	<update id="deleteBoard" parameterType="int">
 		UPDATE t_product 

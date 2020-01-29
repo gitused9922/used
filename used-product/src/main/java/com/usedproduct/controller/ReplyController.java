@@ -33,7 +33,8 @@ public class ReplyController {
 			
 		action.equals("reply");
 			
-			replyService.writeReply(reply);
+		replyService.writeReply(reply);
+		
 		
 			return "success";
 	}

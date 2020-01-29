@@ -6,7 +6,8 @@
 
 <mapper namespace="com.usedproduct.mapper.ReplyMapper">
 
-	<insert id="insertReply" parameterType="ReplyVO">
+	<insert id="insertReply" parameterType="ReplyVO"
+			useGeneratedKeys="true" keyColumn="r_no" keyProperty="rno">
 		INSERT INTO T_REPLY (
 			R_NO, T_NO, R_CONTENT, R_REPLYER, R_GNO, R_STEP, R_DEPTH
 		
@@ -19,6 +20,20 @@
 		
 	
 	</insert>
+	
+
+	
+	
+	
+	<!-- <update id="updateSno" parameterType="ReplyVO">
+		<![CDATA[
+		UPDATE T_REPLY
+		SET R_STEP = sno + 1
+		WHERE R_GNO = #{gno} AND R_STEP > #{sno}
+		
+		]]>
+	
+	</update> -->
 	
 	<select id="selectRepliesByNo" resultType="ReplyVO" parameterType="int">
 		SELECT R_NO rno,

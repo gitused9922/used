@@ -17,4 +17,10 @@ public interface ReplyMapper {
 
 	public void deleteReply(int rno);
 
+	public void updateSno(ReplyVO parent);
+
+	public void insertReply2(ReplyVO reply);
+
+	public ReplyVO selectReplyByRno(int rno);
+
 }
